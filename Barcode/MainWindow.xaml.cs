@@ -19,6 +19,7 @@ using System.Windows.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+//A comment for github!!!
 namespace Barcode
 {
     /// <summary>
