@@ -25,6 +25,8 @@
         <TextBlock HorizontalAlignment="Left" Margin="506,48,0,0" TextWrapping="Wrap" Text="time span" VerticalAlignment="Top"/>
         <TextBox Name="txtPillsPerTimeSpan" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="169" Margin="436,100,0,0" TextAlignment="Center"/>
         <TextBlock HorizontalAlignment="Left" Margin="354,101,0,0" TextWrapping="Wrap" Text="pills/time span" VerticalAlignment="Top"/>
-
+        <TextBox x:Name="txtScan" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="251" Margin="354,138,0,0" TextAlignment="Center" PreviewKeyDown="txtScan_PreviewKeyDown"/>
+        <Image Name="imgBarcode" HorizontalAlignment="Left" Height="238" Margin="327,166,0,0" VerticalAlignment="Top" Width="262" Stretch="None"/>
+        <Button Name="printButton" Content="Print Barcode" Margin="594,166,0,217" Click="printButton_Click"/>
     </Grid>
 </Window>
