@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 
 using WinForms = System.Windows.Forms;
 using System.Windows.Threading;
+using System.Windows.Markup;
+using System.Windows;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -26,11 +28,22 @@ using Graphics = System.Drawing.Graphics;
 using Bitmap = System.Drawing.Bitmap;
 using DrawImage = System.Drawing.Image;
 using System.Drawing.Drawing2D;
+using RectangleF = System.Drawing.RectangleF;
+using GraphicsUnit = System.Drawing.GraphicsUnit;
 using System.Printing;
 using SUT.PrintEngine;
 using SUT.PrintEngine.Utils;
 using System.Globalization;
 using MediaLinearGradientBrush = System.Windows.Media.LinearGradientBrush;
+
+using Color = System.Drawing.Color;
+using RotateFlipType = System.Drawing.RotateFlipType;
+using DrawFont = System.Drawing.Font;
+using DrawBrush = System.Drawing.Brush;
+using DrawBrushes = System.Drawing.Brushes;
+
+using BarcodeLib;
+using MySql.Data;
 
 namespace SimPatient
 {
@@ -39,19 +52,44 @@ namespace SimPatient
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        private double pillCount = 0.0;
-        private double pillMg = 0.0;
-        private double refillSpan = 0.0;
-        private double timeSpan = 0.0;
+        
         private BitmapImage bitmap = null;
-
+        private Barcode barcode;
+        private UserControl currentControl = null;
         public MainWindow()
         {
-			
             InitializeComponent();
             string barcodeText = "Taylor, Hunter 8/23/2013";
-            renderBarcode(barcodeText);
+            //renderBarcode(barcodeText);
+            
+            barcode = new Barcode
+            {
+                IncludeLabel = true,
+                Alignment = AlignmentPositions.CENTER,
+                Width = 300,
+                Height = 40,
+                RotateFlipType = RotateFlipType.RotateNoneFlipNone,
+                BackColor = Color.White,
+                ForeColor = Color.Black
+            };
+
+            //---add control
+            //currentControl = new SimulationPoolControl { ActionMode = ActionMode.SelectionMode };
+            currentControl = new SimulationEditorControl();
+            bottomGrid.Children.Add(currentControl);
+
+            //DockPanel.SetDock(currentControl, Dock.Bottom);
+            //dockPanel.Children.Add(currentControl);
+
+            //DrawImage img = barcode.Encode(TYPE.CODE128B, "MR123456");
+            //Bitmap b = new Bitmap(350, 150);
+            //Graphics g = Graphics.FromImage(b);
+            ////g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            //g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+            //g.DrawString("Name: Taylor, Hunter John Example 12\nDOB: 08/23/2013 Gender: Male\nPhysician: Dr. Doesn't Matter", new DrawFont("Verdana", 10f), DrawBrushes.Black, new RectangleF(40, 55, 350, 100));
+            //g.DrawImage(img, new RectangleF(25, 105, img.Width, img.Height), new RectangleF(0, 0, img.Width, img.Height), GraphicsUnit.Pixel);
+            //bitmap = getBitmapImage(b);
+            //imgBarcode.Source = bitmap;
 
             //StringBuilder str = new StringBuilder();
 
@@ -71,16 +109,135 @@ namespace SimPatient
             //}
 
 
-            txtMg.TextChanged += txtMg_TextChanged;
-            txtMg.GotFocus += (object sender, RoutedEventArgs e) => { selectAllText(sender as TextBox); };
-            txtPillCount.TextChanged += txtPillCount_TextChanged;
-            txtPillCount.GotFocus += (object sender, RoutedEventArgs e) => { selectAllText(sender as TextBox); };
-            txtRefillSpan.TextChanged += txtRefillSpan_TextChanged;
-            txtRefillSpan.GotFocus += (object sender, RoutedEventArgs e) => { selectAllText(sender as TextBox); };
-            txtTimeSpan.TextChanged += txtTimeSpan_TextChanged;
-            txtTimeSpan.GotFocus += (object sender, RoutedEventArgs e) => { selectAllText(sender as TextBox); };
+            //txtMg.TextChanged += txtMg_TextChanged;
+            //txtMg.GotFocus += (object sender, RoutedEventArgs e) => { selectAllText(sender as TextBox); };
+            //txtPillCount.TextChanged += txtPillCount_TextChanged;
+            //txtPillCount.GotFocus += (object sender, RoutedEventArgs e) => { selectAllText(sender as TextBox); };
+            //txtRefillSpan.TextChanged += txtRefillSpan_TextChanged;
+            //txtRefillSpan.GotFocus += (object sender, RoutedEventArgs e) => { selectAllText(sender as TextBox); };
+            //txtTimeSpan.TextChanged += txtTimeSpan_TextChanged;
+            //txtTimeSpan.GotFocus += (object sender, RoutedEventArgs e) => { selectAllText(sender as TextBox); };
 
         /*End MainWindow()*/}
+
+        public Bitmap cropBitmap(Bitmap bmp)
+        {
+
+            int w = bmp.Width;
+            int h = bmp.Height;
+
+            Func<int, bool> allWhiteRow = row =>
+            {
+                System.Drawing.Color color;
+                for (int i = 0; i < w; ++i)
+                {
+                    color = bmp.GetPixel(i, row);
+                    if (color.A != 0/*color.R != 255 && color.G != 255 && color.B != 255*/)
+                        return false;
+                }
+                return true;
+            };
+
+            Func<int, bool> allWhiteColumn = col =>
+            {
+                System.Drawing.Color color; ;
+                for (int i = 0; i < h; ++i)
+                {
+                    color = bmp.GetPixel(col, i);
+                    if (color.A != 0/*color.R != 255 && color.G != 255 && color.B != 255*/)
+                        return false;
+                }
+                return true;
+            };
+
+            int topmost = 0;
+            for (int row = 0; row < h; ++row)
+            {
+                if (allWhiteRow(row))
+                    topmost = row;
+                else break;
+            }
+
+            int bottommost = 0;
+            for (int row = h - 1; row >= 0; --row)
+            {
+                if (allWhiteRow(row))
+                    bottommost = row;
+                else break;
+            }
+
+            int leftmost = 0, rightmost = 0;
+            for (int col = 0; col < w; ++col)
+            {
+                if (allWhiteColumn(col))
+                    leftmost = col;
+                else break;
+            }
+
+            for (int col = w - 1; col >= 0; --col)
+            {
+                if (allWhiteColumn(col))
+                    rightmost = col;
+                else break;
+            }
+
+            if (rightmost == 0) rightmost = w; // As reached left
+            if (bottommost == 0) bottommost = h; // As reached top.
+
+            int croppedWidth = rightmost - leftmost;
+            int croppedHeight = bottommost - topmost;
+
+            if (croppedWidth == 0) // No border on left or right
+            {
+                leftmost = 0;
+                croppedWidth = w;
+            }
+
+            if (croppedHeight == 0) // No border on top or bottom
+            {
+                topmost = 0;
+                croppedHeight = h;
+            }
+
+            try
+            {
+                var target = new Bitmap(croppedWidth, croppedHeight);
+                using (Graphics g = Graphics.FromImage(target))
+                {
+                    g.DrawImage(bmp,
+                      new RectangleF(0, 0, croppedWidth, croppedHeight),
+                      new RectangleF(leftmost, topmost, croppedWidth, croppedHeight),
+                      GraphicsUnit.Pixel);
+                }
+                return target;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(
+                  string.Format("Values are topmost={0} btm={1} left={2} right={3} croppedWidth={4} croppedHeight={5}", topmost, bottommost, leftmost, rightmost, croppedWidth, croppedHeight),
+                  ex);
+            }
+
+        } //End cropBitmap()
+
+        private Bitmap padBitmap(Bitmap bmp, double padScale)
+        {
+            int widthShim = (int)(bmp.Width * padScale);
+            int heightShim = (int)(bmp.Height * padScale);
+            int newWidth = bmp.Width + widthShim;
+            int newHeight = bmp.Height + heightShim;
+
+            var target = new Bitmap(newWidth, newHeight);
+            using (Graphics g = Graphics.FromImage(target))
+            {
+                g.DrawImage(bmp,
+                  new RectangleF(widthShim / 2, heightShim / 2, bmp.Width, bmp.Height),
+                  new RectangleF(0, 0, bmp.Width, bmp.Height),
+                  GraphicsUnit.Pixel);
+            }
+
+            return target;
+        }
 
         private Bitmap resizeBitmap(Bitmap bitmap, Size size)
         {
@@ -120,70 +277,106 @@ namespace SimPatient
             return (DrawImage)b;
         }
 
-        private void renderBarcode(string textData)
-        {
-            //create barcode image
-            CodeQrBarcodeDraw barcode = BarcodeDrawFactory.CodeQr;
-            //draw barcode image
-            DrawImage image = barcode.Draw(textData, 20);
+        //private void renderBarcode(string textData)
+        //{
+        //    //create barcode image
+        //    CodeQrBarcodeDraw barcode = BarcodeDrawFactory.CodeQr;
+        //    //draw barcode image
+        //    DrawImage image = barcode.Draw(textData, 20);
+        //    //create memory stream for barcode conversion
+        //    MemoryStream ms = new MemoryStream();
+        //    //save barcode image to memory stream as PNG
+        //    image.Save(ms, ImageFormat.Png);
+        //    //---debug render to file
+        //    //FileStream fStream = new FileStream("barcode.png", FileMode.Create);
+        //    //image.Save(fStream, ImageFormat.Png);
+        //    //set memory stream position back to the beginning
+        //    ms.Position = 0;
+        //    //create bitmap image
+        //    bitmap = new BitmapImage();
+        //    //prep bitmap for memory stream
+        //    bitmap.BeginInit();
+        //    //set memory stream
+        //    bitmap.StreamSource = ms;
+        //    //end stream prep
+        //    bitmap.EndInit();
+
+        //    //use bitmap as image source            
+        //    imgBarcode.Source = bitmap;
+        //}
+
+        private BitmapImage getBitmapImage(Bitmap bmp)
+        {            
             //create memory stream for barcode conversion
             MemoryStream ms = new MemoryStream();
             //save barcode image to memory stream as PNG
-            image.Save(ms, ImageFormat.Png);
-            //---debug render to file
-            //FileStream fStream = new FileStream("barcode.png", FileMode.Create);
-            //image.Save(fStream, ImageFormat.Png);
+            bmp.Save(ms, ImageFormat.Png);
             //set memory stream position back to the beginning
             ms.Position = 0;
             //create bitmap image
-            bitmap = new BitmapImage();
+            BitmapImage bitmapImage = new BitmapImage();
             //prep bitmap for memory stream
-            bitmap.BeginInit();
+            bitmapImage.BeginInit();
             //set memory stream
-            bitmap.StreamSource = ms;
+            bitmapImage.StreamSource = ms;
             //end stream prep
-            bitmap.EndInit();
-
-            //use bitmap as image source            
-            imgBarcode.Source = bitmap;
+            bitmapImage.EndInit();
+            //return BitmapImage
+            return bitmapImage;
         }
 
-        private void renderBarcode(string textData, PrintCapabilities printCaps)
+        private Bitmap getBitmap(BitmapImage bitmapImage)
         {
-            //create barcode image
-            CodeQrBarcodeDraw barcode = BarcodeDrawFactory.CodeQr;
-            //draw barcode image
-            DrawImage image = barcode.Draw(textData, 2);
+            // BitmapImage bitmapImage = new BitmapImage(new Uri("../Images/test.png", UriKind.Relative));
 
-            image = resizeImage(image, new Size(printCaps.PageImageableArea.ExtentWidth, printCaps.PageImageableArea.ExtentHeight));
+            using (MemoryStream outStream = new MemoryStream())
+            {
+                //BitmapEncoder enc = new BmpBitmapEncoder();
+                //enc.Frames.Add(BitmapFrame.Create(bitmapImage));
+                //enc.Save(outStream);
+                saveAsPng(getImage(getDrawingVisual(bitmapImage)), outStream);
+                System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(outStream);
 
-            //create memory stream for barcode conversion
-            MemoryStream ms = new MemoryStream();
-            //save barcode image to memory stream as PNG
-            image.Save(ms, ImageFormat.Png);
-            //set memory stream position back to the beginning
-            ms.Position = 0;
-            //create bitmap image
-            bitmap = new BitmapImage();
-            //prep bitmap for memory stream
-            bitmap.BeginInit();
-            //set memory stream
-            bitmap.StreamSource = ms;
-            //end stream prep
-            bitmap.EndInit();
-
-            ms = new MemoryStream();
-            saveAsPng(getImage(getDrawingVisual(bitmap)), ms);
-            bitmap = bitmapImageFromStream(ms);
-
-            //use bitmap as image source            
-            imgBarcode.Source = bitmap;
+                return new Bitmap(bitmap);
+            }
         }
+
+        //private void renderBarcode(string textData, PrintCapabilities printCaps)
+        //{
+        //    //create barcode image
+        //    CodeQrBarcodeDraw barcode = BarcodeDrawFactory.CodeQr;
+        //    //draw barcode image
+        //    DrawImage image = barcode.Draw(textData, 2);
+
+        //    image = resizeImage(image, new Size(printCaps.PageImageableArea.ExtentWidth, printCaps.PageImageableArea.ExtentHeight));
+
+        //    //create memory stream for barcode conversion
+        //    MemoryStream ms = new MemoryStream();
+        //    //save barcode image to memory stream as PNG
+        //    image.Save(ms, ImageFormat.Png);
+        //    //set memory stream position back to the beginning
+        //    ms.Position = 0;
+        //    //create bitmap image
+        //    bitmap = new BitmapImage();
+        //    //prep bitmap for memory stream
+        //    bitmap.BeginInit();
+        //    //set memory stream
+        //    bitmap.StreamSource = ms;
+        //    //end stream prep
+        //    bitmap.EndInit();
+
+        //    ms = new MemoryStream();
+        //    saveAsPng(getImage(renderDrawingVisual(bitmap)), ms);
+        //    bitmap = bitmapImageFromStream(ms);
+
+        //    //use bitmap as image source            
+        //    imgBarcode.Source = bitmap;
+        //}
 
         /// <summary>
         /// Issue for BitmapSource returned and used as ImageSource for Image control.  Clipping occurs.
         /// </summary>
-        private BitmapSource renderBitmapSource(DrawingVisual drawingVisual)
+        private RenderTargetBitmap renderBitmapSource(DrawingVisual drawingVisual)
         {
             RenderTargetBitmap bmp = new RenderTargetBitmap((Int32)Math.Ceiling(drawingVisual.ContentBounds.Width),
                                                             (Int32)Math.Ceiling(drawingVisual.ContentBounds.Height),
@@ -207,13 +400,22 @@ namespace SimPatient
             return result;
         }
 
-        public static void saveAsPng(RenderTargetBitmap src, Stream outputStream)
+        public void saveAsPng(RenderTargetBitmap src, Stream outputStream)
         {
             PngBitmapEncoder encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(src));
 
             encoder.Save(outputStream);
         }
+
+        public void saveAsBmp(RenderTargetBitmap src, Stream outputStream)
+        {
+            TiffBitmapEncoder encoder = new TiffBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(src));
+
+            encoder.Save(outputStream);
+        }
+
 
         private BitmapImage bitmapImageFromStream(Stream stream)
         {
@@ -230,8 +432,18 @@ namespace SimPatient
         }
 
         private DrawingVisual getDrawingVisual(BitmapImage bitmap)
+        {            
+            var vis = new DrawingVisual();
+            var dc = vis.RenderOpen();
+            dc.DrawImage(bitmap, new Rect(0, 0, bitmap.Width, bitmap.Height));            
+            dc.Close();
+
+            return vis;
+        }
+
+        private DrawingVisual renderDrawingVisual(BitmapImage bitmap)
         {
-            double fontSize = 14;
+            double fontSize = 18;
             var vis = new DrawingVisual();
             var dc = vis.RenderOpen();
             dc.DrawImage(bitmap, new Rect (0, 0, bitmap.Width, bitmap.Height));
@@ -249,7 +461,6 @@ namespace SimPatient
         private FormattedText createFormattedText(string text, double emSize)
         {
             FormattedText fText =  new FormattedText(text, CultureInfo.GetCultureInfo("en-us"), FlowDirection.LeftToRight, new Typeface("Verdana"), emSize, Brushes.Black);
-
             return fText;
         }
 
@@ -287,45 +498,85 @@ namespace SimPatient
         {
             PrintDialog pDiag = new PrintDialog();
             PrintCapabilities printCaps = pDiag.PrintQueue.GetPrintCapabilities(pDiag.PrintTicket);
-            renderBarcode("Taylor, Hunter", printCaps);
+            if (File.Exists("print-settings.xml"))
+            {
+                FileStream fs = new FileStream("print-settings.xml", FileMode.Open);
+                pDiag.PrintTicket = new PrintTicket(fs);
+                fs.Close();
+            }
+
+            //renderBarcode("Taylor, Hunter", printCaps);
             DrawingVisual visual = getDrawingVisual(bitmap);
             //bitmap = addBitmapPadding(bitmap);
             //double scale = Math.Min(printCaps.PageImageableArea.ExtentWidth / visual.ContentBounds.Width, printCaps.PageImageableArea.ExtentHeight / visual.ContentBounds.Height);
 
             //Transform the Visual to scale
-            visual.Transform = new ScaleTransform(0.95, 0.95);
+            //visual.Transform = new ScaleTransform(0.95, 0.95);
 
+            //---update imgBarcode control
+            //MemoryStream ms = new MemoryStream();
+            //saveAsPng(renderBitmapSource(visual), ms);
+            //bitmap = bitmapImageFromStream(ms);
+
+            //crop rendered image
+            //bitmap = getBitmapImage(padBitmap(cropBitmap(getBitmap(bitmap)), 0.05));
+            
             var visualSize = new Size(visual.ContentBounds.Width, visual.ContentBounds.Height);
-            var printControl = PrintControlFactory.Create(visualSize, visual);
+            //var printControl = PrintControlFactory.Create(visualSize, visual);
             //var printControl = PrintControlFactory.Create(imgBarcode);
-            printControl.ShowPrintPreview();
+            //printControl.ShowPrintPreview();
+            
+
+            //use bitmap as image source            
+            //imgBarcode.Source = bitmap;
+
+            //---save png file
+            FileStream fStream = new FileStream("barcode-transformation.png", FileMode.Create);
+            saveAsPng(getImage(getDrawingVisual(bitmap)), fStream);
+            fStream.Close();
+
+            //pDiag.PrintTicket.PageOrientation = PageOrientation.Landscape;
+            //pDiag.PrintTicket.PageMediaSize = new PageMediaSize(2.13 * 96, 4 * 96);
+            //pDiag.PrintTicket.PageResolution = new PageResolution(300, 300);
+
+            if(pDiag.ShowDialog() == true)
+                pDiag.PrintVisual(visual, description);
+
+            //pDiag.PrintTicket.GetXmlStream();
+
+            fStream = new FileStream("print-settings.xml", FileMode.Create);
+            byte[] data = pDiag.PrintTicket.GetXmlStream().ToArray();
+            fStream.Write(data, 0, data.Length);
+            //pDiag.PrintTicket.SaveTo(fStream);
+            fStream.Close();            
 
             //if (pDiag.ShowDialog() == true)
             //{
-            //    //get selected printer capabilities
-            //    PrintCapabilities printCaps = pDiag.PrintQueue.GetPrintCapabilities(pDiag.PrintTicket);
-            //    renderBarcode("Tonitta Sauls", printCaps);
+                //get selected printer capabilities
+                //PrintCapabilities printCaps = pDiag.PrintQueue.GetPrintCapabilities(pDiag.PrintTicket);
+                //renderBarcode("Tonitta Sauls", printCaps);
 
-            //    DrawingVisual visual = getDrawingVisual(bitmap);
-            //    //bitmap = addBitmapPadding(bitmap);
+                //DrawingVisual visual = getDrawingVisual(bitmap);
+                //bitmap = addBitmapPadding(bitmap);
 
-            //    //get scale of the print wrt to screen of WPF visual
-            //    double scale = Math.Min(printCaps.PageImageableArea.ExtentWidth / visual.ContentBounds.Width, printCaps.PageImageableArea.ExtentHeight / visual.ContentBounds.Height);                
+                //get scale of the print wrt to screen of WPF visual
+                //double scale = Math.Min(printCaps.PageImageableArea.ExtentWidth / visual.ContentBounds.Width, printCaps.PageImageableArea.ExtentHeight / visual.ContentBounds.Height);
 
-            //    //Transform the Visual to scale
-            //    visual.Transform = new ScaleTransform(scale, scale);
+                //Transform the Visual to scale
+                //visual.Transform = new ScaleTransform(scale, scale);
 
-            //    //get the size of the printer page
-            //    //Size sz = new Size(printCaps.PageImageableArea.ExtentWidth, printCaps.PageImageableArea.ExtentHeight);
+                //get the size of the printer page
+                //Size sz = new Size(printCaps.PageImageableArea.ExtentWidth, printCaps.PageImageableArea.ExtentHeight);
 
-            //    //update the layout of the visual to the printer page size.
-            //    //visual.Measure(sz);
-            //    //visual.Arrange(new Rect(new Point(printCaps.PageImageableArea.OriginWidth, printCaps.PageImageableArea.OriginHeight), sz));
-
-            //    //pDiag.PrintVisual(visual, description);
-            //    var visualSize = new Size(visual.ContentBounds.Width, visual.ContentBounds.Height);
-            //    var printControl = PrintControlFactory.Create(visualSize, visual);
-            //    printControl.ShowPrintPreview();
+                //update the layout of the visual to the printer page size.
+                //visual.Measure(sz);
+                //visual.Arrange(new Rect(new Point(printCaps.PageImageableArea.OriginWidth, printCaps.PageImageableArea.OriginHeight), sz));
+                //pDiag.PrintVisual(visual, description);
+                //FlowDocument doc = new FlowDocument();
+                //pDiag.PrintDocument(((IDocumentPaginatorSource)doc).DocumentPaginator, "Flow Document version of imgBarcode");
+                //var visualSize = new Size(visual.ContentBounds.Width, visual.ContentBounds.Height);
+                //printControl = PrintControlFactory.Create(imgBarcode);
+                //printControl.ShowPrintPreview();
             //}
         }
 
@@ -349,52 +600,27 @@ namespace SimPatient
             return null;
         }
 
-        void txtTimeSpan_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            double.TryParse(txtTimeSpan.Text, out timeSpan);
-            calcPillsPerTimeSpan();
-        }
-
-        void txtRefillSpan_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            double.TryParse(txtRefillSpan.Text, out refillSpan);
-            calcPillsPerTimeSpan();
-        }
-
-        void txtPillCount_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            double.TryParse(txtPillCount.Text, out pillCount);
-            calcPillsPerTimeSpan();
-        }
-
-        private void txtMg_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            double.TryParse(txtMg.Text, out pillMg);
-            calcPillsPerTimeSpan();
-        }
-
-        private void calcPillsPerTimeSpan()
-        {
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
-            {
-                double refillIntervals = (timeSpan / refillSpan);
-                double pillsPerTimeSpan = refillIntervals * pillCount;
-                txtPillsPerTimeSpan.Text = string.Format("{0:n}", pillsPerTimeSpan);
-            }));
-        }
-
-        public void selectAllText(TextBox textBox)
-        {
-            textBox.SelectAll();
-        }
-
-        private void txtScan_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-        }
-
         private void printButton_Click(object sender, RoutedEventArgs e)
         {
             printBarcode(bitmap, "Tonitta Sauls");
+        }
+
+        public FixedDocument createFixedDocument(double docWidthInches, double docHeightInches)
+        {
+            FixedDocument doc = new FixedDocument();
+            Size size = new Size(96 * docWidthInches, 96 * docHeightInches);
+            doc.DocumentPaginator.PageSize = size;
+
+            PageContent page = new PageContent();
+            FixedPage fixedPage = new FixedPage();
+            fixedPage.Background = Brushes.White;
+            fixedPage.Width = size.Width;
+            fixedPage.Height = size.Height;
+
+            ((IAddChild)page).AddChild(fixedPage);
+            doc.Pages.Add(page);
+
+            return doc;
         }
 
         private void forceRepaint()
@@ -405,5 +631,52 @@ namespace SimPatient
               { this.ParentLayoutInvalidated(this); });
         }
 
+        private void mnuPatientEditor_Click(object sender, RoutedEventArgs e)
+        {
+            (new PatientEditorWindow()).ShowDialog();
+        }
+
+        private void mnuPreferences_Click(object sender, RoutedEventArgs e)
+        {
+            //mnuEditors.Visibility = Visibility.Collapsed;
+            bottomGrid.Children.Remove(currentControl);
+            currentControl = new SimulationPoolControl { ActionMode = ActionMode.EditMode };
+            bottomGrid.Children.Add(currentControl);
+        }
+
+        private void Window_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            (new PatientEditorWindow()).ShowDialog();
+        }
+
     } //End class MainWindow
-} //End namespace Barcode
+
+    public enum ActionMode
+    {
+        SelectMode, EditMode,
+        SelectModeAdmin
+    }
+
+    [ValueConversion(typeof(bool), typeof(bool))]
+    public class InverseBooleanConverter : IValueConverter
+    {
+        #region IValueConverter Members
+
+        public object Convert(object value, Type targetType, object parameter,
+            System.Globalization.CultureInfo culture)
+        {
+            if (targetType != typeof(bool))
+                throw new InvalidOperationException("The target must be a boolean");
+
+            return !(bool)value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter,
+            System.Globalization.CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+
+        #endregion
+    }
+} //End namespace SimPatient
