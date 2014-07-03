@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,14 +13,14 @@ using System.Windows.Shapes;
 
 namespace SimPatient
 {
-    /// <summary>
-    /// Interaction logic for PatientPoolControl.xaml
-    /// </summary>
-    public partial class PatientPoolControl : UserControl
-    {
-        public PatientPoolControl()
-        {
-            InitializeComponent();
-        }
-    }
+	/// <summary>
+	/// Interaction logic for AccountEditorControl.xaml
+	/// </summary>
+	public partial class AccountEditorControl : UserControl
+	{
+		public AccountEditorControl()
+		{
+			this.InitializeComponent();            
+		}
+	}
 }

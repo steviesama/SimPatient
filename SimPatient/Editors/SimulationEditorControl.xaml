@@ -50,7 +50,7 @@
 		<TextBlock Margin="228,10,0,0" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
 		<TextBox Height="84" Margin="228,30.96,10,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top"/>
 		<Button Content="Save" Style="{StaticResource GreenButtonStyle}" HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
-		<ListView x:Name="simulationListView_Copy" Margin="10,313.84,10,64.16" ItemsSource="{Binding}">
+		<ListView x:Name="patientPoolListView" Margin="10,313.84,10,64.16" ItemsSource="{Binding}">
 			<ListView.View>
 				<GridView>
 					<GridViewColumn Header="Name" Width="150">

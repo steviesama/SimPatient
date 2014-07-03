@@ -11,7 +11,7 @@
 			<RowDefinition/>
 		</Grid.RowDefinitions>
 		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Account Pool" VerticalAlignment="Top" HorizontalAlignment="Left" Width="110" Foreground="Black"/>
-        <ListView Name="simulationListView" Margin="10,30.96,10,80.04" ItemsSource="{Binding}">
+        <ListView Name="simulationListView" Margin="10,30.96,10,34.96" ItemsSource="{Binding}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Username" Width="150">
@@ -44,9 +44,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Delete" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Right" Margin="0,0,490,10" VerticalAlignment="Bottom" Width="75"/>
-		<Button Name="actionButton" Content="Action" Margin="0,0,490,55.08" Height="19.96" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
-		<Button Name="newButton" Content="New" Margin="0,0,570,55.08" HorizontalAlignment="Right" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
+        <Button Content="Delete" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75"/>
+		<Button Name="actionButton" Content="Action" Margin="10,0,0,10" Height="19.96" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75"/>
+		<Button Name="newButton" Content="New" Style="{StaticResource GreenButtonStyle}" Margin="90,0,0,10" HorizontalAlignment="Left" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
 	</Grid>
 
 </UserControl>

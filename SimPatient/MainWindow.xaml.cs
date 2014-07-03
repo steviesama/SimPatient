@@ -75,7 +75,7 @@ namespace SimPatient
 
             //---add control
             //currentControl = new SimulationPoolControl { ActionMode = ActionMode.SelectionMode };
-            currentControl = new SimulationEditorControl();
+            currentControl = new SimulationPoolControl();
             bottomGrid.Children.Add(currentControl);
 
             //DockPanel.SetDock(currentControl, Dock.Bottom);
@@ -646,7 +646,8 @@ namespace SimPatient
 
         private void Window_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            (new PatientEditorWindow()).ShowDialog();
+            //(new PatientEditorWindow()).ShowDialog();
+            (new MedicationPoolWindow()).ShowDialog();
         }
 
     } //End class MainWindow

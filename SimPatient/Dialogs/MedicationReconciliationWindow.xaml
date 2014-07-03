@@ -1,0 +1,19 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="SimPatient.MedicationReconciliationWindow"
+	x:Name="Window"
+	Title="Medication Reconciliation" WindowStartupLocation="CenterScreen"
+	SizeToContent="WidthAndHeight">
+
+	<Grid x:Name="LayoutRoot" Height="242.968" Width="284.84">
+		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Initials" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+		<TextBox x:Name="patientNameTextBox" Height="23" Margin="10,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="72.675"/>
+		<Button Content="Save" Style="{StaticResource GreenButtonStyle}" HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" Height="19.96" VerticalAlignment="Bottom" Grid.Column="1"/>
+		<Button Content="Cancel" Style="{StaticResource ResourceKey=RedButtonStyle}" HorizontalAlignment="Right" Margin="0,0,10,10" Width="75" Height="19.96" VerticalAlignment="Bottom" Grid.Column="1"/>
+		<TextBlock Margin="10,58.96,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+		<TextBox x:Name="patientNameTextBox_Copy" VerticalScrollBarVisibility="Auto" Height="124.647" Margin="10,79.921,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="264.675" Grid.ColumnSpan="2"/>
+		<ComboBox ItemsSource="{StaticResource InjectionSiteStringArray}" SelectedIndex="0" HorizontalAlignment="Left" Margin="87.675,30.96,0,0" VerticalAlignment="Top" Width="187" Grid.ColumnSpan="2"/>
+		<TextBlock Margin="87.675,10,0,0" TextWrapping="Wrap" Text="Injection Site" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+	</Grid>
+</Window>

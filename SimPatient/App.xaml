@@ -67,6 +67,20 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
+		<x:Array x:Key="InjectionSiteStringArray" Type="sys:String"
+				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				 xmlns:sys="clr-namespace:System;assembly=mscorlib">
+			<sys:String>None</sys:String>
+			<sys:String>L.U.Q.</sys:String>
+			<sys:String>R.U.Q.</sys:String>
+			<sys:String>L. Thigh</sys:String>
+			<sys:String>R. Thigh</sys:String>
+			<sys:String>L. Arm</sys:String>
+			<sys:String>R. Arm</sys:String>
+			<sys:String>L. ABD</sys:String>
+			<sys:String>R. ABD</sys:String>
+			<sys:String>LVG</sys:String>
+			<sys:String>RVG</sys:String>
+		</x:Array>
     </Application.Resources>
 </Application>

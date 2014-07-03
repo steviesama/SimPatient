@@ -8,19 +8,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SimPatient
 {
 	/// <summary>
-	/// Interaction logic for AccountEditorControl.xaml
+	/// Interaction logic for MedicationPoolWindow.xaml
 	/// </summary>
-	public partial class AccountEditorControl : UserControl
+	public partial class MedicationPoolWindow : Window
 	{
-		public AccountEditorControl()
+		public MedicationPoolWindow()
 		{
 			this.InitializeComponent();
+			
+			// Insert code required on object creation below this point.
 		}
 	}
 }

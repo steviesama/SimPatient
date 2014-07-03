@@ -95,29 +95,63 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AccountEditorControl.xaml.cs">
+    <Compile Include="Dialogs\MedicationOffScheduleWindow.xaml.cs">
+      <DependentUpon>MedicationOffScheduleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\AccountEditorWindow.xaml.cs">
+      <DependentUpon>AccountEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MedicationReconciliationWindow.xaml.cs">
+      <DependentUpon>MedicationReconciliationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\AccountEditorControl.xaml.cs">
       <DependentUpon>AccountEditorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AccountPoolControl.xaml.cs">
+    <Compile Include="Editors\MedicationEditorWindow.xaml.cs">
+      <DependentUpon>MedicationEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pool Viewers\AccountPoolControl.xaml.cs">
       <DependentUpon>AccountPoolControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PatientEditorControl.xaml.cs">
+    <Compile Include="Editors\PatientEditorControl.xaml.cs">
       <DependentUpon>PatientEditorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PatientEditorWindow.xaml.cs">
+    <Compile Include="Editors\PatientEditorWindow.xaml.cs">
       <DependentUpon>PatientEditorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SimulationEditorControl.xaml.cs">
+    <Compile Include="Editors\SimulationEditorControl.xaml.cs">
       <DependentUpon>SimulationEditorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SimulationPoolControl.xaml.cs">
+    <Compile Include="Pool Viewers\AccountPoolWindow.xaml.cs">
+      <DependentUpon>AccountPoolWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pool Viewers\MedicationPoolWindow.xaml.cs">
+      <DependentUpon>MedicationPoolWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pool Viewers\SimulationPoolControl.xaml.cs">
       <DependentUpon>SimulationPoolControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="AccountEditorControl.xaml">
+    <Page Include="Dialogs\MedicationOffScheduleWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AccountPoolControl.xaml">
+    <Page Include="Editors\AccountEditorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\MedicationReconciliationWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Editors\AccountEditorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Editors\MedicationEditorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pool Viewers\AccountPoolControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -133,33 +167,37 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PatientEditorControl.xaml">
+    <Page Include="Editors\PatientEditorControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PatientEditorWindow.xaml">
+    <Page Include="Editors\PatientEditorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PatientPoolControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Simple Styles.xaml">
+    <Page Include="Pool Viewers\AccountPoolWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SimulationEditorControl.xaml">
+    <Page Include="Pool Viewers\MedicationPoolWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SimulationPoolControl.xaml">
+    <Page Include="Pool Viewers\PatientPoolControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\SimulationEditorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pool Viewers\SimulationPoolControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PatientPoolControl.xaml.cs">
+    <Compile Include="Pool Viewers\PatientPoolControl.xaml.cs">
       <DependentUpon>PatientPoolControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">

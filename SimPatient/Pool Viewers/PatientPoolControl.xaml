@@ -7,7 +7,7 @@
 	
 	<Grid x:Name="LayoutRoot"  Background="White">
 		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Patient Pool" VerticalAlignment="Top" HorizontalAlignment="Left" Width="110"/>
-        <ListView Name="simulationListView" Margin="10,30.96,10,80.04" ItemsSource="{Binding}">
+        <ListView Name="patientPoolListView" Margin="10,30.96,10,34.96" ItemsSource="{Binding}">
             <ListView.View>
 <GridView>
 					<GridViewColumn Header="Name" Width="150">
@@ -23,7 +23,7 @@
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Text="{Binding DOB}"/>
+									<TextBlock Text="{Binding DOBString}"/>
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
@@ -49,10 +49,11 @@
 				</GridView>
 			</ListView.View>
         </ListView>
-        <Button Content="Delete" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Right" Margin="0,0,490,10" VerticalAlignment="Bottom" Width="75"/>
-		<Button Name="actionButton" Content="Action" Margin="0,0,570,55.08" Height="19.96" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
-		<Button Name="newButton" Content="New" Margin="0,0,490,55.08" HorizontalAlignment="Right" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
-		<CheckBox Content="Based On Selection" HorizontalAlignment="Left" Margin="90,398.92,0,0" VerticalAlignment="Top"/>
+        <Button Content="Delete" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Left" Margin="296.978,0,0,10" VerticalAlignment="Bottom" Width="75" Height="19.96"/>
+		<Button Name="actionButton" Content="Action" Margin="10,0,0,10" Height="19.96" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75"/>
+		<Button Name="newButton" Style="{StaticResource GreenButtonStyle}" Content="New" Margin="90,0,0,10" HorizontalAlignment="Left" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
+		<CheckBox Content="Based On Selection" HorizontalAlignment="Left" Margin="170,0,0,11.861" Height="15.099" VerticalAlignment="Bottom"/>
+		<Button Content="Cancel" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Height="19.96"/>
 	</Grid>
 
 </UserControl>
