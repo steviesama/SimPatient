@@ -647,7 +647,7 @@ namespace SimPatient
         private void Window_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             //(new PatientEditorWindow()).ShowDialog();
-            (new MedicationPoolWindow()).ShowDialog();
+            (new MedicationOffScheduleWindow()).ShowDialog();
         }
 
     } //End class MainWindow
@@ -658,11 +658,20 @@ namespace SimPatient
         SelectModeAdmin
     }
 
+    public abstract class BaseConverter : MarkupExtension
+    {
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return this;
+        }
+    }
+
     [ValueConversion(typeof(bool), typeof(bool))]
-    public class InverseBooleanConverter : IValueConverter
+    public class InverseBooleanConverter : BaseConverter, IValueConverter
     {
         #region IValueConverter Members
 
+        public InverseBooleanConverter() { /*shut-up compiler*/ }
         public object Convert(object value, Type targetType, object parameter,
             System.Globalization.CultureInfo culture)
         {
@@ -679,5 +688,34 @@ namespace SimPatient
         }
 
         #endregion
+    }
+
+    public class Medication
+    {
+	    public static readonly string[] Routes =
+	    {
+	        "IM", "PO", "MORE_ROUTE_CODES"
+	    };
+        public string Name { get; set; }
+        public int Strength { get; set; }
+        public int Route { get; set; }
+    }
+
+    [ValueConversion(typeof(object), typeof(string))]
+    public class RouteToStringConverter : BaseConverter, IValueConverter
+    {
+        public RouteToStringConverter() { /*shut-up compiler*/ }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int routeIndex = (int)value;
+            if(routeIndex >= 0 && routeIndex < Medication.Routes.Length)
+                return Medication.Routes[routeIndex];
+            return "NONE";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
     }
 } //End namespace SimPatient

@@ -3,7 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	x:Class="SimPatient.MedicationOffScheduleWindow"
 	x:Name="Window" WindowStartupLocation="CenterScreen"
-	Title="Medication Off-Schedule" SizeToContent="WidthAndHeight">
+	Title="Medication Off-Schedule" SizeToContent="WidthAndHeight" WindowStyle="ToolWindow">
 
 	<Grid x:Name="LayoutRoot" Height="164.16" Width="442.707">
 		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Reason" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>

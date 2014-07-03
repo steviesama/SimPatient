@@ -4,7 +4,7 @@
 	x:Class="SimPatient.MedicationReconciliationWindow"
 	x:Name="Window"
 	Title="Medication Reconciliation" WindowStartupLocation="CenterScreen"
-	SizeToContent="WidthAndHeight">
+	SizeToContent="WidthAndHeight" WindowStyle="ToolWindow">
 
 	<Grid x:Name="LayoutRoot" Height="242.968" Width="284.84">
 		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Initials" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>

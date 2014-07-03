@@ -5,8 +5,6 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
-        <nx:InverseBooleanConverter x:Key="InverseBooleanToXamlProperty" />
-
         <Style TargetType="GridViewColumnHeader">
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="Padding" Value="10, 2, 2, 2"/>
