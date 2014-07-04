@@ -50,12 +50,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AForge.Imaging">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\AForge.NET\Framework\Release\AForge.Imaging.dll</HintPath>
-    </Reference>
-    <Reference Include="AForge.Imaging.Formats">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\AForge.NET\Framework\Release\AForge.Imaging.Formats.dll</HintPath>
-    </Reference>
     <Reference Include="BarcodeLib">
       <HintPath>.\BarcodeLib.dll</HintPath>
     </Reference>
@@ -95,6 +89,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataModel\Medication.cs" />
+    <Compile Include="DataModel\MedicationDose.cs" />
+    <Compile Include="DataModel\RouteToStringConverter.cs" />
     <Compile Include="Dialogs\MedicationOffScheduleWindow.xaml.cs">
       <DependentUpon>MedicationOffScheduleWindow.xaml</DependentUpon>
     </Compile>
@@ -253,6 +250,7 @@
       <Name>SUT.PrintEngine</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

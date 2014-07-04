@@ -689,33 +689,4 @@ namespace SimPatient
 
         #endregion
     }
-
-    public class Medication
-    {
-	    public static readonly string[] Routes =
-	    {
-	        "IM", "PO", "MORE_ROUTE_CODES"
-	    };
-        public string Name { get; set; }
-        public int Strength { get; set; }
-        public int Route { get; set; }
-    }
-
-    [ValueConversion(typeof(object), typeof(string))]
-    public class RouteToStringConverter : BaseConverter, IValueConverter
-    {
-        public RouteToStringConverter() { /*shut-up compiler*/ }
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            int routeIndex = (int)value;
-            if(routeIndex >= 0 && routeIndex < Medication.Routes.Length)
-                return Medication.Routes[routeIndex];
-            return "NONE";
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
 } //End namespace SimPatient

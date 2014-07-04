@@ -2,19 +2,19 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	x:Class="SimPatient.MedicationOffScheduleWindow"
-	x:Name="Window" WindowStartupLocation="CenterScreen"
+	x:Name="Window" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
 	Title="Medication Off-Schedule" SizeToContent="WidthAndHeight" WindowStyle="ToolWindow">
 
-	<Grid x:Name="LayoutRoot" Height="164.16" Width="442.707">
-		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Reason" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
-		<RadioButton Content="Patient Not Available" HorizontalAlignment="Left" Margin="10,30.96,0,0" VerticalAlignment="Top"/>
-		<RadioButton Content="Nurse Not Available" HorizontalAlignment="Left" Margin="10,50.92,0,0" VerticalAlignment="Top"/>
-		<RadioButton Content="Medication Not Available" HorizontalAlignment="Left" Margin="10,70.88,0,0" VerticalAlignment="Top"/>
-		<RadioButton Content="Patient Refused" HorizontalAlignment="Left" Margin="10,90.84,0,0" VerticalAlignment="Top"/>
-		<RadioButton Content="Other" HorizontalAlignment="Left" Margin="10,110.8,0,0" VerticalAlignment="Top"/>
-		<TextBlock Margin="167.865,9.999,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
-		<TextBox x:Name="patientNameTextBox_Copy" VerticalScrollBarVisibility="Auto" Height="94.8" Margin="167.867,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="264.675"/>
-		<Button Content="Save" Style="{StaticResource GreenButtonStyle}" HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
-		<Button Content="Cancel" Style="{StaticResource ResourceKey=RedButtonStyle}" HorizontalAlignment="Right" Margin="0,0,10,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
-	</Grid>
+    <Grid x:Name="LayoutRoot" Height="162" Width="443">
+        <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Reason" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+        <RadioButton Content="Patient Not Available" HorizontalAlignment="Left" Margin="10,30.96,0,0" VerticalAlignment="Top"/>
+        <RadioButton Content="Nurse Not Available" HorizontalAlignment="Left" Margin="10,50.92,0,0" VerticalAlignment="Top"/>
+        <RadioButton Content="Medication Not Available" HorizontalAlignment="Left" Margin="10,70.88,0,0" VerticalAlignment="Top"/>
+        <RadioButton Content="Patient Refused" HorizontalAlignment="Left" Margin="10,90.84,0,0" VerticalAlignment="Top"/>
+        <RadioButton Content="Other" HorizontalAlignment="Left" Margin="10,110.8,0,0" VerticalAlignment="Top"/>
+        <TextBlock Margin="167.865,9.999,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+        <TextBox x:Name="patientNameTextBox_Copy" VerticalScrollBarVisibility="Auto" Height="94.8" Margin="167.867,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="264.675"/>
+        <Button Content="Save" Style="{StaticResource GreenButtonStyle}" HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
+        <Button Content="Cancel" Style="{StaticResource ResourceKey=RedButtonStyle}" HorizontalAlignment="Right" Margin="0,0,10,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
+    </Grid>
 </Window>
