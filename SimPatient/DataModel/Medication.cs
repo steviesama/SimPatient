@@ -12,6 +12,8 @@ namespace SimPatient
         {
             "IM", "PO", "MORE_ROUTE_CODES"
         };
+
+        public int Id { get; set; }
         public string Name { get; set; }
         public int Strength { get; set; }
         public int Route { get; set; }

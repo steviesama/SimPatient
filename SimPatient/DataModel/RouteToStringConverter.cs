@@ -14,7 +14,7 @@ namespace SimPatient
     {
         public RouteToStringConverter() { /*shut-up compiler*/ }
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
+        {            
             int routeIndex = (int)value;
             if (routeIndex >= 0 && routeIndex < Medication.Routes.Length)
                 return Medication.Routes[routeIndex];
