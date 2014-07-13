@@ -7,8 +7,9 @@
 	
 	<DockPanel Name="dockPanel">
 		<Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top" Margin="0,0,-2,0">
-			<MenuItem Name="mnuFile" Header="File">
-				<MenuItem Header="Logout"/>
+            <MenuItem Name="mnuFile" Header="File">
+                <MenuItem Name="mnuPreferences" Header="Preferences" Click="mnuPreferences_Click"/>
+                <MenuItem Header="Logout"/>
 			</MenuItem>
 			<MenuItem Name="mnuEditors" Header="Editors">
 				<MenuItem Header="Simulation Editor"/>
@@ -16,7 +17,6 @@
 				<MenuItem Name="mnuPatientEditor" Header="Patient Editor" Click="mnuPatientEditor_Click"/>
 				<MenuItem Header="Medication Editor"/>
 			</MenuItem>
-			<MenuItem Name="mnuPreferences" Header="Preferences" Click="mnuPreferences_Click"/>
 		</Menu>
         <Grid Name="bottomGrid" DockPanel.Dock="Bottom"/>
     </DockPanel>

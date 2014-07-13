@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 namespace SimPatient
 {
-    public class Medication
-    {
-        public static readonly string[] Routes =
+	public class Medication
+	{
+		public static readonly string[] Routes =
         {
-            "IM", "PO", "MORE_ROUTE_CODES"
+            "IM", //intramuscular (injection)
+            "PO", //per os (by mouth)
+            "MORE_ROUTE_CODES"
         };
-
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Strength { get; set; }
-        public int Route { get; set; }
-    }
-} //End namespace SimPatient
+        
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public string Strength { get; set; }
+		public int Route { get; set; }
+	}
+}

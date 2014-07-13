@@ -1,0 +1,32 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="SimPatient.LoginControl"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480">
+
+    <Grid x:Name="LayoutRoot" Background="LightBlue" FocusManager.FocusedElement="{Binding ElementName=usernameTextBox}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock TextWrapping="Wrap" Text="Username" Width="200"/>
+            <TextBox Name="usernameTextBox"/>
+            <TextBlock Text=""/>
+            <TextBlock TextWrapping="Wrap" Text="Password"/>
+            <PasswordBox Name="passwordBox"/>
+            <TextBlock Text=""/>
+            <Button Content="Login" Style="{StaticResource GreenButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,7 +1,8 @@
 ﻿<UserControl x:Class="SimPatient.PatientPoolControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:nx="clr-namespace:SimPatient"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" d:DesignHeight="449" d:DesignWidth="655">
 	
@@ -23,7 +24,7 @@
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Text="{Binding DOBString}"/>
+									<TextBlock Text="{Binding DateOfBirth, Converter={nx:DateTimeConverter}}"/>
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
@@ -32,7 +33,7 @@
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Text="{Binding Physician}"/>
+									<TextBlock Text="{Binding DrName}"/>
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
@@ -41,7 +42,7 @@
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Text="{Binding Id}"/>
+                                    <TextBlock Text="{Binding Id, Converter={nx:MedicalRecordNumberConverter}}"/>
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>

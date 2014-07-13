@@ -3,8 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:local="clr-namespace:SimPatient"
-	mc:Ignorable="d"
+	xmlns:local="clr-namespace:SimPatient" mc:Ignorable="d"
 	x:Class="SimPatient.SimulationEditorControl" d:DesignHeight="508" d:DesignWidth="613">
 
 	<Grid x:Name="LayoutRoot"  Background="White" FocusManager.FocusedElement="{Binding ElementName=simulationNameTextBox}">
@@ -66,7 +65,7 @@
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Text="{Binding DOB}"/>
+									<TextBlock Text="{Binding DateOfBirth, Converter={local:DateTimeConverter}}"/>
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
@@ -75,7 +74,7 @@
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Text="{Binding Physician}"/>
+									<TextBlock Text="{Binding DrName}"/>
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>

@@ -29,8 +29,8 @@ namespace SimPatient
             simulations = new ObservableCollection<Simulation>();
             simulationListView.DataContext = simulations;
 
-            simulations.Add(new Simulation { Name = "Simulation #1", Creator = "Watson, Josh", Notes = "Josh made this!!!" });
-            simulations.Add(new Simulation { Name = "Simulation #2", Creator = "Taylor, Casi", Notes = "Casi made this!!!" });
+            simulations.Add(new Simulation { Name = "Simulation #1", Creator = "Watson, Josh", Description = "Josh made this!!!" });
+            simulations.Add(new Simulation { Name = "Simulation #2", Creator = "Taylor, Casi", Description = "Casi made this!!!" });
 		}
 
         private ActionMode _actionMode;
@@ -53,12 +53,4 @@ namespace SimPatient
             } 
         }
 	/*End class SimulationPoolControl*/}
-
-    public class Simulation
-    {
-        public string Name { get; set; }
-        public string Creator { get; set; }
-        public string Notes { get; set; }
-    }
-
 } //End namespace SimPatient

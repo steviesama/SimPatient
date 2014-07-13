@@ -17,6 +17,7 @@
                     <ControlTemplate TargetType="Button">
                         <Border Name="border" 
                                 BorderThickness="1"
+                                Padding="1"
                                 Background="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
@@ -45,6 +46,7 @@
                     <ControlTemplate TargetType="Button">
                         <Border Name="border" 
                                 BorderThickness="1"
+                                Padding="1"
                                 Background="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>

@@ -16,7 +16,6 @@ using System.Windows.Shapes;
 using WinForms = System.Windows.Forms;
 using System.Windows.Threading;
 using System.Windows.Markup;
-using System.Windows;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -44,6 +43,7 @@ using DrawBrushes = System.Drawing.Brushes;
 
 using BarcodeLib;
 using MySql.Data;
+using SimPatient.DataModel;
 
 namespace SimPatient
 {
@@ -75,7 +75,7 @@ namespace SimPatient
 
             //---add control
             //currentControl = new SimulationPoolControl { ActionMode = ActionMode.SelectionMode };
-            currentControl = new SimulationPoolControl();
+            currentControl = new LoginControl();
             bottomGrid.Children.Add(currentControl);
 
             //DockPanel.SetDock(currentControl, Dock.Bottom);
@@ -638,16 +638,31 @@ namespace SimPatient
 
         private void mnuPreferences_Click(object sender, RoutedEventArgs e)
         {
-            //mnuEditors.Visibility = Visibility.Collapsed;
-            bottomGrid.Children.Remove(currentControl);
-            currentControl = new SimulationPoolControl { ActionMode = ActionMode.EditMode };
-            bottomGrid.Children.Add(currentControl);
+            (new PreferencesWindow()).ShowDialog();
         }
 
         private void Window_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            //(new PatientEditorWindow()).ShowDialog();
-            (new MedicationOffScheduleWindow()).ShowDialog();
+            PreferencesWindow.loadPreferences();
+
+            DBConnection dbCon = new DBConnection
+            (
+                Preferences.HostAddress,
+                Preferences.PortAddress,
+                Preferences.DatabaseName,
+                Preferences.Username,
+                Preferences.Password
+            );
+
+            Dispatcher.BeginInvoke(new Action(()=>
+            {
+            if (dbCon.OpenConnection())
+            {
+                MessageBox.Show("dbCon.OpenConnection() == true!!!");
+                dbCon.CloseConnection();
+            }
+            else MessageBox.Show("dbCon.OpenConnection() == false!!!");
+            }));
         }
 
     } //End class MainWindow
@@ -657,6 +672,8 @@ namespace SimPatient
         SelectMode, EditMode,
         SelectModeAdmin
     }
+
+    #region Value Converters
 
     public abstract class BaseConverter : MarkupExtension
     {
@@ -669,8 +686,6 @@ namespace SimPatient
     [ValueConversion(typeof(bool), typeof(bool))]
     public class InverseBooleanConverter : BaseConverter, IValueConverter
     {
-        #region IValueConverter Members
-
         public InverseBooleanConverter() { /*shut-up compiler*/ }
         public object Convert(object value, Type targetType, object parameter,
             System.Globalization.CultureInfo culture)
@@ -686,7 +701,46 @@ namespace SimPatient
         {
             throw new NotSupportedException();
         }
-
-        #endregion
     }
+
+    [ValueConversion(typeof(object), typeof(string))]
+    public class DateTimeConverter : BaseConverter, IValueConverter
+    {
+        public DateTimeConverter() { /*shut-up compiler*/ }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((value is DateTime) == false)
+                throw new InvalidOperationException("The target must be a DateTime");
+
+            DateTime dateTime = (DateTime)value;
+
+            return dateTime.ToString("MM/dd/yyyy");
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
+    [ValueConversion(typeof(object), typeof(string))]
+    public class MedicalRecordNumberConverter : BaseConverter, IValueConverter
+    {
+        public MedicalRecordNumberConverter() { /*shut-up compiler*/ }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((value is int) == false)
+                throw new InvalidOperationException("The target must be a int");
+
+            return "MR" + (int)value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
+#endregion Value Converters
+
 } //End namespace SimPatient

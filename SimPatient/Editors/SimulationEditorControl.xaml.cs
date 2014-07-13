@@ -28,9 +28,9 @@ namespace SimPatient
             patients = new ObservableCollection<Patient>();
             patientPoolListView.DataContext = patients;
 
-            patients.Add(new Patient { Name = "Twitter, Dora", DOBString = "01/09/1950", Physician = "Harko", Id = "MR789987" });
-            patients.Add(new Patient { Name = "Watson, Josh", DOBString = "12/30/1986", Physician = "Ioda", Id = "MR123456" });
-            patients.Add(new Patient { Name = "Taylor, Casi", DOBString = "06/13/1986", Physician = "Jeffreys", Id = "MR654321" });
+            patients.Add(new Patient { Name = "Twitter, Dora", DateOfBirth = new DateTime(1950, 1, 9), DrName = "Harko", Id = 789987 });
+            patients.Add(new Patient { Name = "Watson, Josh", DateOfBirth = new DateTime(1986, 12, 30), DrName = "Ioda", Id = 123456 });
+            patients.Add(new Patient { Name = "Taylor, Casi", DateOfBirth = new DateTime(1986, 6, 13), DrName = "Jeffreys", Id = 654321 });
         }
     }
 } //End namespace SimPatient
