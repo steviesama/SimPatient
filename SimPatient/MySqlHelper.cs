@@ -41,7 +41,8 @@ namespace SimPatient
 
         public static bool loginIsValid(string username, string password)
         {
-            connect();
+            if(connect() == false)
+                return false;
             ArrayList response = dbCon.selectQuery(string.Format("CALL request_login('{0}', '{1}')", username, password));
             disconnect();
 
@@ -52,7 +53,12 @@ namespace SimPatient
 
         public static UserAccount requestLogin(string username, string password)
         {
-            connect();
+            if (connect() == false)
+            {
+                MessageBox.Show("Bad MySQL Connection Credentials.", "MySQL Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+
             ArrayList response = dbCon.selectQuery(string.Format("CALL request_login('{0}', '{1}')", username, password));
             disconnect();
 
