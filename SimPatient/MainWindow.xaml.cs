@@ -52,13 +52,18 @@ namespace SimPatient
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
+        public static MainWindow Instance { get; set; }
+
         private BitmapImage bitmap = null;
         private Barcode barcode;
         private UserControl currentControl = null;
         public MainWindow()
         {
             InitializeComponent();
+
+            Instance = this;
+
             string barcodeText = "Taylor, Hunter 8/23/2013";
             //renderBarcode(barcodeText);
             
@@ -75,8 +80,7 @@ namespace SimPatient
 
             //---add control
             //currentControl = new SimulationPoolControl { ActionMode = ActionMode.SelectionMode };
-            currentControl = new LoginControl();
-            bottomGrid.Children.Add(currentControl);
+            loadBottomGrid(LoginControl.Instance);
 
             //DockPanel.SetDock(currentControl, Dock.Bottom);
             //dockPanel.Children.Add(currentControl);
@@ -653,16 +657,23 @@ namespace SimPatient
                 Preferences.Username,
                 Preferences.Password
             );
+        }
 
-            Dispatcher.BeginInvoke(new Action(()=>
-            {
-            if (dbCon.OpenConnection())
-            {
-                MessageBox.Show("dbCon.OpenConnection() == true!!!");
-                dbCon.CloseConnection();
-            }
-            else MessageBox.Show("dbCon.OpenConnection() == false!!!");
-            }));
+        public void loadBottomGrid(UserControl userControl)
+        {
+            bottomGrid.Children.Remove(currentControl);
+            currentControl = userControl;
+            bottomGrid.Children.Add(currentControl);
+
+            if(userControl is SimulationPoolControl)
+                mnuEditors.Visibility = Visibility.Visible;
+            else if (userControl is LoginControl)
+                mnuEditors.Visibility = Visibility.Collapsed;
+        }
+
+        private void mnuLogout_Click(object sender, RoutedEventArgs e)
+        {
+            loadBottomGrid(LoginControl.Instance);
         }
 
     } //End class MainWindow

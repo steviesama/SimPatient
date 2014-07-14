@@ -138,6 +138,7 @@
     <Compile Include="LoginControl.xaml.cs">
       <DependentUpon>LoginControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MySqlHelper.cs" />
     <Compile Include="Pool Viewers\AccountPoolControl.xaml.cs">
       <DependentUpon>AccountPoolControl.xaml</DependentUpon>
     </Compile>

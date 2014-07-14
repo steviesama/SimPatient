@@ -53,7 +53,7 @@ namespace SimPatient
         }
 
         //open connection to database
-        public bool OpenConnection()
+        public bool openConnection()
         {
             try
             {
@@ -85,7 +85,7 @@ namespace SimPatient
         }
 
         //Close connection
-        public bool CloseConnection()
+        public bool closeConnection()
         {
             try
             {
@@ -168,7 +168,7 @@ namespace SimPatient
 
         public ArrayList SelectTemplates()
         {
-            return SelectQuery("SELECT csx_template_id, csx_template_name, csx_template_description FROM tblCSXTemplate");
+            return selectQuery("SELECT csx_template_id, csx_template_name, csx_template_description FROM tblCSXTemplate");
         }
 
         //Insert statement
@@ -253,7 +253,7 @@ namespace SimPatient
         {
             bool success = true;
 
-            if (this.OpenConnection() == true)
+            if (this.openConnection() == true)
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
 
@@ -267,7 +267,7 @@ namespace SimPatient
                     success = false;
                 }
 
-                this.CloseConnection();
+                this.closeConnection();
             }
 
             return success;
@@ -278,15 +278,15 @@ namespace SimPatient
         {
             string query = "DELETE FROM tableinfo WHERE name='John Smith'";
 
-            if (this.OpenConnection() == true)
+            if (this.openConnection() == true)
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.ExecuteNonQuery();
-                this.CloseConnection();
+                this.closeConnection();
             }
         }
 
-        public ArrayList SelectQuery(string query)
+        public ArrayList selectQuery(string query)
         {
 
             //Create a list to store the result
@@ -336,7 +336,7 @@ namespace SimPatient
             ArrayList list = new ArrayList();
 
             //Open connection
-            if (this.OpenConnection() == true)
+            if (this.openConnection() == true)
             {
                 //Create Command
                 MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -361,7 +361,7 @@ namespace SimPatient
                 dataReader.Close();
 
                 //close Connection
-                this.CloseConnection();
+                this.closeConnection();
 
                 //return list to be displayed
                 return list;
@@ -379,7 +379,7 @@ namespace SimPatient
             int Count = -1;
 
             //Open Connection
-            if (this.OpenConnection() == true)
+            if (this.openConnection() == true)
             {
                 //Create Mysql Command
                 MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -388,7 +388,7 @@ namespace SimPatient
                 Count = int.Parse(cmd.ExecuteScalar() + "");
 
                 //close Connection
-                this.CloseConnection();
+                this.closeConnection();
 
                 return Count;
             }

@@ -3,15 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" xmlns:local="clr-namespace:SimPatient" x:Class="SimPatient.MainWindow"
         Title="Sim Patient" Height="546" MinHeight="546" Width="786" MinWidth="786" WindowStartupLocation="CenterScreen"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded" Name="mainWindow">
 	
 	<DockPanel Name="dockPanel">
 		<Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top" Margin="0,0,-2,0">
             <MenuItem Name="mnuFile" Header="File">
                 <MenuItem Name="mnuPreferences" Header="Preferences" Click="mnuPreferences_Click"/>
-                <MenuItem Header="Logout"/>
+                <MenuItem Name="mnuLogout" Header="Logout" Click="mnuLogout_Click"/>
 			</MenuItem>
-			<MenuItem Name="mnuEditors" Header="Editors">
+			<MenuItem Name="mnuEditors" Header="Editors" Visibility="Collapsed">
 				<MenuItem Header="Simulation Editor"/>
 				<MenuItem Header="Account Editor"/>
 				<MenuItem Name="mnuPatientEditor" Header="Patient Editor" Click="mnuPatientEditor_Click"/>
