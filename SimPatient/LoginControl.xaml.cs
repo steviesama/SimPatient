@@ -37,12 +37,13 @@ namespace SimPatient
                 }));
 
                 MainWindow.Instance.mnuLogout.IsEnabled = false;
+                PreferencesWindow.Instance.userAccountTabItem.IsEnabled = false;
 
                 return _loginControl;
             }
         }
 
-		public LoginControl()
+		private LoginControl()
 		{
 			this.InitializeComponent();
 		}
@@ -51,12 +52,15 @@ namespace SimPatient
         {
             UserAccount ua = MySqlHelper.requestLogin(usernameTextBox.Text, passwordBox.SecurePassword.convertToUnsecureString());
 
+            MainWindow.CurrentUser = ua;
+
             if (ua == null)
                 MessageBox.Show("Invalid Username or Password.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
                 MainWindow.Instance.mnuLogout.IsEnabled = true;
-                MainWindow.Instance.loadBottomGrid(ua.Type == UserAccountType.Administrator ? (UserControl)new SimulationPoolControl() : (UserControl)new PatientPoolControl());
+                PreferencesWindow.Instance.userAccountTabItem.IsEnabled = true;
+                MainWindow.Instance.loadBottomGrid(ua.Type == UserAccountType.Administrator ? (UserControl)SimulationPoolControl.Instance : (UserControl)PatientPoolControl.Instance);
             }
         }
 	}

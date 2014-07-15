@@ -24,7 +24,19 @@ namespace SimPatient
     {
         ObservableCollection<Patient> patients;
 
-        public PatientPoolControl()
+        private static PatientPoolControl _patientPoolControl;
+        public static PatientPoolControl Instance
+        {
+            get
+            {
+                if (_patientPoolControl == null)
+                    _patientPoolControl = new PatientPoolControl();
+
+                return _patientPoolControl;
+            }
+        }
+
+        private PatientPoolControl()
         {
             InitializeComponent();
 

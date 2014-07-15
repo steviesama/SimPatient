@@ -22,14 +22,31 @@ namespace SimPatient
 	/// </summary>
 	public partial class PreferencesWindow : Window
 	{
+
+        private static PreferencesWindow _preferencesWindow;
+        public static PreferencesWindow Instance
+        {
+            get
+            {
+                if (_preferencesWindow == null)
+                    _preferencesWindow = new PreferencesWindow();
+
+                return _preferencesWindow;
+            }
+        }
+
 		public PreferencesWindow()
 		{
 			this.InitializeComponent();
 			
             this.Loaded += PreferencesWindow_Loaded;
-
-			// Insert code required on object creation below this point.
 		}
+
+        private void PreferencesWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //e.Cancel = true;
+            //Hide();
+        }
 
         private void PreferencesWindow_Loaded(object sender, RoutedEventArgs e)
         {

@@ -54,6 +54,7 @@ namespace SimPatient
     {
 
         public static MainWindow Instance { get; set; }
+        public static UserAccount CurrentUser { get; set; }
 
         private BitmapImage bitmap = null;
         private Barcode barcode;
@@ -122,7 +123,16 @@ namespace SimPatient
             //txtTimeSpan.TextChanged += txtTimeSpan_TextChanged;
             //txtTimeSpan.GotFocus += (object sender, RoutedEventArgs e) => { selectAllText(sender as TextBox); };
 
+            this.Closing +=MainWindow_Closing;
+
         /*End MainWindow()*/}
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you wish to exit?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question))
+                Application.Current.Shutdown();
+            else e.Cancel = true;
+        }
 
         public Bitmap cropBitmap(Bitmap bmp)
         {
@@ -642,7 +652,7 @@ namespace SimPatient
 
         private void mnuPreferences_Click(object sender, RoutedEventArgs e)
         {
-            (new PreferencesWindow()).ShowDialog();
+            PreferencesWindow.Instance.ShowDialog();
         }
 
         private void Window_Loaded(object sender, System.Windows.RoutedEventArgs e)

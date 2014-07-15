@@ -8,7 +8,8 @@
 	
 	<Grid x:Name="LayoutRoot"  Background="White">
 		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Patient Pool" VerticalAlignment="Top" HorizontalAlignment="Left" Width="110"/>
-        <ListView Name="patientPoolListView" Margin="10,30.96,10,34.96" ItemsSource="{Binding}">
+        <ListView Name="patientPoolListView" Margin="10,30.96,10,34.96" ItemsSource="{Binding}"
+         ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionMode="Single">
             <ListView.View>
 <GridView>
 					<GridViewColumn Header="Name" Width="150">
@@ -51,10 +52,10 @@
 			</ListView.View>
         </ListView>
         <Button Content="Delete" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Left" Margin="296.978,0,0,10" VerticalAlignment="Bottom" Width="75" Height="19.96"/>
-		<Button Name="actionButton" Content="Action" Margin="10,0,0,10" Height="19.96" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75"/>
+		<Button Name="actionButton" Content="Action" Style="{StaticResource GrayButtonStyle}" Margin="10,0,0,10" Height="19.96" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75"/>
 		<Button Name="newButton" Style="{StaticResource GreenButtonStyle}" Content="New" Margin="90,0,0,10" HorizontalAlignment="Left" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
 		<CheckBox Content="Based On Selection" HorizontalAlignment="Left" Margin="170,0,0,11.861" Height="15.099" VerticalAlignment="Bottom"/>
-		<Button Content="Cancel" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Height="19.96"/>
+		<Button Content="Cancel" Style="{StaticResource GrayButtonStyle}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Height="19.96"/>
 	</Grid>
 
 </UserControl>

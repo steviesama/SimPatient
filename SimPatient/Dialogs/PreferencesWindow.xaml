@@ -25,13 +25,13 @@
 
 				</Grid>
 			</TabItem>
-			<TabItem Header="TabItem">
+			<TabItem Name="userAccountTabItem" Header="User Account" IsEnabled="False">
 				<Grid Background="#FFE5E5E5"/>
 			</TabItem>
 		</TabControl>
 		<Button Name="saveButton" Content="Save" Style="{StaticResource GreenButtonStyle}" HorizontalAlignment="Right" Margin="0,0,90,10" VerticalAlignment="Bottom" Width="75" Height="19.96"
                 Click="saveButton_Click"/>
-		<Button Name="cancelButton" Content="Cancel" Style="{StaticResource RedButtonStyle}" Margin="0,0,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Height="19.96"
+		<Button Name="cancelButton" Content="Cancel" Style="{StaticResource GrayButtonStyle}" Margin="0,0,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Height="19.96"
                 Click="cancelButton_Click"/>
 	</Grid>
-</Window>
+</Window> 

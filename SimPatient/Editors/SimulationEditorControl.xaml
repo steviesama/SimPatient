@@ -6,9 +6,9 @@
 	xmlns:local="clr-namespace:SimPatient" mc:Ignorable="d"
 	x:Class="SimPatient.SimulationEditorControl" d:DesignHeight="508" d:DesignWidth="613">
 
-	<Grid x:Name="LayoutRoot"  Background="White" FocusManager.FocusedElement="{Binding ElementName=simulationNameTextBox}">
+	<Grid x:Name="LayoutRoot"  Background="White">
 		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Simulation Name" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
-		<ListView x:Name="simulationListView" Margin="10,140.92,10,0" ItemsSource="{Binding}" Height="122" VerticalAlignment="Top">
+		<ListView x:Name="simulationListView" Margin="10,140.92,10,0" ItemsSource="{Binding}" Height="122" VerticalAlignment="Top" SelectionMode="Single">
 			<ListView.View>
 				<GridView>
 					<GridViewColumn Header="Username" Width="150">
@@ -43,13 +43,15 @@
 		</ListView>
 		<Button x:Name="actionButton" Content="Remove" Style="{StaticResource RedButtonStyle}" Margin="90,267.92,0,0" HorizontalAlignment="Left" Width="75" Height="19.96" VerticalAlignment="Top"/>
 		<Button Content="Add" Style="{StaticResource GreenButtonStyle}" Margin="10,267.92,0,0" Height="19.96" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
-		<Button Content="Cancel" Style="{StaticResource ResourceKey=RedButtonStyle}" HorizontalAlignment="Right" Margin="0,0,10,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
+		<Button Name="cancelButton" Content="Cancel" Style="{StaticResource ResourceKey=GrayButtonStyle}" Click="cancelButton_Click"
+         HorizontalAlignment="Right" Margin="0,0,10,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
 		<TextBlock Margin="10,119.96,0,0" TextWrapping="Wrap" Text="Account(s)" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
 		<TextBox Name="simulationNameTextBox" HorizontalAlignment="Left" Height="23" Margin="10,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="213"/>
 		<TextBlock Margin="228,10,0,0" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
-		<TextBox Height="84" Margin="228,30.96,10,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top"/>
-		<Button Content="Save" Style="{StaticResource GreenButtonStyle}" HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
-		<ListView x:Name="patientPoolListView" Margin="10,313.84,10,64.16" ItemsSource="{Binding}">
+		<TextBox Name="simulationDescriptionTextBox" Height="84" Margin="228,30.96,10,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top"/>
+		<Button Name="saveButton" Content="Save" Style="{StaticResource GreenButtonStyle}" Click="saveButton_Click"
+         HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
+		<ListView x:Name="patientPoolListView" Margin="10,313.84,10,64.16" ItemsSource="{Binding}" SelectionMode="Single">
 			<ListView.View>
 				<GridView>
 					<GridViewColumn Header="Name" Width="150">

@@ -20,37 +20,61 @@ namespace SimPatient
 	/// </summary>
 	public partial class SimulationPoolControl : UserControl
 	{
-        public ObservableCollection<Simulation> simulations;
+        public static Simulation selectedSimulation { get; set; }
+
+        private static SimulationPoolControl _simulationPoolControl;
+        public static SimulationPoolControl Instance
+        {
+            get
+            {
+                if (_simulationPoolControl == null)
+                    _simulationPoolControl = new SimulationPoolControl();
+                
+                Simulation.refreshSimulations();
+
+                return _simulationPoolControl;
+            }
+        }
         
-		public SimulationPoolControl()
+		private SimulationPoolControl()
 		{
 			this.InitializeComponent();
 
-            simulations = new ObservableCollection<Simulation>();
-            simulationListView.DataContext = simulations;
+            simulationListView.DataContext = Simulation.Simulations;
+            Simulation.refreshSimulations();
 
-            simulations.Add(new Simulation { Name = "Simulation #1", Creator = "Watson, Josh", Description = "Josh made this!!!" });
-            simulations.Add(new Simulation { Name = "Simulation #2", Creator = "Taylor, Casi", Description = "Casi made this!!!" });
+            ActionMode = ActionMode.EditMode;
 		}
 
-        private ActionMode _actionMode;
-        public ActionMode ActionMode 
+        private void newButton_Click(object sender, RoutedEventArgs e)
         {
-            get { return _actionMode; } 
-            set 
+            MainWindow.Instance.loadBottomGrid(SimulationEditorControl.EmptyInstance);
+        }
+
+        private ActionMode _actionMode;
+        public ActionMode ActionMode
+        {
+            get { return _actionMode; }
+            set
             {
                 _actionMode = value;
 
-                switch(value)
+                switch (value)
                 {
                     case ActionMode.SelectMode:
-                        actionButton.Content = "Select"; 
+                        actionButton.Content = "Select";
                         break;
                     case ActionMode.EditMode:
                         actionButton.Content = "Edit";
                         break;
-                } 
-            } 
+                }
+            }
+        }
+
+        private void actionButton_Click(object sender, RoutedEventArgs e)
+        {
+            selectedSimulation = simulationListView.SelectedItem as Simulation;
+            MainWindow.Instance.loadBottomGrid(SimulationEditorControl.Instance);
         }
 	/*End class SimulationPoolControl*/}
 } //End namespace SimPatient

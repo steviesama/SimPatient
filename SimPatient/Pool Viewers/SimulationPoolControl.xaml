@@ -8,7 +8,8 @@
 
     <Grid x:Name="LayoutRoot"  Background="White">
         <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Simulation Pool" VerticalAlignment="Top" HorizontalAlignment="Left" Width="110"/>
-        <ListView x:Name="simulationListView" Margin="10,30.96,10,34.96" ItemsSource="{Binding}">
+        <ListView x:Name="simulationListView" Margin="10,30.96,10,34.96" ItemsSource="{Binding}" 
+         ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionMode="Single">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" Width="150">
@@ -41,10 +42,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Delete" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Left" Margin="170,0,0,10" VerticalAlignment="Bottom" Width="75" Height="19.96"/>
-        <Button x:Name="actionButton" Content="Action" Margin="10,0,0,10" Height="19.96" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75"/>
-        <Button x:Name="newButton" Style="{StaticResource GreenButtonStyle}" Content="New" Margin="90,0,0,10" HorizontalAlignment="Left" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
-        <Button Content="Cancel" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Height="19.96"/>
+        <Button Content="Delete" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Left" Margin="90,0,0,10" VerticalAlignment="Bottom" Width="75" Height="20"/>
+        <Button Name="newButton" Style="{StaticResource GreenButtonStyle}" Content="New" Click="newButton_Click"
+         Margin="10,0,0,10" HorizontalAlignment="Left" Width="75" Height="20" VerticalAlignment="Bottom"/>
+        <Button Name="actionButton" Content="Action" Style="{StaticResource GrayButtonStyle}" Click="actionButton_Click" 
+         HorizontalAlignment="Left" Margin="170,0,0,10" VerticalAlignment="Bottom" Width="75" Height="20"/>
     </Grid>
 
 </UserControl>

@@ -15,7 +15,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Name="border" 
+                        <Border Name="border"                                
                                 BorderThickness="1"
                                 Padding="1"
                                 Background="{TemplateBinding Background}">
@@ -24,14 +24,14 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="False">
                                 <Setter TargetName="border" Property="BorderBrush" Value="#FF008000"/>
-                                <Setter TargetName="border" Property="Background" Value="#FF19C819"/>
+                                <Setter TargetName="border" Property="Background" Value="#9919C819"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="border" Property="BorderBrush" Value="#FF008000"/>
-                                <Setter TargetName="border" Property="Background" Value="#FF02B202"/>
+                                <Setter TargetName="border" Property="Background" Value="#9902B202"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#FF008000"/>
+                                <Setter TargetName="border" Property="Background" Value="#99008000"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -53,21 +53,51 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="False">
                                 <Setter TargetName="border" Property="BorderBrush" Value="#FFAC0000"/>
-                                <Setter TargetName="border" Property="Background" Value="#FFFF1919"/>
+                                <Setter TargetName="border" Property="Background" Value="#99FF1919"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="border" Property="BorderBrush" Value="#FFAC0000"/>
-                                <Setter TargetName="border" Property="Background" Value="#FFDA0202"/>
+                                <Setter TargetName="border" Property="Background" Value="#99DA0202"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#FFAC0000"/>
+                                <Setter TargetName="border" Property="Background" Value="#99AC0000"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-		<x:Array x:Key="InjectionSiteStringArray" Type="sys:String"
+
+        <Style x:Key="GrayButtonStyle" BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                                BorderThickness="1"
+                                Padding="1"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="False">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF707271"/>
+                                <Setter TargetName="border" Property="Background" Value="#FFDDDDDD"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF707271"/>
+                                <Setter TargetName="border" Property="Background" Value="#FFCCCCCC"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFB1B4B3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <x:Array x:Key="InjectionSiteStringArray" Type="sys:String"
 				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 				 xmlns:sys="clr-namespace:System;assembly=mscorlib">
 			<sys:String>None</sys:String>
