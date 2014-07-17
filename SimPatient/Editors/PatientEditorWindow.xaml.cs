@@ -122,7 +122,7 @@ namespace SimPatient
                 return _instance;
             }
         }
-
+                                                                                            
         public static PatientEditorWindow EmptyInstance
         {
             get

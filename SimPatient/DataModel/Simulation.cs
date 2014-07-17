@@ -61,12 +61,12 @@ namespace SimPatient
 
             ArrayList arrayList = response[0] as ArrayList;
 
-            sim.Id = (long)arrayList[0];
-            sim.Name = (string)arrayList[1];
-            sim.Description = (string)arrayList[2];
+            sim.Id           = (long)arrayList[0];
+            sim.Name         = (string)arrayList[1];
+            sim.Description  = (string)arrayList[2];
             sim.CreationDate = (DateTime)arrayList[3];
-            sim.IsDeleted = ((sbyte)arrayList[4]) == 1 ? true : false;
-            sim.Creator = (string)arrayList[5];
+            sim.IsDeleted    = ((sbyte)arrayList[4]) == 1 ? true : false;
+            sim.Creator      = (string)arrayList[5];
             
             return sim;
         }
@@ -89,12 +89,12 @@ namespace SimPatient
         {
             Simulation sim = new Simulation();
 
-            sim.Id = (long)arrayList[0];
-            sim.Name = (string)arrayList[1];
-            sim.Description = (string)arrayList[2];
+            sim.Id           = (long)arrayList[0];
+            sim.Name         = (string)arrayList[1];
+            sim.Description  = (string)arrayList[2];
             sim.CreationDate = (DateTime)arrayList[3];
-            sim.IsDeleted = ((sbyte)arrayList[4]) == 1 ? true : false;
-            sim.Creator = (string)arrayList[5];
+            sim.IsDeleted    = ((sbyte)arrayList[4]) == 1 ? true : false;
+            sim.Creator      = (string)arrayList[5];
 
             return sim;
         }

@@ -20,76 +20,76 @@ namespace SimPatient
 	/// </summary>
 	public partial class SimulationPoolControl : UserControl
 	{
-        public static Simulation SelectedSimulation { get; set; }
+		public static Simulation SelectedSimulation { get; set; }
 
-        private static SimulationPoolControl _instance;
-        public static SimulationPoolControl Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = new SimulationPoolControl();
-                
-                Simulation.refreshSimulations();
+		private static SimulationPoolControl _instance;
+		public static SimulationPoolControl Instance
+		{
+			get
+			{
+				if (_instance == null)
+					_instance = new SimulationPoolControl();
+				
+				Simulation.refreshSimulations();
 
-                return _instance;
-            }
-        }
-        
+				return _instance;
+			}
+		}
+		
 		private SimulationPoolControl()
 		{
 			this.InitializeComponent();
 
-            simulationListView.DataContext = Simulation.Simulations;
-            Simulation.refreshSimulations();
+			simulationListView.DataContext = Simulation.Simulations;
+			Simulation.refreshSimulations();
 
-            ActionMode = ActionMode.EditMode;
+			ActionMode = ActionMode.EditMode;
 		}        
-        
-        private ActionMode _actionMode;
-        public ActionMode ActionMode
-        {
-            get { return _actionMode; }
-            set
-            {
-                _actionMode = value;
+		
+		private ActionMode _actionMode;
+		public ActionMode ActionMode
+		{
+			get { return _actionMode; }
+			set
+			{
+				_actionMode = value;
 
-                switch (value)
-                {
-                    case ActionMode.SelectMode:
-                        actionButton.Content = "Select";
-                        break;
-                    case ActionMode.EditMode:
-                        actionButton.Content = "Edit";
-                        break;
-                }
-            }
-        }
+				switch (value)
+				{
+					case ActionMode.SelectMode:
+						actionButton.Content = "Select";
+						break;
+					case ActionMode.EditMode:
+						actionButton.Content = "Edit";
+						break;
+				}
+			}
+		}
 
-        private void newButton_Click(object sender, RoutedEventArgs e)
-        {
-            //indicates that new button was clicked from other processes
-            SelectedSimulation = null;
-            MainWindow.Instance.loadBottomGrid(SimulationEditorControl.getEmptyInstance(this));
-        }
+		private void newButton_Click(object sender, RoutedEventArgs e)
+		{
+			//indicates that new button was clicked from other processes
+			SelectedSimulation = null;
+			MainWindow.Instance.loadBottomGrid(SimulationEditorControl.getEmptyInstance(this));
+		}
 
 
-        private void actionButton_Click(object sender, RoutedEventArgs e)
-        {
-            UserControl userControl = SimulationEditorControl.getInstance(this);
-            MainWindow.Instance.loadBottomGrid(userControl);
-            UserAccount.refreshUserAccountPool(SelectedSimulation.Id);
-            Patient.refreshPatientPool(SimulationPoolControl.SelectedSimulation.Id);
-        }
+		private void actionButton_Click(object sender, RoutedEventArgs e)
+		{
+			UserControl userControl = SimulationEditorControl.getInstance(this);
+			MainWindow.Instance.loadBottomGrid(userControl);
+			UserAccount.refreshUserAccountPool(SelectedSimulation.Id);
+			Patient.refreshPatientPool(SimulationPoolControl.SelectedSimulation.Id);
+		}
 
-        private void simulationListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if ((sender as ListView).SelectedItem != null)
-            {
-                SelectedSimulation = (sender as ListView).SelectedItem as Simulation;
-                actionButton.IsEnabled = true;
-            }
-            else actionButton.IsEnabled = false;
-        }
+		private void simulationListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if ((sender as ListView).SelectedItem != null)
+			{
+				SelectedSimulation = (sender as ListView).SelectedItem as Simulation;
+				actionButton.IsEnabled = true;
+			}
+			else actionButton.IsEnabled = false;
+		}
 	/*End class SimulationPoolControl*/}
 } //End namespace SimPatient
