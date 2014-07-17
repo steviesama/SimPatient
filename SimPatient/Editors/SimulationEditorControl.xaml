@@ -6,25 +6,26 @@
 	xmlns:local="clr-namespace:SimPatient" mc:Ignorable="d"
 	x:Class="SimPatient.SimulationEditorControl" d:DesignHeight="508" d:DesignWidth="613">
 
-	<Grid x:Name="LayoutRoot"  Background="White">
+	<Grid Name="LayoutRoot"  Background="White">
 		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Simulation Name" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
-		<ListView x:Name="simulationListView" Margin="10,140.92,10,0" ItemsSource="{Binding}" Height="122" VerticalAlignment="Top" SelectionMode="Single">
+		<ListView Name="accountPoolListView" SelectionChanged="accountPoolListView_SelectionChanged"
+         Margin="10,140.92,10,0" ItemsSource="{Binding}" Height="122" VerticalAlignment="Top" SelectionMode="Single">
 			<ListView.View>
 				<GridView>
 					<GridViewColumn Header="Username" Width="150">
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Text="{Binding Name}"/>
+									<TextBlock Text="{Binding Username}"/>
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
 					</GridViewColumn>
-					<GridViewColumn Header="Name" Width="150">						
-						<GridViewColumn.CellTemplate>
+                    <GridViewColumn Header="Fullname" Width="150">
+                        <GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Text="{Binding Creator}"/>
+									<TextBlock Text="{Binding Fullname}"/>
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
@@ -41,8 +42,10 @@
 				</GridView>
 			</ListView.View>
 		</ListView>
-		<Button x:Name="actionButton" Content="Remove" Style="{StaticResource RedButtonStyle}" Margin="90,267.92,0,0" HorizontalAlignment="Left" Width="75" Height="19.96" VerticalAlignment="Top"/>
-		<Button Content="Add" Style="{StaticResource GreenButtonStyle}" Margin="10,267.92,0,0" Height="19.96" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
+		<Button IsEnabled="False" Name="removeAccountButton" Content="Remove" Style="{StaticResource RedButtonStyle}" Click="removeAccountButton_Click"
+         Margin="90,267.92,0,0" HorizontalAlignment="Left" Width="75" Height="19.96" VerticalAlignment="Top"/>
+		<Button Name="addAccountButton" Content="Add" Style="{StaticResource GreenButtonStyle}" Click="addAccountButton_Click"
+         Margin="10,267.92,0,0" Height="19.96" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
 		<Button Name="cancelButton" Content="Cancel" Style="{StaticResource ResourceKey=GrayButtonStyle}" Click="cancelButton_Click"
          HorizontalAlignment="Right" Margin="0,0,10,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
 		<TextBlock Margin="10,119.96,0,0" TextWrapping="Wrap" Text="Account(s)" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
@@ -51,7 +54,8 @@
 		<TextBox Name="simulationDescriptionTextBox" Height="84" Margin="228,30.96,10,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top"/>
 		<Button Name="saveButton" Content="Save" Style="{StaticResource GreenButtonStyle}" Click="saveButton_Click"
          HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
-		<ListView x:Name="patientPoolListView" Margin="10,313.84,10,64.16" ItemsSource="{Binding}" SelectionMode="Single">
+		<ListView Name="patientPoolListView" SelectionChanged="patientPoolListView_SelectionChanged"
+         Margin="10,313.84,10,64.16" ItemsSource="{Binding}" SelectionMode="Single">
 			<ListView.View>
 				<GridView>
 					<GridViewColumn Header="Name" Width="150">
@@ -85,7 +89,7 @@
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Text="{Binding Id}"/>
+                                    <TextBlock Text="{Binding Id, Converter={local:MedicalRecordNumberConverter}}"/>
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
@@ -93,8 +97,10 @@
 				</GridView>
 			</ListView.View>
 		</ListView>
-		<Button x:Name="actionButton_Copy" Content="Remove" Style="{StaticResource RedButtonStyle}" Margin="90,0,0,39.2" Height="19.96" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75"/>
-		<Button Content="Add" Style="{StaticResource GreenButtonStyle}" Margin="10,0,0,39.2" HorizontalAlignment="Left" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
+        <Button IsEnabled="False" Name="removePatientButton" Content="Remove" Style="{StaticResource RedButtonStyle}" Click="removePatientButton_Click"
+         Margin="90,0,0,39.2" Height="19.96" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75"/>
+        <Button Name="addPatientButton" Content="Add" Style="{StaticResource GreenButtonStyle}" Click="addPatientButton_Click"
+         Margin="10,0,0,39.2" HorizontalAlignment="Left" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
 		<TextBlock Margin="10,292.88,0,0" TextWrapping="Wrap" Text="Patient(s)" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
 	</Grid>
 </UserControl>

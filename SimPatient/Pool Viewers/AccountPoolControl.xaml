@@ -6,12 +6,12 @@
 	mc:Ignorable="d"
 	x:Class="SimPatient.AccountPoolControl" d:DesignWidth="655" d:DesignHeight="449">
 
-	<Grid x:Name="LayoutRoot"  Background="White">
-		<Grid.RowDefinitions>
-			<RowDefinition/>
-		</Grid.RowDefinitions>
-		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Account Pool" VerticalAlignment="Top" HorizontalAlignment="Left" Width="110" Foreground="Black"/>
-        <ListView Name="simulationListView" Margin="10,30.96,10,34.96" ItemsSource="{Binding}">
+    <Grid Name="LayoutRoot"  Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Account Pool" VerticalAlignment="Top" HorizontalAlignment="Left" Width="110" Foreground="Black"/>
+        <ListView Name="accountListView" Margin="10,30.96,10,34.96" ItemsSource="{Binding}" SelectionChanged="accountListView_SelectionChanged" SelectionMode="Single">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Username" Width="150">
@@ -19,6 +19,15 @@
                             <DataTemplate>
                                 <StackPanel>
                                     <TextBlock Text="{Binding Username}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Fullname" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Fullname}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -32,7 +41,8 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Type" Width="350">
+
+                    <GridViewColumn Header="Type" Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
@@ -44,9 +54,13 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Delete" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75"/>
-		<Button Name="actionButton" Content="Action" Margin="10,0,0,10" Height="19.96" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75"/>
-		<Button Name="newButton" Content="New" Style="{StaticResource GreenButtonStyle}" Margin="90,0,0,10" HorizontalAlignment="Left" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
-	</Grid>
+        <Button IsEnabled="False" Name="deleteButton" Content="Delete" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Left" Margin="90,0,0,10" VerticalAlignment="Bottom" Width="75"/>
+        <Button IsEnabled="False" Name="actionButton" Content="Action" Style="{StaticResource GrayButtonStyle}" Click="actionButton_Click"
+         Margin="170,0,0,10" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75"/>
+        <Button Name="newButton" Content="New" Style="{StaticResource GreenButtonStyle}" Click="newButton_Click"
+         Margin="10,0,0,10" HorizontalAlignment="Left" Width="75" Height="20" VerticalAlignment="Bottom"/>
+        <Button Name="cancelButton" Content="Cancel" Style="{StaticResource GrayButtonStyle}" Click="cancelButton_Click"
+         Margin="0,0,10,10" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+    </Grid>
 
 </UserControl>

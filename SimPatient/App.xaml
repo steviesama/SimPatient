@@ -22,6 +22,9 @@
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </Trigger>
                             <Trigger Property="IsPressed" Value="False">
                                 <Setter TargetName="border" Property="BorderBrush" Value="#FF008000"/>
                                 <Setter TargetName="border" Property="Background" Value="#9919C819"/>
@@ -51,6 +54,9 @@
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </Trigger>
                             <Trigger Property="IsPressed" Value="False">
                                 <Setter TargetName="border" Property="BorderBrush" Value="#FFAC0000"/>
                                 <Setter TargetName="border" Property="Background" Value="#99FF1919"/>
@@ -80,6 +86,9 @@
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </Trigger>
                             <Trigger Property="IsPressed" Value="False">
                                 <Setter TargetName="border" Property="BorderBrush" Value="#FF707271"/>
                                 <Setter TargetName="border" Property="Background" Value="#FFDDDDDD"/>

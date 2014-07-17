@@ -671,6 +671,8 @@ namespace SimPatient
 
         public void loadBottomGrid(UserControl userControl)
         {
+            if (userControl == null) return;
+
             bottomGrid.Children.Remove(currentControl);
             currentControl = userControl;
             bottomGrid.Children.Add(currentControl);
@@ -690,8 +692,7 @@ namespace SimPatient
 
     public enum ActionMode
     {
-        SelectMode, EditMode,
-        SelectModeAdmin
+        SelectMode, EditMode
     }
 
     #region Value Converters
@@ -750,10 +751,10 @@ namespace SimPatient
         public MedicalRecordNumberConverter() { /*shut-up compiler*/ }
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((value is int) == false)
+            if ((value is long) == false)
                 throw new InvalidOperationException("The target must be a int");
 
-            return "MR" + (int)value;
+            return "MR" + (long)value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

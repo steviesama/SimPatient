@@ -8,6 +8,7 @@ using SimPatient.DataModel;
 using System.Windows;
 using System.Collections;
 
+using MySql.Data.MySqlClient;
 namespace SimPatient
 {
     public static class MySqlHelper
@@ -68,5 +69,85 @@ namespace SimPatient
             return UserAccount.fromArrayList(response[0] as ArrayList);
         }
 
-    }
-}
+        public static bool addUserAccountToSimulation(long simId, long userId)
+        {
+            if (connect() == false)
+            {
+                MessageBox.Show("Bad MySQL Connection Credentials.", "MySQL Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            try
+            {
+                ArrayList response = dbCon.selectQuery(string.Format("INSERT INTO tblUserAccountPool VALUES({0}, {1})", userId, simId));
+            }
+            catch(MySqlException ex)
+            {
+                MessageBox.Show("Already in User Account Pool.", "Insert Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            disconnect();
+
+            //if (response.Count == 0)
+            //    return false;
+
+            return true;
+        }
+
+        public static bool removeUserAccountFromSimulation(long userId)
+        {
+            if (connect() == false)
+            {
+                MessageBox.Show("Bad MySQL Connection Credentials.", "MySQL Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            ArrayList response = dbCon.selectQuery(string.Format("DELETE FROM tblUserAccountPool WHERE user_id={0}", userId));
+            disconnect();
+
+            return true;
+        }
+
+        public static bool addPatientToSimulation(long simId, long patId)
+        {
+            if (connect() == false)
+            {
+                MessageBox.Show("Bad MySQL Connection Credentials.", "MySQL Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            try
+            {
+                //add admit data parameter and argument to this call
+                ArrayList response = dbCon.selectQuery(string.Format("INSERT INTO tblPatientPool VALUES({0}, {1}, NULL)", simId, patId));
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Already in User Account Pool.", "Insert Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            disconnect();
+
+            //if (response.Count == 0)
+            //    return false;
+
+            return true;
+        }
+
+        public static bool removePatientFromSimulation(long patId)
+        {
+            if (connect() == false)
+            {
+                MessageBox.Show("Bad MySQL Connection Credentials.", "MySQL Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            ArrayList response = dbCon.selectQuery(string.Format("DELETE FROM tblPatientPool WHERE pat_id={0}", patId));
+            disconnect();
+
+            return true;
+        }
+    } //End class MySqlHelper
+} //End namespace SimPatient

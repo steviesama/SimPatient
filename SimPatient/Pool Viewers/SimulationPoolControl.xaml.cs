@@ -20,19 +20,19 @@ namespace SimPatient
 	/// </summary>
 	public partial class SimulationPoolControl : UserControl
 	{
-        public static Simulation selectedSimulation { get; set; }
+        public static Simulation SelectedSimulation { get; set; }
 
-        private static SimulationPoolControl _simulationPoolControl;
+        private static SimulationPoolControl _instance;
         public static SimulationPoolControl Instance
         {
             get
             {
-                if (_simulationPoolControl == null)
-                    _simulationPoolControl = new SimulationPoolControl();
+                if (_instance == null)
+                    _instance = new SimulationPoolControl();
                 
                 Simulation.refreshSimulations();
 
-                return _simulationPoolControl;
+                return _instance;
             }
         }
         
@@ -44,13 +44,8 @@ namespace SimPatient
             Simulation.refreshSimulations();
 
             ActionMode = ActionMode.EditMode;
-		}
-
-        private void newButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow.Instance.loadBottomGrid(SimulationEditorControl.EmptyInstance);
-        }
-
+		}        
+        
         private ActionMode _actionMode;
         public ActionMode ActionMode
         {
@@ -71,10 +66,30 @@ namespace SimPatient
             }
         }
 
+        private void newButton_Click(object sender, RoutedEventArgs e)
+        {
+            //indicates that new button was clicked from other processes
+            SelectedSimulation = null;
+            MainWindow.Instance.loadBottomGrid(SimulationEditorControl.getEmptyInstance(this));
+        }
+
+
         private void actionButton_Click(object sender, RoutedEventArgs e)
         {
-            selectedSimulation = simulationListView.SelectedItem as Simulation;
-            MainWindow.Instance.loadBottomGrid(SimulationEditorControl.Instance);
+            UserControl userControl = SimulationEditorControl.getInstance(this);
+            MainWindow.Instance.loadBottomGrid(userControl);
+            UserAccount.refreshUserAccountPool(SelectedSimulation.Id);
+            Patient.refreshPatientPool(SimulationPoolControl.SelectedSimulation.Id);
+        }
+
+        private void simulationListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((sender as ListView).SelectedItem != null)
+            {
+                SelectedSimulation = (sender as ListView).SelectedItem as Simulation;
+                actionButton.IsEnabled = true;
+            }
+            else actionButton.IsEnabled = false;
         }
 	/*End class SimulationPoolControl*/}
 } //End namespace SimPatient

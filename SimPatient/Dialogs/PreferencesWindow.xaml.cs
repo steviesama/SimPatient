@@ -23,15 +23,15 @@ namespace SimPatient
 	public partial class PreferencesWindow : Window
 	{
 
-        private static PreferencesWindow _preferencesWindow;
+        private static PreferencesWindow _instance;
         public static PreferencesWindow Instance
         {
             get
             {
-                if (_preferencesWindow == null)
-                    _preferencesWindow = new PreferencesWindow();
+                if (_instance == null)
+                    _instance = new PreferencesWindow();
 
-                return _preferencesWindow;
+                return _instance;
             }
         }
 

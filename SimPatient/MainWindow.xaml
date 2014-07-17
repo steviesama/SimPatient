@@ -11,9 +11,8 @@
                 <MenuItem Name="mnuPreferences" Header="Preferences" Click="mnuPreferences_Click"/>
                 <MenuItem Name="mnuLogout" Header="Logout" Click="mnuLogout_Click"/>
 			</MenuItem>
-			<MenuItem Name="mnuEditors" Header="Editors" Visibility="Collapsed">
-				<MenuItem Header="Simulation Editor"/>
-				<MenuItem Header="Account Editor"/>
+            <MenuItem Name="mnuEditors" Header="Editors" Visibility="Collapsed">
+                <MenuItem Header="Account Editor"/>
 				<MenuItem Name="mnuPatientEditor" Header="Patient Editor" Click="mnuPatientEditor_Click"/>
 				<MenuItem Header="Medication Editor"/>
 			</MenuItem>

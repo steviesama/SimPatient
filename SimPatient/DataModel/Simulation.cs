@@ -98,6 +98,5 @@ namespace SimPatient
 
             return sim;
         }
-
 	}
 }
