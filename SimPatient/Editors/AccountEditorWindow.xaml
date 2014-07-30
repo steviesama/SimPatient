@@ -1,6 +1,6 @@
 ﻿<Window
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" ShowInTaskbar="False"
 	x:Class="SimPatient.AccountEditorWindow" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight"
 	x:Name="acct" Title="Account Editor" ResizeMode="NoResize">
 

@@ -1,0 +1,18 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="SimPatient.MedicationDoseEditorWindow"
+	x:Name="Window" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+	Title="Medication Dose Schedule" SizeToContent="WidthAndHeight" WindowStyle="ToolWindow">
+
+	<Grid x:Name="LayoutRoot" Height="92.36" Width="251.29">
+		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Schedule" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+		<TextBox x:Name="scheduleTextBox" Height="23" Margin="10,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="116.616"/>
+		<TextBlock Margin="131.616,10,0,0" TextWrapping="Wrap" Text="Time Period" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+		<TextBox x:Name="timePeriodTextBox" Height="23" Margin="131.616,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="109.674"/>
+		<Button x:Name="saveButton" Content="Save" Style="{StaticResource GreenButtonStyle}" Click="saveButton_Click"
+			HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
+		<Button x:Name="cancelButton" Content="Cancel" Style="{StaticResource ResourceKey=GrayButtonStyle}" Click="cancelButton_Click"
+			HorizontalAlignment="Right" Margin="0,0,10,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
+	</Grid>
+</Window>

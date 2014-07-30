@@ -40,12 +40,13 @@ namespace SimPatient
 			this.InitializeComponent();
 			
             this.Loaded += PreferencesWindow_Loaded;
+            this.Closing +=PreferencesWindow_Closing;
 		}
 
         private void PreferencesWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //e.Cancel = true;
-            //Hide();
+            e.Cancel = true;
+            Hide();
         }
 
         private void PreferencesWindow_Loaded(object sender, RoutedEventArgs e)
@@ -98,12 +99,12 @@ namespace SimPatient
 
             sWriter.Close();
 
-            Close();
+            Hide();
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Hide();
         }
 	}
 

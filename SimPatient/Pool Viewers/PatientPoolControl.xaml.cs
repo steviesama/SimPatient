@@ -31,9 +31,7 @@ namespace SimPatient
             {
                 if (_instance == null)
                     _instance = new PatientPoolControl();
-
-                _instance.basedOnCheckBox.IsChecked = false;
-
+                
                 return _instance;
             }
         }
@@ -45,6 +43,7 @@ namespace SimPatient
 
         public static PatientPoolControl getInstance(UserControl parentControl, string visualState)
         {
+            Instance.basedOnCheckBox.IsChecked = false;
             PatientPoolControl.ParentControl = parentControl;
             VisualStateManager.GoToState(Instance, visualState, false);
             return Instance;
@@ -72,10 +71,10 @@ namespace SimPatient
                 switch (value)
                 {
                     case ActionMode.SelectMode:
-                        actionButton.Content = "Select";
+                        selectButton.Content = "Select";
                         break;
                     case ActionMode.EditMode:
-                        actionButton.Content = "Edit";
+                        selectButton.Content = "Edit";
                         break;
                 }
             }
@@ -89,20 +88,14 @@ namespace SimPatient
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
+            PatientEditorWindow.Instance.ActionMode = ActionMode.NewMode;
             PatientEditorWindow.Instance.ShowDialog();
         }
 
-        private void actionButton_Click(object sender, RoutedEventArgs e)
+        private void selectButton_Click(object sender, RoutedEventArgs e)
         {
-            switch(ActionMode)
-            {
-                case ActionMode.EditMode:
-                    break;
-                case ActionMode.SelectMode:
-                    MySqlHelper.addPatientToSimulation(SimulationPoolControl.SelectedSimulation.Id, SelectedPatient.Id);
-                    Patient.refreshPatientPool(SimulationPoolControl.SelectedSimulation.Id);
-                    break;
-            }
+            MySqlHelper.addPatientToSimulation(SimulationPoolControl.SelectedSimulation.Id, SelectedPatient.Id);
+            Patient.refreshPatientPool(SimulationPoolControl.SelectedSimulation.Id);
 
             UserAccount.refreshUserAccountPool(SimulationPoolControl.SelectedSimulation.Id);
             MainWindow.Instance.loadBottomGrid(ParentControl);
@@ -113,10 +106,16 @@ namespace SimPatient
             if ((sender as ListView).SelectedItem != null)
             {
                 SelectedPatient = (sender as ListView).SelectedItem as Patient;
-                actionButton.IsEnabled = true;
+                selectButton.IsEnabled = editButton.IsEnabled = true;
             }
-            else actionButton.IsEnabled = false;
+            else selectButton.IsEnabled = editButton.IsEnabled = false;
+        }
 
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+            PatientEditorWindow.Instance.ActionMode = ActionMode.EditMode;
+            MedicationDose.refreshMedicationDosePool(PatientPoolControl.SelectedPatient.Id);
+            PatientEditorWindow.Instance.ShowDialog();
         }
     } //End class PatientPoolControl
 } //End namespace SimPatient

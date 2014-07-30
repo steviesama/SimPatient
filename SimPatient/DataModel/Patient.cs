@@ -58,7 +58,7 @@ namespace SimPatient
 			if (MySqlHelper.connect() == false) return;
 
 			DBConnection dbCon = MySqlHelper.dbCon;
-			ArrayList response = dbCon.selectQuery("SELECT * from tblPatient AS p WHERE 0 = (SELECT COUNT(pp.pat_id) FROM tblPatientPool AS pp WHERE pp.pat_id=p.id)");
+            ArrayList response = dbCon.selectQuery("SELECT * from tblPatient AS p WHERE 0 = (SELECT COUNT(pp.pat_id) FROM tblPatientPool AS pp WHERE pp.pat_id=p.id) ORDER BY name");
 
 			MySqlHelper.disconnect();
 
@@ -74,7 +74,7 @@ namespace SimPatient
 
 			DBConnection dbCon = MySqlHelper.dbCon;
 			ArrayList response = dbCon.selectQuery(
-				"SELECT * from tblPatient AS p WHERE p.id = (SELECT pp.pat_id FROM tblPatientPool AS pp WHERE pp.pat_id=p.id AND pp.sim_id=" + simId + ")");
+                "SELECT * FROM tblPatient AS p WHERE p.id = (SELECT pp.pat_id FROM tblPatientPool AS pp WHERE pp.pat_id=p.id AND pp.sim_id=" + simId + ") ORDER BY name");
 
 			MySqlHelper.disconnect();
 
@@ -104,37 +104,18 @@ namespace SimPatient
 			return pat;
 		}
 
-		//public static void refreshUserAccounts()
-		//{
-		//    if (MySqlHelper.connect() == false) return;
+        public static Patient fromMySqlPatient(long pat_id)
+        {
+            MySqlHelper.connect();
 
-		//    DBConnection dbCon = MySqlHelper.dbCon;
-		//    ArrayList response = dbCon.selectQuery(
-		//        "SELECT * from tblUserAccount AS ua WHERE 0 = (SELECT COUNT(uap.user_id) FROM tblUserAccountPool AS uap WHERE uap.user_id=ua.id) AND ua.type=1");
+            DBConnection dbCon = MySqlHelper.dbCon;
+            ArrayList response = dbCon.selectQuery(string.Format("SELECT * FROM tblPatient WHERE id={0}", pat_id));
 
-		//    MySqlHelper.disconnect();
+            MySqlHelper.disconnect();
 
-		//    UserAccounts.Clear();
+            if (response.Count == 0) return null;
 
-		//    foreach (ArrayList arrayList in response)
-		//        UserAccounts.Add(fromArrayList(arrayList));
-		//}
-
-		//public static void refreshUserAccountPool(long simId)
-		//{
-		//    if (MySqlHelper.connect() == false) return;
-
-		//    DBConnection dbCon = MySqlHelper.dbCon;
-		//    ArrayList response = dbCon.selectQuery(
-		//        "SELECT * from tblUserAccount AS ua WHERE ua.id = (SELECT uap.user_id FROM tblUserAccountPool AS uap WHERE uap.user_id=ua.id AND uap.sim_id=" + simId + ")");
-
-		//    MySqlHelper.disconnect();
-
-		//    UserAccounts.Clear();
-
-		//    foreach (ArrayList arrayList in response)
-		//        UserAccounts.Add(fromArrayList(arrayList));
-		//}
-
+            return Patient.fromArrayList(response[0] as ArrayList);
+        }
 	} //End class Patient
 } //End namespace SimPatient

@@ -13,6 +13,8 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Collections;
 
+using System.Security.Cryptography;
+
 namespace SimPatient
 {
     public class DBConnection
@@ -28,6 +30,8 @@ namespace SimPatient
         public DBConnection()
         {
             Initialize(server, port, database, uid, password);
+            RijndaelManaged crypto = new RijndaelManaged();
+
         }
 
         public DBConnection(string server, string port, string database, string uid, string password)
@@ -202,7 +206,7 @@ namespace SimPatient
         }
 
         //Update statement
-        public bool UpdateQuery(string query)
+        public bool updateQuery(string query)
         {
             bool success = true;
 

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="SimPatient.App" Collapsed="true">
-    <Position X="26.5" Y="1.75" Width="1.5" />
+    <Position X="26.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App.xaml.cs</FileName>
@@ -10,21 +10,21 @@
   <Class Name="SimPatient.Medication">
     <Position X="15.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAEAAAAQAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAQgAAAAAAgAEAAAAQAAABAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>DataModel\Medication.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.MedicationAdminstrationRecord">
-    <Position X="17.25" Y="2.75" Width="2.5" />
+    <Position X="19.25" Y="8.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAYAAAAACAAAACAAAQAAAAAAAAAAEAAAAAAQAA=</HashCode>
       <FileName>DataModel\MedicationAdministrationRecord.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.MedicationDose">
-    <Position X="15.5" Y="2.75" Width="1.5" />
+    <Position X="23" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAACAAAQAAAAAAAAAAAAEAAIIEAAAAAAAAgAAAAAQAA=</HashCode>
+      <HashCode>AAACAAAQAAAAAAAAAAAAEAAIoERAAAAAIAgAAAAAQAA=</HashCode>
       <FileName>DataModel\MedicationDose.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -41,12 +41,12 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAiAAAAQAAAABSABAAAIAQAAGBSAAAAFAAAACABAgA=</HashCode>
+      <HashCode>AAAiAAAAQAAAABSAJAAAIAQAAGBSAAAAFAAAACABAgA=</HashCode>
       <FileName>DataModel\Patient.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.RouteToStringConverter">
-    <Position X="15.25" Y="7.5" Width="2" />
+    <Position X="14.25" Y="8.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DataModel\RouteToStringConverter.cs</FileName>
@@ -75,51 +75,44 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.MedicationOffScheduleWindow">
-    <Position X="25.75" Y="6.75" Width="2.25" />
+    <Position X="17.25" Y="6.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Dialogs\MedicationOffScheduleWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.MedicationReconciliationWindow">
-    <Position X="23" Y="3.75" Width="1.5" />
+    <Position X="20" Y="5.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Dialogs\MedicationReconciliationWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.AccountEditorControl">
-    <Position X="23.5" Y="0.75" Width="1.5" />
+    <Position X="19.75" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Editors\AccountEditorControl.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.AccountEditorWindow">
-    <Position X="3" Y="5" Width="2.25" />
+    <Position X="3" Y="7.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>BAAEAAAAAABABAAAAgAAAAAAAEQCAAQAQAAQQAAAAAA=</HashCode>
       <FileName>Editors\AccountEditorWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.MedicationEditorWindow">
-    <Position X="21.75" Y="2.25" Width="2.25" />
+    <Position X="17.25" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>BACEAACIACBABAAAAAAAAAAAQAQIAEQQwAAQQAAAAAA=</HashCode>
       <FileName>Editors\MedicationEditorWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.PatientEditorWindow">
     <Position X="3" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>BAAEAAAAAABBBAAAoIAAAAAAAAQAAAQAQAAQQAAAAAA=</HashCode>
-      <FileName>Editors\PatientEditorWindow.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="SimPatient.MedicationSchedule">
-    <Position X="22.75" Y="5.75" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAEAAAAUAAEBAAAAAIBAAAAAAABA=</HashCode>
+      <HashCode>BACMBAAIASBlBAAAgIAAQAAAAAAJAEQAQAAQQBAAABA=</HashCode>
       <FileName>Editors\PatientEditorWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -133,19 +126,19 @@
   <Class Name="SimPatient.MainWindow">
     <Position X="0.5" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>gABAgYACIICABEIACBAAQAwIAAAAQACQSAIAiUAAAAQ=</HashCode>
+      <HashCode>AAAAgIAAAICAAAIAABAAAAgAAAAAQAAQQAAAAQAAAAQ=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.BaseConverter">
-    <Position X="16.75" Y="5.5" Width="1.5" />
+    <Position X="15.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.InverseBooleanConverter">
-    <Position X="17.75" Y="7.5" Width="2" />
+    <Position X="16.75" Y="8.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
@@ -160,56 +153,70 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.AccountPoolWindow">
-    <Position X="24.75" Y="1.5" Width="1.5" />
+    <Position X="19.75" Y="2" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Pool Viewers\AccountPoolWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.MedicationPoolWindow">
-    <Position X="21.25" Y="3.75" Width="1.5" />
+    <Position X="20" Y="3.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>BAAEAAAAAABAIgAAAAABAAAAAAAAAAQAQAAQAAIAAAA=</HashCode>
       <FileName>Pool Viewers\MedicationPoolWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.PatientPoolControl">
-    <Position X="11.25" Y="5.5" Width="2.75" />
+    <Position X="8.25" Y="6" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>DAAEAAAAACAAIAAAAAAAAAAAAAAIAAQAYAAQAAAAEAA=</HashCode>
+      <HashCode>DAAEAAAAACAAIAAAAAABAAAAAAAIAAQAYAAQAAAAAAA=</HashCode>
       <FileName>Pool Viewers\PatientPoolControl.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.SimulationPoolControl">
-    <Position X="8.25" Y="5.75" Width="2.75" />
+    <Position X="11.25" Y="7.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAEAQAAACAAIAAAAAAEAAAAAAAIAAAAQAAAAAAAEAA=</HashCode>
       <FileName>Pool Viewers\SimulationPoolControl.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SimPatient.Properties.Resources" Collapsed="true">
-    <Position X="24.75" Y="3.75" Width="1.5" />
+  <Class Name="SimPatient.Properties.Resources">
+    <Position X="26.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="SimPatient.Properties.Settings" Collapsed="true">
-    <Position X="24.75" Y="4.75" Width="1.5" />
+  <Class Name="SimPatient.Properties.Settings">
+    <Position X="26.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.DataModel.Preferences">
-    <Position X="17.25" Y="0.5" Width="1.5" />
+    <Position X="15.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQEAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAABAAA=</HashCode>
       <FileName>DataModel\Preferences.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="SimPatient.MedicationDoseEditorWindow">
+    <Position X="23" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AEAEAAAAACAABAAAAAIAAAAAAAQIAAAAQAAAQAACEAA=</HashCode>
+      <FileName>Dialogs\MedicationDoseEditorWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimPatient.MedicationAdministrationControl">
+    <Position X="26" Y="6.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAABAAAAAAAAABAAAAAwAAIAACA=</HashCode>
+      <FileName>Pool Viewers\MedicationAdministrationControl.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Enum Name="SimPatient.ActionMode">
     <Position X="8.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAgAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAACAAAAAAAgAA=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Enum>

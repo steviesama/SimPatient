@@ -70,6 +70,8 @@ namespace SimPatient
 		{
 			//indicates that new button was clicked from other processes
 			SelectedSimulation = null;
+            UserAccount.UserAccounts.Clear();
+            Patient.PatientPool.Clear();
 			MainWindow.Instance.loadBottomGrid(SimulationEditorControl.getEmptyInstance(this));
 		}
 
@@ -91,5 +93,5 @@ namespace SimPatient
 			}
 			else actionButton.IsEnabled = false;
 		}
-	/*End class SimulationPoolControl*/}
+	} // End class SimulationPoolControl
 } //End namespace SimPatient

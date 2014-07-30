@@ -69,6 +69,20 @@ namespace SimPatient
             return UserAccount.fromArrayList(response[0] as ArrayList);
         }
 
+        public static bool usernameExists(string username)
+        {
+            if (connect() == false)
+            {
+                MessageBox.Show("Bad MySQL Connection Credentials.", "MySQL Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            ArrayList response = dbCon.selectQuery(string.Format("SELECT * FROM tblUserAccount WHERE username='{0}'", username));
+            disconnect();
+
+            return (response.Count == 0) ? false : true;
+        }
+
         public static bool addUserAccountToSimulation(long simId, long userId)
         {
             if (connect() == false)
@@ -145,6 +159,20 @@ namespace SimPatient
             }
 
             ArrayList response = dbCon.selectQuery(string.Format("DELETE FROM tblPatientPool WHERE pat_id={0}", patId));
+            disconnect();
+
+            return true;
+        }
+
+        public static bool removeMedicationDose(long doseId)
+        {
+            if (connect() == false)
+            {
+                MessageBox.Show("Bad MySQL Connection Credentials.", "MySQL Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            ArrayList response = dbCon.selectQuery(string.Format("DELETE FROM tblMedicationDose WHERE id={0}", doseId));
             disconnect();
 
             return true;

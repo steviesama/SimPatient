@@ -62,7 +62,7 @@ namespace SimPatient
 
             DBConnection dbCon = MySqlHelper.dbCon;
             ArrayList response = dbCon.selectQuery(
-                "SELECT * from tblUserAccount AS ua WHERE 0 = (SELECT COUNT(uap.user_id) FROM tblUserAccountPool AS uap WHERE uap.user_id=ua.id) AND ua.type=1");
+                "SELECT * FROM tblUserAccount AS ua WHERE 0 = (SELECT COUNT(uap.user_id) FROM tblUserAccountPool AS uap WHERE uap.user_id=ua.id) AND ua.type=1");
 
             MySqlHelper.disconnect();
 
@@ -78,7 +78,7 @@ namespace SimPatient
 
             DBConnection dbCon = MySqlHelper.dbCon;
             ArrayList response = dbCon.selectQuery(
-                "SELECT * from tblUserAccount AS ua WHERE ua.id = (SELECT uap.user_id FROM tblUserAccountPool AS uap WHERE uap.user_id=ua.id AND uap.sim_id=" + simId + ")");
+                "SELECT * FROM tblUserAccount AS ua WHERE ua.id = (SELECT uap.user_id FROM tblUserAccountPool AS uap WHERE uap.user_id=ua.id AND uap.sim_id=" + simId + ")");
 
             MySqlHelper.disconnect();
 

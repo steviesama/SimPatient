@@ -63,14 +63,11 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BarcodeLib">
-      <HintPath>.\BarcodeLib.dll</HintPath>
-    </Reference>
-    <Reference Include="ImageListView">
-      <HintPath>..\packages\ImageListView.11.0.1\lib\net35\ImageListView.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Expression.Drawing" />
     <Reference Include="Microsoft.Expression.Interactions" />
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -97,25 +94,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.AvalonDock">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.DataGrid">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=2.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
-    </Reference>
     <Reference Include="Zen.Barcode.Core">
       <HintPath>.\Zen.Barcode.Core.dll</HintPath>
     </Reference>
@@ -125,6 +103,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Convert.cs" />
     <Compile Include="DataModel\Medication.cs" />
     <Compile Include="DataModel\MedicationAdministrationRecord.cs" />
     <Compile Include="DataModel\MedicationDose.cs" />
@@ -134,6 +113,9 @@
     <Compile Include="DataModel\Simulation.cs" />
     <Compile Include="DataModel\UserAccount.cs" />
     <Compile Include="DBConnection.cs" />
+    <Compile Include="Dialogs\MedicationDoseEditorWindow.xaml.cs">
+      <DependentUpon>MedicationDoseEditorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\MedicationOffScheduleWindow.xaml.cs">
       <DependentUpon>MedicationOffScheduleWindow.xaml</DependentUpon>
     </Compile>
@@ -171,12 +153,23 @@
     <Compile Include="Pool Viewers\AccountPoolWindow.xaml.cs">
       <DependentUpon>AccountPoolWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pool Viewers\MedicationAdministrationControl.xaml.cs">
+      <DependentUpon>MedicationAdministrationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pool Viewers\MedicationPoolWindow.xaml.cs">
       <DependentUpon>MedicationPoolWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pool Viewers\SimulationPoolControl.xaml.cs">
       <DependentUpon>SimulationPoolControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SplashScreenWindow.xaml.cs">
+      <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util.cs" />
+    <Page Include="Dialogs\MedicationDoseEditorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Dialogs\MedicationOffScheduleWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -233,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pool Viewers\MedicationAdministrationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pool Viewers\MedicationPoolWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -248,6 +245,10 @@
     <Page Include="Pool Viewers\SimulationPoolControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SplashScreenWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -309,7 +310,9 @@
       <Name>SUT.PrintEngine</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="sim-patient-logo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
