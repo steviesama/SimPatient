@@ -15,6 +15,8 @@ using System.IO;
 using System.Runtime.InteropServices;
 using SimPatient.DataModel;
 
+using System.Threading;
+
 namespace SimPatient
 {
 	/// <summary>
@@ -23,108 +25,108 @@ namespace SimPatient
 	public partial class PreferencesWindow : Window
 	{
 
-        private static PreferencesWindow _instance;
-        public static PreferencesWindow Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = new PreferencesWindow();
+		private static PreferencesWindow _instance;
+		public static PreferencesWindow Instance
+		{
+			get
+			{
+				if (_instance == null)
+					_instance = new PreferencesWindow();
 
-                return _instance;
-            }
-        }
+				return _instance;
+			}
+		}
 
 		public PreferencesWindow()
 		{
 			this.InitializeComponent();
-			
-            this.Loaded += PreferencesWindow_Loaded;
-            this.Closing +=PreferencesWindow_Closing;
+
+			this.Loaded += PreferencesWindow_Loaded;
+			this.Closing +=PreferencesWindow_Closing;
 		}
 
-        private void PreferencesWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            e.Cancel = true;
-            Hide();
-        }
+		private void PreferencesWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			e.Cancel = true;
+			Hide();
+		}
 
-        private void PreferencesWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            PreferencesWindow.loadPreferences();
+		private void PreferencesWindow_Loaded(object sender, RoutedEventArgs e)
+		{
+			PreferencesWindow.loadPreferences();
 
-            mySqlHostTextBox.Text = Preferences.HostAddress;
-            mySqlPortTextBox.Text = Preferences.PortAddress;
-            mySqlDatabaseTextBox.Text = Preferences.DatabaseName;
-            mySqlUsernameTextBox.Text = Preferences.Username;
-            mySqlPasswordBox.Password = Preferences.Password;
-        }
+			mySqlHostTextBox.Text = Preferences.HostAddress;
+			mySqlPortTextBox.Text = Preferences.PortAddress;
+			mySqlDatabaseTextBox.Text = Preferences.DatabaseName;
+			mySqlUsernameTextBox.Text = Preferences.Username;
+			mySqlPasswordBox.Password = Preferences.Password;
+		}
 
-        public static void loadPreferences()
-        {
-            if (File.Exists("preferences.config") == false) return;
+		public static void loadPreferences()
+		{
+			if (File.Exists("preferences.config") == false) return;
 
-            StreamReader sReader = new StreamReader("preferences.config");
+			StreamReader sReader = new StreamReader("preferences.config");
 
-            if (sReader == null)
-            {
-                MessageBox.Show("preferences.config could not be read!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+			if (sReader == null)
+			{
+				MessageBox.Show("preferences.config could not be read!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
+			}
 
-            Preferences.HostAddress = sReader.ReadLine();
-            Preferences.PortAddress = sReader.ReadLine();
-            Preferences.DatabaseName = sReader.ReadLine();
-            Preferences.Username = sReader.ReadLine();
-            Preferences.Password = sReader.ReadLine();
+			Preferences.HostAddress = sReader.ReadLine();
+			Preferences.PortAddress = sReader.ReadLine();
+			Preferences.DatabaseName = sReader.ReadLine();
+			Preferences.Username = sReader.ReadLine();
+			Preferences.Password = sReader.ReadLine();
 
-            sReader.Close();
-        }
+			sReader.Close();
+		}
 
-        private void saveButton_Click(object sender, RoutedEventArgs e)
-        {
-            StreamWriter sWriter = new StreamWriter("preferences.config", false);
+		private void saveButton_Click(object sender, RoutedEventArgs e)
+		{
+			StreamWriter sWriter = new StreamWriter("preferences.config", false);
 
-            if (sWriter == null)
-            {
-                MessageBox.Show("preferences.config could not be written!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+			if (sWriter == null)
+			{
+				MessageBox.Show("preferences.config could not be written!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
+			}
 
-            sWriter.WriteLine(mySqlHostTextBox.Text);
-            sWriter.WriteLine(mySqlPortTextBox.Text);
-            sWriter.WriteLine(mySqlDatabaseTextBox.Text);
-            sWriter.WriteLine(mySqlUsernameTextBox.Text);
-            sWriter.WriteLine(mySqlPasswordBox.SecurePassword.convertToUnsecureString());
+			sWriter.WriteLine(mySqlHostTextBox.Text);
+			sWriter.WriteLine(mySqlPortTextBox.Text);
+			sWriter.WriteLine(mySqlDatabaseTextBox.Text);
+			sWriter.WriteLine(mySqlUsernameTextBox.Text);
+			sWriter.WriteLine(mySqlPasswordBox.SecurePassword.convertToUnsecureString());
 
-            sWriter.Close();
+			sWriter.Close();
 
-            Hide();
-        }
+			Hide();
+		}
 
-        private void cancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            Hide();
-        }
+		private void cancelButton_Click(object sender, RoutedEventArgs e)
+		{
+			Hide();
+		}
 	}
 
-    public static class MyExtensionsMethods
-    {
-        public static string convertToUnsecureString(this SecureString securePassword)
-        {
-            if (securePassword == null)
-                throw new ArgumentNullException("securePassword");
+	public static class MyExtensionsMethods
+	{
+		public static string convertToUnsecureString(this SecureString securePassword)
+		{
+			if (securePassword == null)
+				throw new ArgumentNullException("securePassword");
 
-            IntPtr unmanagedString = IntPtr.Zero;
-            try
-            {
-                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(securePassword);
-                return Marshal.PtrToStringUni(unmanagedString);
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
-            }
-        }
-    }
+			IntPtr unmanagedString = IntPtr.Zero;
+			try
+			{
+				unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(securePassword);
+				return Marshal.PtrToStringUni(unmanagedString);
+			}
+			finally
+			{
+				Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
+			}
+		}
+	}
 } //End namespace SimPatient

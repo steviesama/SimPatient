@@ -52,6 +52,7 @@ namespace SimPatient
 			get
 			{
 				emptyControls();
+                Instance.ActionMode = ActionMode.NewMode;
 				return Instance;
 			}
 		}
@@ -76,7 +77,7 @@ namespace SimPatient
 			}
 		}
 
-		private static void emptyControls()
+		internal static void emptyControls()
 		{
 			Instance.scheduleTextBox.Text = string.Empty;
 			Instance.timePeriodTextBox.Text = string.Empty;

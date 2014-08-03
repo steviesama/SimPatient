@@ -4,34 +4,33 @@
 	x:Class="SimPatient.PreferencesWindow"	Title="Preferences"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	mc:Ignorable="d" ResizeMode="NoResize"
-	WindowStartupLocation="CenterScreen"
+	mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowInTaskbar="False"
 	SizeToContent="WidthAndHeight" WindowStyle="ToolWindow">
 
-    <Grid x:Name="LayoutRoot" Width="640" Height="480" FocusManager.FocusedElement="{Binding ElementName=mySqlHostTextBox}">
-        <TabControl Margin="10,10,10,35">
-            <TabItem Header="MySQL Connection">
-                <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="mySqlHostTextBox" Height="23" Margin="10,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>
-                    <TextBox x:Name="mySqlPortTextBox" Height="23" Margin="10,79.92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>
-                    <TextBox x:Name="mySqlDatabaseTextBox" Height="23" Margin="10,128.88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>
-                    <TextBox x:Name="mySqlUsernameTextBox" Height="23" Margin="10,177.84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>
-                    <PasswordBox x:Name="mySqlPasswordBox" HorizontalAlignment="Left" Margin="10,226.8,0,0" VerticalAlignment="Top" Width="167.593" Height="23"/>
-                    <TextBlock Margin="10,156.88,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="15.96"/>
-                    <TextBlock Margin="10,205.84,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="15.96"/>
-                    <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Host Address" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="15.96"/>
-                    <TextBlock Margin="10,58.96,0,0" TextWrapping="Wrap" Text="Port Address" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="15.96"/>
-                    <TextBlock Margin="10,107.92,0,0" TextWrapping="Wrap" Text="Database Name" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="15.96"/>
+	<Grid x:Name="LayoutRoot" Width="640" Height="480" FocusManager.FocusedElement="{Binding ElementName=mySqlHostTextBox}">
+		<TabControl Margin="10,10,10,35">
+			<TabItem Header="MySQL Connection">
+				<Grid Background="#FFE5E5E5">
+					<TextBox x:Name="mySqlHostTextBox" Height="23" Margin="10,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>
+					<TextBox x:Name="mySqlPortTextBox" Height="23" Margin="10,79.92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>
+					<TextBox x:Name="mySqlDatabaseTextBox" Height="23" Margin="10,128.88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>
+					<TextBox x:Name="mySqlUsernameTextBox" Height="23" Margin="10,177.84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>
+					<PasswordBox x:Name="mySqlPasswordBox" HorizontalAlignment="Left" Margin="10,226.8,0,0" VerticalAlignment="Top" Width="167.593" Height="23"/>
+					<TextBlock Margin="10,156.88,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="15.96"/>
+					<TextBlock Margin="10,205.84,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="15.96"/>
+					<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Host Address" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="15.96"/>
+					<TextBlock Margin="10,58.96,0,0" TextWrapping="Wrap" Text="Port Address" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="15.96"/>
+					<TextBlock Margin="10,107.92,0,0" TextWrapping="Wrap" Text="Database Name" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="15.96"/>
 
-                </Grid>
-            </TabItem>
-            <TabItem Name="userAccountTabItem" Header="User Account" IsEnabled="False">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-        </TabControl>
-        <Button Name="saveButton" Content="Save" Style="{StaticResource GreenButtonStyle}" HorizontalAlignment="Right" Margin="0,0,90,10" VerticalAlignment="Bottom" Width="75" Height="20"
-                Click="saveButton_Click"/>
-        <Button Name="cancelButton" Content="Cancel" Style="{StaticResource GrayButtonStyle}" Margin="0,0,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Height="20"
-                Click="cancelButton_Click"/>
-    </Grid>
+				</Grid>
+			</TabItem>
+			<TabItem Name="userAccountTabItem" Header="User Account" IsEnabled="False">
+				<Grid Background="#FFE5E5E5"/>
+			</TabItem>
+		</TabControl>
+		<Button Name="saveButton" Content="Save" Style="{StaticResource GreenButtonStyle}" HorizontalAlignment="Right" Margin="0,0,90,10" VerticalAlignment="Bottom" Width="75" Height="20"
+				Click="saveButton_Click"/>
+		<Button Name="cancelButton" Content="Cancel" Style="{StaticResource GrayButtonStyle}" Margin="0,0,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Height="20"
+				Click="cancelButton_Click"/>
+	</Grid>
 </Window> 

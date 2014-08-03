@@ -60,7 +60,19 @@ namespace SimPatient
             {
                 MainWindow.Instance.mnuLogout.IsEnabled = true;
                 PreferencesWindow.Instance.userAccountTabItem.IsEnabled = true;
-                MainWindow.Instance.loadBottomGrid(ua.Type == UserAccountType.Administrator ? (UserControl)SimulationPoolControl.Instance : (UserControl)PatientPoolControl.Instance);
+                UserControl userControl = null;
+                if(ua.Type == UserAccountType.Administrator)
+                {
+                    userControl = SimulationPoolControl.Instance;
+                    PatientPoolControl.VisualState = "AdminVisualState";
+                }
+                else
+                {
+                    userControl = PatientPoolControl.Instance;
+                    PatientPoolControl.VisualState = "StationVisualState";
+                }
+
+                MainWindow.Instance.loadBottomGrid(userControl);
             }
         }
 	}

@@ -73,12 +73,14 @@ namespace SimPatient
 				if (_instance == null)
 					_instance = new PatientEditorWindow();
 
+
 				if (_instance.ActionMode == ActionMode.NewMode && PatientPoolControl.Instance.basedOnCheckBox.IsChecked == true ||
 					_instance.ActionMode == ActionMode.EditMode)
 				{
 					_instance.resetUserControls(false);
 					_instance.fillPatientInfo(PatientPoolControl.SelectedPatient);
 				}
+				else _instance.resetUserControls(true);
 
 				switch(_instance.ActionMode)
 				{
@@ -181,17 +183,17 @@ namespace SimPatient
 			autoIdCheckBox.IsChecked = true;
 		}
 
-		private static void emptyControls()
+		internal static void emptyControls()
 		{
-			Instance.patientNameTextBox.Text = string.Empty;
-			Instance.dobDatePicker.SelectedDate = null;
-			Instance.drNameTextBox.Text = string.Empty;
-			Instance.roomNumberTextBox.Text = string.Empty;
-			Instance.weightTextBox.Text = string.Empty;
-			Instance.mrIdTextBox.Text = string.Empty;
-			Instance.notesTextBox.Text = string.Empty;
-			Instance.allergiesTextBox.Text = string.Empty;
-			Instance.diagnosisTextBox.Text = string.Empty;
+			_instance.patientNameTextBox.Text = string.Empty;
+			_instance.dobDatePicker.SelectedDate = null;
+			_instance.drNameTextBox.Text = string.Empty;
+			_instance.roomNumberTextBox.Text = string.Empty;
+			_instance.weightTextBox.Text = string.Empty;
+			_instance.mrIdTextBox.Text = string.Empty;
+			_instance.notesTextBox.Text = string.Empty;
+			_instance.allergiesTextBox.Text = string.Empty;
+			_instance.diagnosisTextBox.Text = string.Empty;
 		}
 
 		private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -280,6 +282,8 @@ namespace SimPatient
 			{
 				newId = mySqlAddNewPatient();
 				if (newId > 0) mrIdTextBox.Text = "MR" + newId;
+				PatientPoolControl.SelectedPatient = Patient.fromMySqlPatient(newId);
+				fillPatientInfo(PatientPoolControl.SelectedPatient);
 			}
 			else newId = mySqlUpdatePatient();
 
@@ -291,7 +295,7 @@ namespace SimPatient
 				//change to edit mode in case save is clicked again
 				ActionMode = ActionMode.EditMode;
 				//reset user controls...access Instance to update med admin pool
-				Instance.resetUserControls((bool)closeOnSaveCheckBox.IsChecked);
+				Instance.resetUserControls(false);
 			}
 		} //End saveButton_Click()
 

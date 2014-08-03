@@ -6,9 +6,6 @@
 	Title="Patient Editor" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" SizeChanged="Window_SizeChanged" WindowStyle="ToolWindow">
 
     <Grid Name="LayoutRoot" Background="White" Height="349" Width="780" FocusManager.FocusedElement="{Binding ElementName=patientNameTextBox}">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <nx:MedicationAdministrationControl x:Name="medAdminPool" Margin="0,128,0,30"/>
         <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Patient Name" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
         <TextBox x:Name="patientNameTextBox" Height="23" Margin="10,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>

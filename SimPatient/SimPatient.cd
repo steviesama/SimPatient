@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="SimPatient.App" Collapsed="true">
-    <Position X="26.5" Y="1.25" Width="1.5" />
+    <Position X="32.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App.xaml.cs</FileName>
@@ -96,23 +96,23 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.AccountEditorWindow">
-    <Position X="3" Y="7.5" Width="2.25" />
+    <Position X="3" Y="6.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>BAAEAAAAAABABAAAAgAAAAAAAEQCAAQAQAAQQAAAAAA=</HashCode>
+      <HashCode>BACEAAAAAABABAAAAgAAAAAAAEQAAAQAQAAQQAAAAAA=</HashCode>
       <FileName>Editors\AccountEditorWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.MedicationEditorWindow">
     <Position X="17.25" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>BACEAACIACBABAAAAAAAAAAAQAQIAEQQwAAQQAAAAAA=</HashCode>
+      <HashCode>BACEAACIACBABAAAAAAAQAAAQAYJAAQQwAAQQAAAAAA=</HashCode>
       <FileName>Editors\MedicationEditorWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.PatientEditorWindow">
     <Position X="3" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>BACMBAAIASBlBAAAgIAAQAAAAAAJAEQAQAAQQBAAABA=</HashCode>
+      <HashCode>BACMAAAIASBFBAAAgIAAQAAAAAAJAAQAQAAQQAAAAAA=</HashCode>
       <FileName>Editors\PatientEditorWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -181,13 +181,13 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.Properties.Resources">
-    <Position X="26.5" Y="3.75" Width="1.5" />
+    <Position X="32.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.Properties.Settings">
-    <Position X="26.5" Y="2" Width="1.5" />
+    <Position X="32.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
@@ -202,15 +202,29 @@
   <Class Name="SimPatient.MedicationDoseEditorWindow">
     <Position X="23" Y="4.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AEAEAAAAACAABAAAAAIAAAAAAAQIAAAAQAAAQAACEAA=</HashCode>
+      <HashCode>AECEAAAAACAABAAAAAIAAAAAAAQIAAAAQAAQQAACEAA=</HashCode>
       <FileName>Dialogs\MedicationDoseEditorWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimPatient.MedicationAdministrationControl">
-    <Position X="26" Y="6.25" Width="3" />
+    <Position X="26" Y="5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAAABAAAAAAAAABAAAAAwAAIAACA=</HashCode>
       <FileName>Pool Viewers\MedicationAdministrationControl.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimPatient.PreferencesWindow">
+    <Position X="26" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAIgAAAAAAAAAAAAAAQAIQQAAAAAA=</HashCode>
+      <FileName>Dialogs\PreferencesWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimPatient.MyExtensionsMethods">
+    <Position X="26" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dialogs\PreferencesWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="SimPatient.ActionMode">

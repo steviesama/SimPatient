@@ -102,7 +102,8 @@ namespace SimPatient
 				Patient.refreshPatientPool(SimulationPoolControl.SelectedSimulation.Id);
 		}
 
-		private static void emptyControls()
+        //don't use this in the Instance property
+		internal static void emptyControls()
 		{
 			Instance.simulationNameTextBox.Text = "";
 			Instance.simulationDescriptionTextBox.Text = "";
@@ -116,14 +117,12 @@ namespace SimPatient
 
 		private void saveButton_Click(object sender, RoutedEventArgs e)
 		{
-			if(simulationNameTextBox.Text.Trim() == string.Empty)
+			if(Util.validateStringTextBox(simulationNameTextBox) == false)
 			{
-				simulationNameTextBox.Background = Brushes.LightPink;
 				MessageBox.Show("No valid simulation name entered.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				simulationNameTextBox.Focus();
 				return;
 			}
-			else simulationNameTextBox.Background = Brushes.White;
 
 			if (MySqlHelper.connect() == false) return;
 

@@ -24,6 +24,17 @@ namespace SimPatient
     {
         public static Patient SelectedPatient { get; set; }
 
+        private static string _visualState;
+        public static string VisualState
+        {
+            get { return _visualState; }
+            set
+            {
+                VisualStateManager.GoToState(PatientPoolControl.Instance, value, false);
+                _visualState = value;
+            }
+        }
+
         private static PatientPoolControl _instance;
         public static PatientPoolControl Instance
         {
@@ -45,7 +56,7 @@ namespace SimPatient
         {
             Instance.basedOnCheckBox.IsChecked = false;
             PatientPoolControl.ParentControl = parentControl;
-            VisualStateManager.GoToState(Instance, visualState, false);
+            PatientPoolControl.VisualState = visualState;
             return Instance;
         }
 
@@ -94,11 +105,18 @@ namespace SimPatient
 
         private void selectButton_Click(object sender, RoutedEventArgs e)
         {
-            MySqlHelper.addPatientToSimulation(SimulationPoolControl.SelectedSimulation.Id, SelectedPatient.Id);
-            Patient.refreshPatientPool(SimulationPoolControl.SelectedSimulation.Id);
-
-            UserAccount.refreshUserAccountPool(SimulationPoolControl.SelectedSimulation.Id);
-            MainWindow.Instance.loadBottomGrid(ParentControl);
+            switch (PatientPoolControl.VisualState)
+            {
+                case "AdminVisualState":
+                    MySqlHelper.addPatientToSimulation(SimulationPoolControl.SelectedSimulation.Id, SelectedPatient.Id);
+                    Patient.refreshPatientPool(SimulationPoolControl.SelectedSimulation.Id);
+                    UserAccount.refreshUserAccountPool(SimulationPoolControl.SelectedSimulation.Id);
+                    MainWindow.Instance.loadBottomGrid(ParentControl);
+                    break;
+                case "StationVisualState":
+                    MessageBox.Show("StationVisualState Select pressed!");
+                    break;
+            }
         }
 
         private void patientPoolListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -117,5 +135,6 @@ namespace SimPatient
             MedicationDose.refreshMedicationDosePool(PatientPoolControl.SelectedPatient.Id);
             PatientEditorWindow.Instance.ShowDialog();
         }
+
     } //End class PatientPoolControl
 } //End namespace SimPatient

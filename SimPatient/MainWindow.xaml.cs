@@ -17,9 +17,6 @@ using WinForms = System.Windows.Forms;
 using System.Windows.Threading;
 using System.Windows.Markup;
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
 using Zen.Barcode;
 using System.IO;
 using System.Drawing.Imaging;
@@ -68,7 +65,7 @@ namespace SimPatient
             //---add control            
             loadBottomGrid(LoginControl.Instance);
 
-            this.Closing +=MainWindow_Closing;
+            this.Closing += MainWindow_Closing;
 
         /*End MainWindow()*/}
 
@@ -124,6 +121,9 @@ namespace SimPatient
 
         private void Window_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            //make sure preferences has the main window as its owner
+            PreferencesWindow.Instance.Owner = this;
+
             PreferencesWindow.loadPreferences();
 
             DBConnection dbCon = new DBConnection

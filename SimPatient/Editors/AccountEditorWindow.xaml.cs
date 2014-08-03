@@ -144,8 +144,8 @@ namespace SimPatient
 		public bool isInputValid()
 		{
 			bool isValid = true;
-
-			if (Util.validateStringTextBox(usernameTextBox) == false) isValid = false;
+			//validateStringTextBox() should evaluate first, executing the string trim before the or is evaluated
+			if (Util.validateStringTextBox(usernameTextBox) == false || usernameTextBox.Text.Length > 40) isValid = false;
 			else if (MySqlHelper.usernameExists(usernameTextBox.Text))
 			{
 				usernameTextBox.Background = Brushes.LightPink;
@@ -153,7 +153,7 @@ namespace SimPatient
 			}
 			else usernameTextBox.Background = Brushes.White;
 
-			if (passwordBox.Password.Length < 4)
+			if (passwordBox.Password.Length < 4 || passwordBox.Password.Length > 40)
 			{
 				passwordBox.Background = Brushes.LightPink;
 				isValid = false;
@@ -172,12 +172,12 @@ namespace SimPatient
 
 		private void saveButton_Click(object sender, RoutedEventArgs e)
 		{
-            if (isInputValid() == false)
-            {
-                MessageBox.Show("Invalid input entered.\nPlease correct errors marked by red fields.",
-                                "Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+			if (isInputValid() == false)
+			{
+				MessageBox.Show("Invalid input entered.\nPlease correct errors marked by red fields.",
+								"Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
+			}
 
 			if (MySqlHelper.connect() == false) return;
 

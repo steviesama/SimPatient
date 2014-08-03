@@ -29,15 +29,15 @@ namespace SimPatient
 			ActionMode = ActionMode.NewMode;
 			Owner = MainWindow.Instance;
 
-            //---events
+			//---events
 			this.Closing += MedicationEditorWindow_Closing;
-            this.IsVisibleChanged += MedicationEditorWindow_IsVisibleChanged;
+			this.IsVisibleChanged += MedicationEditorWindow_IsVisibleChanged;
 		}
 
-        private void MedicationEditorWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            medicationNameTextBox.Focus();
-        }
+		private void MedicationEditorWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+			medicationNameTextBox.Focus();
+		}
 
 		private void MedicationEditorWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
@@ -117,7 +117,7 @@ namespace SimPatient
 		public static void fillMedicationInfo(Medication med)
 		{
 			if (med == null) return;
-            Instance.resetUserControls(false);
+			Instance.resetUserControls(false);
 			Instance.medicationNameTextBox.Text = med.Name;
 			Instance.strengthTextBox.Text = med.Strength;
 			Instance.routeComboBox.SelectedIndex = med.Route;
