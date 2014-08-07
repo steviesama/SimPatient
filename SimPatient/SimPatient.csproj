@@ -14,7 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <ExpressionBlendVersion>12.0.50429.0</ExpressionBlendVersion>
+    <ExpressionBlendVersion>12.0.50716.0</ExpressionBlendVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -183,6 +183,9 @@
     <Compile Include="Viewers\AccountPoolWindow.xaml.cs">
       <DependentUpon>AccountPoolWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Viewers\MarArchiveViewer.xaml.cs">
+      <DependentUpon>MarArchiveViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Viewers\MarViewer.xaml.cs">
       <DependentUpon>MarViewer.xaml</DependentUpon>
     </Compile>
@@ -263,6 +266,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Viewers\AccountPoolWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Viewers\MarArchiveViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
