@@ -26,10 +26,21 @@ namespace SimPatient
 			medicationPoolListView.DataContext = MedicationDose.MedicationDosePool;
 		}
 
+		private string _visualState;
+		public string VisualState
+		{
+			get { return _visualState; }
+			set
+			{
+				VisualStateManager.GoToState(this, value, false);
+				_visualState = value;
+			}
+		}
+
 		private void addButton_Click(object sender, RoutedEventArgs e)
 		{
 			SelectedDose = null;
-            Medication.refreshMedicationPool();
+			Medication.refreshMedicationPool();
 			MedicationPoolWindow.Instance.ShowDialog();
 		}
 
@@ -41,12 +52,13 @@ namespace SimPatient
 
 		private void selectButton_Click(object sender, RoutedEventArgs e)
 		{
-
+			if (ScanVerifyWindow.verifyMedication(SelectedDose.ForMedication) == true)
+				MedicationReconciliationWindow.reconcile(SelectedDose);
 		}
 
 		private void cancelButton_Click(object sender, RoutedEventArgs e)
 		{
-
+			MainWindow.Instance.loadBottomGrid(PatientPoolControl.Instance);
 		}
 
 		private void medicationPoolListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -57,13 +69,13 @@ namespace SimPatient
 				editButton.IsEnabled = removeButton.IsEnabled = selectButton.IsEnabled = true;
 
 			}
-            else editButton.IsEnabled = removeButton.IsEnabled = selectButton.IsEnabled = false;
+			else editButton.IsEnabled = removeButton.IsEnabled = selectButton.IsEnabled = false;
 		}
 
-        private void removeButton_Click(object sender, RoutedEventArgs e)
-        {
-            MySqlHelper.removeMedicationDose(SelectedDose.Id);
-            MedicationDose.refreshMedicationDosePool(SelectedDose.ForPatient.Id);
-        }
+		private void removeButton_Click(object sender, RoutedEventArgs e)
+		{
+			MySqlHelper.removeMedicationDose(SelectedDose.Id);
+			MedicationDose.refreshMedicationDosePool(SelectedDose.ForPatient.Id);
+		}
 	} //End class MedicationAdministrationControl
 } //End namespace SimPatient

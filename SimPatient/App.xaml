@@ -5,133 +5,158 @@
 			 StartupUri="MainWindow.xaml">
 	<Application.Resources>
 
-		<Style TargetType="GridViewColumnHeader">
-			<Setter Property="HorizontalContentAlignment" Value="Left"/>
-			<Setter Property="Padding" Value="10, 2, 2, 2"/>
-		</Style>
-		
-		<Style x:Key="GreenButtonStyle" BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
-			<Setter Property="OverridesDefaultStyle" Value="True"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="Button">
-						<Border Name="border"                                
-								BorderThickness="1"
-								Padding="1"
-								Background="{TemplateBinding Background}">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-						</Border>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsEnabled" Value="False">
-								<Setter Property="Opacity" Value="0.5"/>
-							</Trigger>
-							<Trigger Property="IsPressed" Value="False">
-								<Setter TargetName="border" Property="BorderBrush" Value="#FF008000"/>
-								<Setter TargetName="border" Property="Background" Value="#9919C819"/>
-							</Trigger>
-							<Trigger Property="IsMouseOver" Value="True">
-								<Setter TargetName="border" Property="BorderBrush" Value="#FF008000"/>
-								<Setter TargetName="border" Property="Background" Value="#9902B202"/>
-							</Trigger>
-							<Trigger Property="IsPressed" Value="True">
-								<Setter TargetName="border" Property="Background" Value="#99008000"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-		
-		<Style x:Key="RedButtonStyle" BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
-			<Setter Property="OverridesDefaultStyle" Value="True"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="Button">
-						<Border Name="border" 
-								BorderThickness="1"
-								Padding="1"
-								Background="{TemplateBinding Background}">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-						</Border>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsEnabled" Value="False">
-								<Setter Property="Opacity" Value="0.5"/>
-							</Trigger>
-							<Trigger Property="IsPressed" Value="False">
-								<Setter TargetName="border" Property="BorderBrush" Value="#FFAC0000"/>
-								<Setter TargetName="border" Property="Background" Value="#99FF1919"/>
-							</Trigger>
-							<Trigger Property="IsMouseOver" Value="True">
-								<Setter TargetName="border" Property="BorderBrush" Value="#FFAC0000"/>
-								<Setter TargetName="border" Property="Background" Value="#99DA0202"/>
-							</Trigger>
-							<Trigger Property="IsPressed" Value="True">
-								<Setter TargetName="border" Property="Background" Value="#99AC0000"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Simple Styles.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
 
-		<Style x:Key="GrayButtonStyle" BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
-			<Setter Property="OverridesDefaultStyle" Value="True"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="Button">
-						<Border Name="border" 
+			<Style TargetType="{x:Type GridViewColumnHeader}">
+				<Setter Property="HorizontalContentAlignment" Value="Left"/>
+				<Setter Property="Padding" Value="10, 2, 2, 2"/>
+			</Style>
+		
+			<Style x:Key="GreenButtonStyle" BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+				<Setter Property="OverridesDefaultStyle" Value="True"/>
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Border x:Name="border"                                
 								BorderThickness="1"
 								Padding="1"
 								Background="{TemplateBinding Background}">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-						</Border>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsEnabled" Value="False">
-								<Setter Property="Opacity" Value="0.5"/>
-							</Trigger>
-							<Trigger Property="IsPressed" Value="False">
-								<Setter TargetName="border" Property="BorderBrush" Value="#FF707271"/>
-								<Setter TargetName="border" Property="Background" Value="#FFDDDDDD"/>
-							</Trigger>
-							<Trigger Property="IsMouseOver" Value="True">
-								<Setter TargetName="border" Property="BorderBrush" Value="#FF707271"/>
-								<Setter TargetName="border" Property="Background" Value="#FFCCCCCC"/>
-							</Trigger>
-							<Trigger Property="IsPressed" Value="True">
-								<Setter TargetName="border" Property="Background" Value="#FFB1B4B3"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
+								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+							</Border>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsEnabled" Value="False">
+									<Setter Property="Opacity" Value="0.5"/>
+								</Trigger>
+								<Trigger Property="IsPressed" Value="False">
+									<Setter TargetName="border" Property="BorderBrush" Value="#FF008000"/>
+									<Setter TargetName="border" Property="Background" Value="#9919C819"/>
+								</Trigger>
+								<Trigger Property="IsMouseOver" Value="True">
+									<Setter TargetName="border" Property="BorderBrush" Value="#FF008000"/>
+									<Setter TargetName="border" Property="Background" Value="#9902B202"/>
+								</Trigger>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter TargetName="border" Property="Background" Value="#99008000"/>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
 		
-		<x:Array x:Key="InjectionSiteStringArray" Type="sys:String"
-				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-				 xmlns:sys="clr-namespace:System;assembly=mscorlib">
-			<sys:String>None</sys:String>
-			<sys:String>L.U.Q.</sys:String>
-			<sys:String>R.U.Q.</sys:String>
-			<sys:String>L. Thigh</sys:String>
-			<sys:String>R. Thigh</sys:String>
-			<sys:String>L. Arm</sys:String>
-			<sys:String>R. Arm</sys:String>
-			<sys:String>L. ABD</sys:String>
-			<sys:String>R. ABD</sys:String>
-			<sys:String>LVG</sys:String>
-			<sys:String>RVG</sys:String>
-		</x:Array>
+			<Style x:Key="RedButtonStyle" BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+				<Setter Property="OverridesDefaultStyle" Value="True"/>
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Border x:Name="border" 
+								BorderThickness="1"
+								Padding="1"
+								Background="{TemplateBinding Background}">
+								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+							</Border>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsEnabled" Value="False">
+									<Setter Property="Opacity" Value="0.5"/>
+								</Trigger>
+								<Trigger Property="IsPressed" Value="False">
+									<Setter TargetName="border" Property="BorderBrush" Value="#FFAC0000"/>
+									<Setter TargetName="border" Property="Background" Value="#99FF1919"/>
+								</Trigger>
+								<Trigger Property="IsMouseOver" Value="True">
+									<Setter TargetName="border" Property="BorderBrush" Value="#FFAC0000"/>
+									<Setter TargetName="border" Property="Background" Value="#99DA0202"/>
+								</Trigger>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter TargetName="border" Property="Background" Value="#99AC0000"/>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
 
-		<x:Array x:Key="RouteCodeStringArray" Type="sys:String"
-				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-				 xmlns:sys="clr-namespace:System;assembly=mscorlib">
-			<sys:String>IM</sys:String>
-			<sys:String>ID</sys:String>
-			<sys:String>SQ</sys:String>
-			<sys:String>IV</sys:String>
-			<sys:String>PO</sys:String>
-			<sys:String>SL</sys:String>
-			<sys:String>TP</sys:String>
-		</x:Array>
+			<Style x:Key="GrayButtonStyle" BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+				<Setter Property="OverridesDefaultStyle" Value="True"/>
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Border x:Name="border" 
+								BorderThickness="1"
+								Padding="1"
+								Background="{TemplateBinding Background}">
+								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+							</Border>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsEnabled" Value="False">
+									<Setter Property="Opacity" Value="0.5"/>
+								</Trigger>
+								<Trigger Property="IsPressed" Value="False">
+									<Setter TargetName="border" Property="BorderBrush" Value="#FF707271"/>
+									<Setter TargetName="border" Property="Background" Value="#FFDDDDDD"/>
+								</Trigger>
+								<Trigger Property="IsMouseOver" Value="True">
+									<Setter TargetName="border" Property="BorderBrush" Value="#FF707271"/>
+									<Setter TargetName="border" Property="Background" Value="#FFCCCCCC"/>
+								</Trigger>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter TargetName="border" Property="Background" Value="#FFB1B4B3"/>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+			<Style x:Key="RedTextBlockStyle" BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
+				<Setter Property="OverridesDefaultStyle" Value="True"/>
+				<Setter Property="Background" Value="Red"/>
+				<Setter Property="Foreground" Value="White"/>
+			</Style>
+
+			<Style x:Key="YellowTextBlockStyle" BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
+				<Setter Property="OverridesDefaultStyle" Value="True"/>
+				<Setter Property="Background" Value="#FFF2D600"/>
+				<Setter Property="Foreground" Value="White"/>
+			</Style>
+
+			<Style x:Key="GreenTextBlockStyle" BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
+				<Setter Property="OverridesDefaultStyle" Value="True"/>
+				<Setter Property="Background" Value="Green"/>
+				<Setter Property="Foreground" Value="White"/>
+			</Style>
+
+
+			<x:Array
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="InjectionSiteStringArray" Type="{x:Type sys:String}">
+				<sys:String>None</sys:String>
+				<sys:String>L.U.Q.</sys:String>
+				<sys:String>R.U.Q.</sys:String>
+				<sys:String>L. Thigh</sys:String>
+				<sys:String>R. Thigh</sys:String>
+				<sys:String>L. Arm</sys:String>
+				<sys:String>R. Arm</sys:String>
+				<sys:String>L. ABD</sys:String>
+				<sys:String>R. ABD</sys:String>
+				<sys:String>LVG</sys:String>
+				<sys:String>RVG</sys:String>
+			</x:Array>
+
+			<x:Array
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="RouteCodeStringArray" Type="{x:Type sys:String}">
+				<sys:String>IM</sys:String>
+				<sys:String>ID</sys:String>
+				<sys:String>SQ</sys:String>
+				<sys:String>IV</sys:String>
+				<sys:String>PO</sys:String>
+				<sys:String>SL</sys:String>
+				<sys:String>TP</sys:String>
+			</x:Array>
+		</ResourceDictionary>
 	</Application.Resources>
 </Application>

@@ -58,7 +58,7 @@ namespace SimPatient
 			if (MySqlHelper.connect() == false) return;
 
 			DBConnection dbCon = MySqlHelper.dbCon;
-            ArrayList response = dbCon.selectQuery("SELECT * from tblPatient AS p WHERE 0 = (SELECT COUNT(pp.pat_id) FROM tblPatientPool AS pp WHERE pp.pat_id=p.id) ORDER BY name");
+			ArrayList response = dbCon.selectQuery("SELECT * from tblPatient AS p WHERE 0 = (SELECT COUNT(pp.pat_id) FROM tblPatientPool AS pp WHERE pp.pat_id=p.id) ORDER BY name");
 
 			MySqlHelper.disconnect();
 
@@ -74,7 +74,7 @@ namespace SimPatient
 
 			DBConnection dbCon = MySqlHelper.dbCon;
 			ArrayList response = dbCon.selectQuery(
-                "SELECT * FROM tblPatient AS p WHERE p.id = (SELECT pp.pat_id FROM tblPatientPool AS pp WHERE pp.pat_id=p.id AND pp.sim_id=" + simId + ") ORDER BY name");
+				"SELECT * FROM tblPatient AS p WHERE p.id = (SELECT pp.pat_id FROM tblPatientPool AS pp WHERE pp.pat_id=p.id AND pp.sim_id=" + simId + ") ORDER BY name");
 
 			MySqlHelper.disconnect();
 
@@ -99,23 +99,23 @@ namespace SimPatient
 			pat.Weight           = (short)arrayList[8];
 			pat.Gender           = ((string)arrayList[9]) == "MALE" ? PatientGender.Male : PatientGender.Female;
 			pat.Notes            = (string)arrayList[10];
-			pat.ParentSimulation = Simulation.fromMySqlUserAccountPool(pat.Id);
+			pat.ParentSimulation = Simulation.fromMySqlPatientPool(pat.Id);
 
 			return pat;
 		}
 
-        public static Patient fromMySqlPatient(long pat_id)
-        {
-            MySqlHelper.connect();
+		public static Patient fromMySqlPatient(long pat_id)
+		{
+			MySqlHelper.connect();
 
-            DBConnection dbCon = MySqlHelper.dbCon;
-            ArrayList response = dbCon.selectQuery(string.Format("SELECT * FROM tblPatient WHERE id={0}", pat_id));
+			DBConnection dbCon = MySqlHelper.dbCon;
+			ArrayList response = dbCon.selectQuery(string.Format("SELECT * FROM tblPatient WHERE id={0}", pat_id));
 
-            MySqlHelper.disconnect();
+			MySqlHelper.disconnect();
 
-            if (response.Count == 0) return null;
+			if (response.Count == 0) return null;
 
-            return Patient.fromArrayList(response[0] as ArrayList);
-        }
+			return Patient.fromArrayList(response[0] as ArrayList);
+		}
 	} //End class Patient
 } //End namespace SimPatient

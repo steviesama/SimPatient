@@ -32,6 +32,26 @@ namespace SimPatient
             {
                 VisualStateManager.GoToState(PatientPoolControl.Instance, value, false);
                 _visualState = value;
+                refresh();
+            }
+        }
+
+        public static void refresh()
+        {
+            if (_visualState == "AdminVisualState")
+            {
+                PatientPoolControl.Instance.DataContext = Patient.Patients;
+                Patient.refreshPatients();
+            }
+            else if (MainWindow.CurrentUser.ParentSimulation == null)
+            {
+                PatientPoolControl.Instance.DataContext = Patient.PatientPool;
+                Patient.PatientPool.Clear();
+            }
+            else
+            {
+                PatientPoolControl.Instance.DataContext = Patient.PatientPool;
+                Patient.refreshPatientPool(MainWindow.CurrentUser.ParentSimulation.Id);
             }
         }
 
@@ -66,9 +86,6 @@ namespace SimPatient
 
             //default to select mode
             ActionMode = ActionMode.SelectMode;
-
-            patientPoolListView.DataContext = Patient.Patients;
-            Patient.refreshPatients();
         }
 
         private ActionMode _actionMode;
@@ -90,7 +107,6 @@ namespace SimPatient
                 }
             }
         }
-
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
@@ -114,7 +130,8 @@ namespace SimPatient
                     MainWindow.Instance.loadBottomGrid(ParentControl);
                     break;
                 case "StationVisualState":
-                    MessageBox.Show("StationVisualState Select pressed!");
+                    if (ScanVerifyWindow.verifyPatient(PatientPoolControl.SelectedPatient) == true)
+                        MainWindow.Instance.loadBottomGrid(new PatientViewer(PatientPoolControl.SelectedPatient.Id, DateTime.Today));
                     break;
             }
         }

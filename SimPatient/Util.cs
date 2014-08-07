@@ -316,7 +316,7 @@ namespace SimPatient
 
 		} //End cropBitmap()
 
-		private static Bitmap padBitmap(Bitmap bmp, double padScale)
+		public static Bitmap padBitmap(Bitmap bmp, double padScale)
 		{
 			int widthShim = (int)(bmp.Width * padScale);
 			int heightShim = (int)(bmp.Height * padScale);
@@ -335,7 +335,7 @@ namespace SimPatient
 			return target;
 		}
 
-		private static Bitmap resizeBitmap(Bitmap bitmap, Size size)
+		public static Bitmap resizeBitmap(Bitmap bitmap, Size size)
 		{
 			Bitmap b = new Bitmap(640, 480);
 			Graphics gfx = Graphics.FromImage(b);
@@ -344,7 +344,7 @@ namespace SimPatient
 			return b;
 		}
 
-		private static DrawImage resizeImage(DrawImage imgToResize, Size size)
+		public static DrawImage resizeImage(DrawImage imgToResize, Size size)
 		{
 			int sourceWidth = imgToResize.Width;
 			int sourceHeight = imgToResize.Height;
@@ -415,6 +415,14 @@ namespace SimPatient
 			return bmp;
 		}
 		
+		public static bool isOnTime(TimeSpan checkTime, TimeSpan scheduleTime, int timeRange)
+		{
+			TimeSpan before = scheduleTime.Subtract(new TimeSpan(0, timeRange, 0));
+			TimeSpan after = scheduleTime.Add(new TimeSpan(0, timeRange, 0));
+
+			return checkTime.CompareTo(before) >= 0 && checkTime.CompareTo(after) <= 0 ? true : false;
+		}
+
 		#region Control Validation Functions
 
 		public static bool validateStringTextBox(TextBox textBox)

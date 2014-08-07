@@ -22,6 +22,8 @@ using PatientGender = SimPatient.Patient.PatientGender;
 using SUT.PrintEngine;
 using SUT.PrintEngine.Utils;
 
+using System.Diagnostics;
+
 namespace SimPatient
 {
 	/// <summary>
@@ -228,7 +230,7 @@ namespace SimPatient
 			if ((long)(response[0] as ArrayList)[0] == 0)
 				MessageBox.Show("Patient not saved.", "Save Error", MessageBoxButton.OK, MessageBoxImage.Error);
 			else Patient.refreshPatients();
-
+			
 			return (long)(response[0] as ArrayList)[0];
 		}
 

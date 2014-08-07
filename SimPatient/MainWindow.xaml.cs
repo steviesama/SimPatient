@@ -109,11 +109,6 @@ namespace SimPatient
             return doc;
         }
 
-        private void mnuPatientEditor_Click(object sender, RoutedEventArgs e)
-        {
-            (new PatientEditorWindow()).ShowDialog();
-        }
-
         private void mnuPreferences_Click(object sender, RoutedEventArgs e)
         {
             PreferencesWindow.Instance.ShowDialog();
@@ -145,11 +140,6 @@ namespace SimPatient
             bottomGrid.Children.Remove(currentControl);
             currentControl = userControl;
             bottomGrid.Children.Add(currentControl);
-
-            if(userControl is SimulationPoolControl)
-                mnuEditors.Visibility = Visibility.Visible;
-            else if (userControl is LoginControl)
-                mnuEditors.Visibility = Visibility.Collapsed;
         }
 
         private void mnuLogout_Click(object sender, RoutedEventArgs e)
@@ -348,7 +338,45 @@ namespace SimPatient
         }
     }
 
+    [ValueConversion(typeof(object), typeof(string))]
+    public class AdministrationTimeConverter : BaseConverter, IValueConverter
+    {
+        public AdministrationTimeConverter() { /*shut-up compiler*/ }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((value is DateTime) == false)
+                throw new InvalidOperationException("The target must be a DateTime");
 
-#endregion Value Converters
+            DateTime dateTime = (DateTime)value;
 
+            return dateTime == null ? "Refused" : dateTime.ToString("HHmm");
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
+    [ValueConversion(typeof(object), typeof(string))]
+    public class ReasonCodeConverter : BaseConverter, IValueConverter
+    {
+        public ReasonCodeConverter() { /*shut-up compiler*/ }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((value is int) == false)
+                throw new InvalidOperationException("The target must be an int");
+
+            int reason = (int)value;
+            
+            return  reason == 0 ? "Yes" : "No";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
+    #endregion Value Converters
 } //End namespace SimPatient

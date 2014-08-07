@@ -71,12 +71,26 @@ namespace SimPatient
 			return sim;
 		}
 
-		public static Simulation fromMySqlUserAccountPool(long id)
+		public static Simulation fromMySqlPatientPool(long patId)
 		{
 			MySqlHelper.connect();
 
 			DBConnection dbCon = MySqlHelper.dbCon;
-			ArrayList response = dbCon.selectQuery(string.Format("CALL simulation_from_user_id({0})", id));
+			ArrayList response = dbCon.selectQuery(string.Format("CALL simulation_from_pat_id({0})", patId));
+
+			MySqlHelper.disconnect();
+
+			if (response.Count == 0) return null;
+
+			return Simulation.fromArrayList(response[0] as ArrayList);
+		}
+
+		public static Simulation fromMySqlUserAccountPool(long userId)
+		{
+			MySqlHelper.connect();
+
+			DBConnection dbCon = MySqlHelper.dbCon;
+			ArrayList response = dbCon.selectQuery(string.Format("CALL simulation_from_user_id({0})", userId));
 
 			MySqlHelper.disconnect();
 

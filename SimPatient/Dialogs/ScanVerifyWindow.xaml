@@ -1,0 +1,17 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="SimPatient.ScanVerifyWindow" SizeToContent="WidthAndHeight" ShowInTaskbar="False"
+	x:Name="Window" Title="Scan Verify" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
+
+	<Grid x:Name="LayoutRoot" Width="320" Height="90" FocusManager.FocusedElement="{Binding ElementName=scanTextBox}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		
+		<TextBlock Name="statusTextBlock" Text="Ready..." Style="{StaticResource YellowTextBlockStyle}"
+				   Grid.Row="0" FontSize="48" TextAlignment="Center"/>
+		<TextBox Name="scanTextBox" Grid.Row="1" TextAlignment="Center"/>
+	</Grid>
+</Window>

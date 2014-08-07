@@ -1,0 +1,48 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:local="clr-namespace:SimPatient"
+	mc:Ignorable="d" x:Class="SimPatient.PatientViewer" x:Name="UserControl" d:DesignHeight="414.388" d:DesignWidth="710.823">
+
+    <Grid x:Name="LayoutRoot" Background="White">
+
+        <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Patient Name" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+        <TextBox x:Name="patientNameTextBox" Height="23" Margin="10,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934" Focusable="False"/>
+        <TextBlock Margin="185.934,9,0,0" TextWrapping="Wrap" Text="Date of Birth" VerticalAlignment="Top" HorizontalAlignment="Left" Width="107.132"/>
+        <DatePicker x:Name="dobDatePicker" HorizontalAlignment="Left" Margin="185.934,29.96,0,0" VerticalAlignment="Top" Width="121.132" Focusable="False" IsEnabled="False"/>
+        <TextBox x:Name="allergiesTextBox" Height="23" Margin="312.066,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="96.868" Focusable="False"/>
+        <TextBox x:Name="diagnosisTextBox" Height="23" Margin="413.934,31.062,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="91.934" Focusable="False"/>
+        <TextBlock Margin="10,58.96,0,0" TextWrapping="Wrap" Text="Physician Name" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+        <TextBox x:Name="drNameTextBox" Height="23" Margin="10,80.022,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934" Focusable="False"/>
+        <TextBox x:Name="dietTextBox" Focusable="False" Height="23" Margin="185.934,80.022,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Reg" HorizontalAlignment="Left" Width="68.934"/>
+        <TextBox x:Name="roomNumberTextBox" Height="23" Margin="259.868,80.022,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="68.934" Focusable="False"/>
+        <TextBox x:Name="weightTextBox" HorizontalAlignment="Left" Height="23" Margin="333.802,80.021,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75.132" Focusable="False"/>
+        <TextBlock Margin="413.935,58.96,0,0" TextWrapping="Wrap" Text="Id" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+        <TextBox x:Name="mrIdTextBox" HorizontalAlignment="Left" Height="23" Margin="413.934,80.022,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92.066" Focusable="False"/>
+        <CheckBox x:Name="autoIdCheckBox" Content="Auto-Id" IsChecked="True" HorizontalAlignment="Left" Margin="413.934,108.021,0,0" VerticalAlignment="Top" Focusable="False" IsEnabled="False"/>
+        <RadioButton x:Name="optMale" Content="Male" IsChecked="True" HorizontalAlignment="Left" Margin="11.533,108.021,0,0" VerticalAlignment="Top" Focusable="False" IsEnabled="False"/>
+        <RadioButton x:Name="optFemale" Content="Female" HorizontalAlignment="Left" Margin="101.443,108.021,0,0" VerticalAlignment="Top" Focusable="False" IsEnabled="False"/>
+        <TextBlock Margin="312.066,10.102,0,0" TextWrapping="Wrap" Text="Allergies" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+        <TextBlock Margin="185.934,59.062,0,0" TextWrapping="Wrap" Text="Diet" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+        <TextBlock Margin="413.935,10.102,0,0" TextWrapping="Wrap" Text="Diagnosis" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+        <TextBlock Margin="259.868,58.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Text="Room #"/>
+        <TextBlock Margin="510.868,10.102,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+        <TextBlock Margin="333.802,59.061,0,0" TextWrapping="Wrap" Text="Weight" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+        <TextBox x:Name="notesTextBox" VerticalScrollBarVisibility="Auto" Height="113.573" Margin="510.868,31.062,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Focusable="False"/>
+        <TabControl Margin="10,142.306,10,10" Style="{DynamicResource SimpleTabControl}">
+            <TabItem Header="Medication Administration">
+                <Grid Background="#FFE5E5E5">
+                    <local:MedicationAdministrationControl x:Name="medAdminPool"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Administered">
+                <Grid Background="#FFE5E5E5">
+                    <local:MarViewer x:Name="marPool"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</UserControl>

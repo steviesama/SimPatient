@@ -3,9 +3,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:nx="clr-namespace:SimPatient"  mc:Ignorable="d"
-	x:Class="SimPatient.MedicationAdministrationControl"
-	x:Name="UserControl" d:DesignWidth="800" d:DesignHeight="480">
+	xmlns:nx="clr-namespace:SimPatient" mc:Ignorable="d"
+	x:Class="SimPatient.MarViewer" x:Name="UserControl" d:DesignWidth="640" d:DesignHeight="480">
 
 	<Grid Name="LayoutRoot" Background="White">
 		<VisualStateManager.VisualStateGroups>
@@ -68,25 +67,63 @@
 							<DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
 						</BooleanAnimationUsingKeyFrames>
 						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="selectButton">
-							<EasingDoubleKeyFrame KeyTime="0" Value="-160"/>
+							<EasingDoubleKeyFrame KeyTime="0" Value="-266.165"/>
 						</DoubleAnimationUsingKeyFrames>
 						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="selectButton">
-							<EasingDoubleKeyFrame KeyTime="0" Value="1.129"/>
+							<EasingDoubleKeyFrame KeyTime="0" Value="2.258"/>
 						</DoubleAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="removeButton">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="selectButton">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="addButton">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="editButton">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+						</ObjectAnimationUsingKeyFrames>
 					</Storyboard>
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
-		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Medication Administration Pool" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
-		<ListView Name="medicationPoolListView" Margin="10,30.96,10,34.96" SelectionChanged="medicationPoolListView_SelectionChanged"
-				  ItemsSource="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+		<ListView Name="medicationPoolListView" Margin="10,10,10,0" SelectionChanged="medicationPoolListView_SelectionChanged"
+				  ItemsSource="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="111" VerticalAlignment="Top">
 			<ListView.View>
 				<GridView>
+					<GridViewColumn Header="Initials" Width="60">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<TextBlock Text="{Binding Initials}"/>
+								</StackPanel>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Header="Admin Time" Width="90">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<TextBlock Text="{Binding AdministrationTime, Converter={nx:AdministrationTimeConverter}}"/>
+								</StackPanel>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Header="On Schedule" Width="90">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<TextBlock Text="{Binding ReasonCode, Converter={nx:ReasonCodeConverter}}"/>
+								</StackPanel>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
 					<GridViewColumn Header="Name" Width="150">
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Text="{Binding ForMedication.Name}"/>
+									<TextBlock Text="{Binding ForDose.ForMedication.Name}"/>
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
@@ -95,7 +132,7 @@
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Text="{Binding ForMedication.Strength}"/>
+									<TextBlock Text="{Binding ForDose.ForMedication.Strength}"/>
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
@@ -104,7 +141,7 @@
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Text="{Binding ForMedication.Route, Converter={nx:RouteToStringConverter}}"/>
+									<TextBlock Text="{Binding ForDose.ForMedication.Route, Converter={nx:RouteToStringConverter}}"/>
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
@@ -113,57 +150,39 @@
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<StackPanel>
-									<TextBlock Text="{Binding Schedule}"/>
+									<TextBlock Text="{Binding ForDose.Schedule}"/>
 								</StackPanel>
 							</DataTemplate>
 						</GridViewColumn.CellTemplate>
-					</GridViewColumn>
-					<GridViewColumn Header="Start" Width="75">
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel>
-									<TextBlock Text="{Binding StartTime, Converter={nx:DateTimeConverter}}"/>
-								</StackPanel>
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-					</GridViewColumn>
-					<GridViewColumn Header="Stop" Width="75">
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel>
-									<TextBlock Text="{Binding StopTime}"/>
-								</StackPanel>
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-					</GridViewColumn>
-					<GridViewColumn Header="2300-0659" Width="75">
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel>
-									<TextBlock Text="{Binding Converter={nx:FirstTimePeriodConverter}}"/>
-								</StackPanel>
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-					</GridViewColumn>
-					<GridViewColumn Header="0700-1459" Width="75">
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel>
-									<TextBlock Text="{Binding Converter={nx:SecondTimePeriodConverter}}"/>
-								</StackPanel>
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-					</GridViewColumn>
-					<GridViewColumn Header="1500-2259" Width="75">
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel>
-									<TextBlock Text="{Binding Converter={nx:ThirdTimePeriodConverter}}"/>
-								</StackPanel>
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-					</GridViewColumn>
-				</GridView>
+                    </GridViewColumn>
+                    <GridViewColumn Header="2300-0659" Width="75">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding ForDose, Converter={nx:FirstTimePeriodConverter}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="0700-1459" Width="75">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding ForDose, Converter={nx:SecondTimePeriodConverter}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="1500-2259" Width="75">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding ForDose, Converter={nx:ThirdTimePeriodConverter}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
 			</ListView.View>
 		</ListView>
 		<Button Name="cancelButton" Content="Cancel" Style="{StaticResource GrayButtonStyle}" Click="cancelButton_Click"
@@ -177,7 +196,7 @@
 				</TransformGroup>
 			</Button.RenderTransform>
 		</Button>
-		<Button Name="removeButton" IsEnabled="False" Content="Remove" Style="{StaticResource RedButtonStyle}" Click="removeButton_Click"
+		<Button Name="removeButton" IsEnabled="False" Content="Remove" Style="{StaticResource RedButtonStyle}"
 		 HorizontalAlignment="Left" Margin="90,0,0,9.96" VerticalAlignment="Bottom" Width="75" Height="20" RenderTransformOrigin="0.5,0.5">
 			<Button.RenderTransform>
 				<TransformGroup>
@@ -199,7 +218,7 @@
 				</TransformGroup>
 			</Button.RenderTransform>
 		</Button>
-		<Button Name="addButton" Style="{StaticResource GreenButtonStyle}" Content="Add" Click="addButton_Click"
+		<Button Name="addButton" Style="{StaticResource GreenButtonStyle}" Content="Add"
 			Margin="10,0,0,9" HorizontalAlignment="Left" Width="75" Height="20" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5">
 			<Button.RenderTransform>
 				<TransformGroup>
@@ -210,7 +229,7 @@
 				</TransformGroup>
 			</Button.RenderTransform>
 		</Button>
-		<Button IsEnabled="False" Name="editButton" Content="Edit" Style="{StaticResource GrayButtonStyle}" Click="editButton_Click"
+		<Button IsEnabled="False" Name="editButton" Content="Edit" Style="{StaticResource GrayButtonStyle}"
 			Margin="170,0,0,10" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" RenderTransformOrigin="0.5,0.5">
 			<Button.RenderTransform>
 				<TransformGroup>
@@ -221,6 +240,11 @@
 				</TransformGroup>
 			</Button.RenderTransform>
 		</Button>
-
+		<TextBox x:Name="reasonTextBox" HorizontalAlignment="Left" Height="23" Margin="10,146.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" Focusable="False"/>
+		<TextBlock HorizontalAlignment="Left" Margin="10,126,0,0" TextWrapping="Wrap" Text="Off-Schedule Reason" VerticalAlignment="Top"/>
+		<TextBox x:Name="reasonNotesTextBox" HorizontalAlignment="Left" Margin="10,195.92,0,35" TextWrapping="Wrap" Width="296" Focusable="False"/>
+		<TextBlock HorizontalAlignment="Left" Margin="10,174.96,0,0" TextWrapping="Wrap" Text="Reason Notes" VerticalAlignment="Top"/>
+		<TextBox x:Name="adminNotesTextBox" Margin="311,146.96,10,35" TextWrapping="Wrap" Focusable="False"/>
+		<TextBlock HorizontalAlignment="Left" Margin="311,126,0,0" TextWrapping="Wrap" Text="Administration Notes" VerticalAlignment="Top"/>
 	</Grid>
 </UserControl>

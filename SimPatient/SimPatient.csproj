@@ -28,7 +28,7 @@
     <InstallUrl>http://cstaylorjr.com/sim-patient/</InstallUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.html</WebPage>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -70,6 +70,33 @@
     <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Composite">
+      <HintPath>.\Microsoft.Practices.Composite.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Composite.Presentation">
+      <HintPath>.\Microsoft.Practices.Composite.Presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Composite.UnityExtensions">
+      <HintPath>.\Microsoft.Practices.Composite.UnityExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching">
+      <HintPath>.\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching.Database">
+      <HintPath>.\Microsoft.Practices.EnterpriseLibrary.Caching.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
+      <HintPath>.\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder2">
+      <HintPath>.\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>.\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>.\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -125,6 +152,9 @@
     <Compile Include="Dialogs\PreferencesWindow.xaml.cs">
       <DependentUpon>PreferencesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ScanVerifyWindow.xaml.cs">
+      <DependentUpon>ScanVerifyWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editors\AccountEditorWindow.xaml.cs">
       <DependentUpon>AccountEditorWindow.xaml</DependentUpon>
     </Compile>
@@ -141,7 +171,7 @@
       <DependentUpon>LoginControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MySqlHelper.cs" />
-    <Compile Include="Pool Viewers\AccountPoolControl.xaml.cs">
+    <Compile Include="Viewers\AccountPoolControl.xaml.cs">
       <DependentUpon>AccountPoolControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\PatientEditorWindow.xaml.cs">
@@ -150,16 +180,22 @@
     <Compile Include="Editors\SimulationEditorControl.xaml.cs">
       <DependentUpon>SimulationEditorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pool Viewers\AccountPoolWindow.xaml.cs">
+    <Compile Include="Viewers\AccountPoolWindow.xaml.cs">
       <DependentUpon>AccountPoolWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pool Viewers\MedicationAdministrationControl.xaml.cs">
+    <Compile Include="Viewers\MarViewer.xaml.cs">
+      <DependentUpon>MarViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Viewers\MedicationAdministrationControl.xaml.cs">
       <DependentUpon>MedicationAdministrationControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pool Viewers\MedicationPoolWindow.xaml.cs">
+    <Compile Include="Viewers\MedicationPoolWindow.xaml.cs">
       <DependentUpon>MedicationPoolWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pool Viewers\SimulationPoolControl.xaml.cs">
+    <Compile Include="Viewers\PatientViewer.xaml.cs">
+      <DependentUpon>PatientViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Viewers\SimulationPoolControl.xaml.cs">
       <DependentUpon>SimulationPoolControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="SplashScreenWindow.xaml.cs">
@@ -175,6 +211,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\PreferencesWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\ScanVerifyWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -198,7 +238,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pool Viewers\AccountPoolControl.xaml">
+    <Page Include="Simple Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Viewers\AccountPoolControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -218,19 +262,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pool Viewers\AccountPoolWindow.xaml">
+    <Page Include="Viewers\AccountPoolWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pool Viewers\MedicationAdministrationControl.xaml">
+    <Page Include="Viewers\MarViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pool Viewers\MedicationPoolWindow.xaml">
+    <Page Include="Viewers\MedicationAdministrationControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pool Viewers\PatientPoolControl.xaml">
+    <Page Include="Viewers\MedicationPoolWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Viewers\PatientPoolControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -238,7 +286,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pool Viewers\SimulationPoolControl.xaml">
+    <Page Include="Viewers\PatientViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Viewers\SimulationPoolControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -248,7 +300,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pool Viewers\PatientPoolControl.xaml.cs">
+    <Compile Include="Viewers\PatientPoolControl.xaml.cs">
       <DependentUpon>PatientPoolControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -276,9 +328,9 @@
     </None>
     <AppDesigner Include="Properties\" />
     <None Include="SimPatient_TemporaryKey.pfx" />
-    <None Include="SUT.PrintEngine.App.config">
+    <Content Include="SUT.PrintEngine.App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
