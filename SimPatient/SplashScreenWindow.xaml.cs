@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Threading;
 using System.Windows.Threading;
 
+using System.Diagnostics;
+
 namespace SimPatient
 {
     /// <summary>
@@ -31,6 +33,12 @@ namespace SimPatient
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void helpHyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            string currentDirectory = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+            Process.Start(currentDirectory + "/Help/help.html");
         }
     }
 }

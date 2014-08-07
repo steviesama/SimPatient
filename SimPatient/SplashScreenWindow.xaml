@@ -1,26 +1,32 @@
 ﻿<Window x:Class="SimPatient.SplashScreenWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" ShowInTaskbar="False"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" WindowStartupLocation="CenterScreen"
-        Title="SplashScreenWindow" SizeToContent="WidthAndHeight" Background="#7FFFFFFF" AllowsTransparency="True" WindowStyle="None">
-    <Grid>
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" ShowInTaskbar="False"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" WindowStartupLocation="CenterScreen"
+		Title="SplashScreenWindow" SizeToContent="WidthAndHeight" Background="#BFFFFFFF" AllowsTransparency="True" WindowStyle="None">
+	<Grid>
 		<Border BorderThickness="2" BorderBrush="Black">
 			<Border Padding="5">
 				<StackPanel Width="Auto">
 					<Image Width="550" Height="Auto" Source="sim-patient-logo.png" HorizontalAlignment="Left"/>
+					<TextBlock/>
+					<TextBlock FontSize="18" Text="Click for video tutorial help using SimPatient:"/>
+					<TextBlock FontSize="18">
+						<Hyperlink x:Name="helpHyperlink" Click="helpHyperlink_Click">help.html</Hyperlink>
+					</TextBlock>
+					<TextBlock/>
 					<TextBlock FontSize="18"  Width="Auto" Text="Designed &amp; Programmed By: C.S. Taylor, Jr."/>
 					<StackPanel Name="stackPanel" Orientation="Horizontal" Width="Auto">
 						<Grid Width="{Binding ElementName=stackPanel, Path=ActualWidth}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
 							<TextBlock FontSize="18" Text="E-Mail: steviesama@gmail.com" Grid.Column="0"/>
-							<Button Content="Close" Style="{StaticResource GreenButtonStyle}" Width="75"  Grid.Column="2" Click="Button_Click"
+							<Button Content="Close" Style="{StaticResource GreenButtonStyle}" Width="75"  Grid.Column="1" Click="Button_Click"
 							 HorizontalAlignment="Right"/>
 						</Grid>
 					</StackPanel>
 				</StackPanel>
 			</Border>
 		</Border>
-    </Grid>
+	</Grid>
 </Window>

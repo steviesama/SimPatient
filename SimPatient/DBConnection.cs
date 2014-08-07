@@ -322,8 +322,8 @@ namespace SimPatient
             //close Data Reader
             dataReader.Close();
 
-                //close Connection
-            //    this.CloseConnection();
+            //  close Connection
+            //  this.CloseConnection();
             //}
             
             //if list is empty, no records

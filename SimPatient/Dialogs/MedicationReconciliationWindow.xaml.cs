@@ -34,8 +34,8 @@ namespace SimPatient
 			if (IsVisible == true)
 			{
 				if(Mar.ForDose.Schedule != "PRN")
-                    if (Util.isOnTime(DateTime.Now.TimeOfDay, Mar.ForDose.TimePeriod.TimeOfDay, 15) == false)
-					    MedicationOffScheduleWindow.getReason(Mar);
+					if (Util.isOnTime(DateTime.Now.TimeOfDay, Mar.ForDose.TimePeriod.TimeOfDay, 15) == false)
+						MedicationOffScheduleWindow.getReason(Mar);
 			}
 		}
 
