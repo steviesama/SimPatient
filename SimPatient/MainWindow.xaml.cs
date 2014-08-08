@@ -144,7 +144,14 @@ namespace SimPatient
 
         private void mnuLogout_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow.Instance.mnuMarArchiverViewer.IsEnabled = false;
             loadBottomGrid(LoginControl.Instance);
+        }
+
+        private void mnuMarArchiverViewer_Click(object sender, RoutedEventArgs e)
+        {
+            MarArchiveViewer marArchiveViewer = new MarArchiveViewer();
+            marArchiveViewer.ShowDialog();
         }
 
     } //End class MainWindow

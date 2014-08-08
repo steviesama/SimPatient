@@ -20,8 +20,8 @@ namespace SimPatient
 		public MarArchiveViewer()
 		{
 			this.InitializeComponent();
-			
-			// Insert code required on object creation below this point.
+			Owner = MainWindow.Instance;
+			marViewer.VisualState = "NoInputVisualState";
 		}
 	}
 }

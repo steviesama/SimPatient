@@ -21,59 +21,61 @@ namespace SimPatient
 	/// </summary>
 	public partial class LoginControl : UserControl
 	{
-        private static LoginControl _loginControl;
-        public static LoginControl Instance
-        {
-            get
-            {
-                if (_loginControl == null)
-                    _loginControl = new LoginControl();
+		private static LoginControl _loginControl;
+		public static LoginControl Instance
+		{
+			get
+			{
+				if (_loginControl == null)
+					_loginControl = new LoginControl();
 
-                _loginControl.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    _loginControl.usernameTextBox.Text = "";
-                    _loginControl.passwordBox.Password = "";
-                    _loginControl.usernameTextBox.Focus();
-                }));
+				_loginControl.Dispatcher.BeginInvoke(new Action(() =>
+				{
+					_loginControl.usernameTextBox.Text = "";
+					_loginControl.passwordBox.Password = "";
+					_loginControl.usernameTextBox.Focus();
+				}));
 
-                MainWindow.Instance.mnuLogout.IsEnabled = false;
-                PreferencesWindow.Instance.userAccountTabItem.IsEnabled = false;
+				MainWindow.Instance.mnuLogout.IsEnabled = false;
+				PreferencesWindow.Instance.userAccountTabItem.IsEnabled = false;
 
-                return _loginControl;
-            }
-        }
+				return _loginControl;
+			}
+		}
 
 		private LoginControl()
 		{
 			this.InitializeComponent();
 		}
 
-        private void Login_Click(object sender, RoutedEventArgs e)
-        {
-            UserAccount ua = MySqlHelper.requestLogin(usernameTextBox.Text, passwordBox.SecurePassword.convertToUnsecureString());
+		private void Login_Click(object sender, RoutedEventArgs e)
+		{
+			UserAccount ua = MySqlHelper.requestLogin(usernameTextBox.Text, passwordBox.SecurePassword.convertToUnsecureString());
 
-            MainWindow.CurrentUser = ua;
+			MainWindow.CurrentUser = ua;
 
-            if (ua == null)
-                MessageBox.Show("Invalid Username or Password.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            else
-            {
-                MainWindow.Instance.mnuLogout.IsEnabled = true;
-                PreferencesWindow.Instance.userAccountTabItem.IsEnabled = true;
-                UserControl userControl = null;
-                if(ua.Type == UserAccountType.Administrator)
-                {
-                    userControl = SimulationPoolControl.Instance;
-                    PatientPoolControl.VisualState = "AdminVisualState";
-                }
-                else
-                {
-                    userControl = PatientPoolControl.Instance;
-                    PatientPoolControl.VisualState = "StationVisualState";
-                }
+			if (ua == null)
+				MessageBox.Show("Invalid Username or Password.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			else
+			{
+				MainWindow.Instance.mnuLogout.IsEnabled = true;
+				PreferencesWindow.Instance.userAccountTabItem.IsEnabled = true;
+				UserControl userControl = null;
+				if(ua.Type == UserAccountType.Administrator)
+				{
+					userControl = SimulationPoolControl.Instance;
+					MainWindow.Instance.mnuMarArchiverViewer.IsEnabled = true;
+					PatientPoolControl.VisualState = "AdminVisualState";
+				}
+				else
+				{
+					userControl = PatientPoolControl.Instance;
+					MainWindow.Instance.mnuMarArchiverViewer.IsEnabled = false;
+					PatientPoolControl.VisualState = "StationVisualState";
+				}
 
-                MainWindow.Instance.loadBottomGrid(userControl);
-            }
-        }
+				MainWindow.Instance.loadBottomGrid(userControl);
+			}
+		}
 	}
 }

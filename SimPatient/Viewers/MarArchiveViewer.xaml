@@ -2,16 +2,18 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:local="clr-namespace:SimPatient" ShowInTaskbar="False"
-	x:Class="SimPatient.MarArchiveViewer" ResizeMode="NoResize"
+	x:Class="SimPatient.MarArchiveViewer" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
 	x:Name="Window" Title="MAR Archive Viewer" SizeToContent="WidthAndHeight">
 
-	<Grid x:Name="LayoutRoot" Width="800" Height="600">
-		<DatePicker x:Name="dobDatePicker" HorizontalAlignment="Right" Margin="0,28.92,543.868,0" VerticalAlignment="Top" Width="121.132"/>
-		<local:MarViewer Height="330.88" VerticalAlignment="Bottom"/>
-		<TextBlock HorizontalAlignment="Left" Margin="135,7.96,0,0" TextWrapping="Wrap" Text="From" VerticalAlignment="Top"/>
-		<DatePicker x:Name="dobDatePicker_Copy" HorizontalAlignment="Right" Margin="0,28.92,417.736,0" VerticalAlignment="Top" Width="121.132"/>
-		<TextBlock HorizontalAlignment="Left" Margin="261.132,7.96,0,0" TextWrapping="Wrap" Text="To" VerticalAlignment="Top"/>
-		<TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Simuation" VerticalAlignment="Top"/>
-		<ComboBox HorizontalAlignment="Left" Margin="10,30.96,0,0" VerticalAlignment="Top" Width="120"/>
+	<Grid x:Name="LayoutRoot" Width="850" Height="504">
+		<ComboBox x:Name="simulationComboBox" HorizontalAlignment="Left" Margin="10,30.96,0,0" VerticalAlignment="Top" Width="120"/>
+		<DatePicker x:Name="adminDatePicker" HorizontalAlignment="Left" Margin="135,28.92,0,0" VerticalAlignment="Top" Width="121.132"/>
+		<local:MarViewer x:Name="marViewer" Margin="0,173.12,0,0"/>
+		<TextBlock HorizontalAlignment="Left" Margin="135,7.96,0,0" TextWrapping="Wrap" Text="Administration Date" VerticalAlignment="Top"/>
+		<TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Simluation" VerticalAlignment="Top"/>
+		<TextBlock HorizontalAlignment="Left" Margin="261.132,7.96,0,0" TextWrapping="Wrap" Text="Patient(s)" VerticalAlignment="Top"/>
+		<ListBox x:Name="patientsListBox" Height="144.2" Margin="261.132,28.92,15,0" VerticalAlignment="Top"/>
+		<Button x:Name="loadButton" Content="Load" Style="{StaticResource GreenButtonStyle}"
+				HorizontalAlignment="Left" Margin="10,57.92,0,0" VerticalAlignment="Top" Width="75"/>
 	</Grid>
 </Window>
