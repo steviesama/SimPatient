@@ -84,6 +84,21 @@ namespace SimPatient
 				PatientPool.Add(fromArrayList(arrayList));
 		}
 
+		public static void refreshPatientPoolFromMars(long simId, DateTime date)
+		{
+			if (MySqlHelper.connect() == false) return;
+
+			DBConnection dbCon = MySqlHelper.dbCon;
+			ArrayList response = dbCon.selectQuery(string.Format("CALL patients_from_mars_by_sim({0}, '{1}')", simId, date.ToString("yyyy-MM-dd")));
+
+			MySqlHelper.disconnect();
+
+			PatientPool.Clear();
+
+			foreach (ArrayList arrayList in response)
+				PatientPool.Add(fromArrayList(arrayList));
+		}
+
 		public static Patient fromArrayList(ArrayList arrayList)
 		{
 			Patient pat = new Patient();

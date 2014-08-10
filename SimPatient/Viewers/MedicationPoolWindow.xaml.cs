@@ -31,8 +31,8 @@ namespace SimPatient
 
 		private void MedicationPoolWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-            e.Cancel = true;
-            MedicationDose.refreshMedicationDosePool(PatientPoolControl.SelectedPatient.Id);
+			e.Cancel = true;
+			MedicationDose.refreshMedicationDosePool(PatientPoolControl.SelectedPatient.Id);
 			Hide();
 		}
 
@@ -68,14 +68,14 @@ namespace SimPatient
 
 		private void cancelButton_Click(object sender, RoutedEventArgs e)
 		{
-            //close is intercepted and the refresh of the dose pool is called
-            Close();
+			//close is intercepted and the refresh of the dose pool is called
+			Close();
 		}
 
 		private void newButton_Click(object sender, RoutedEventArgs e)
 		{
 			Medication.refreshMedicationPool();
-            //implicitly sets new mode
+			//implicitly sets new mode
 			MedicationEditorWindow.EmptyInstance.ShowDialog();
 		}
 
@@ -84,9 +84,9 @@ namespace SimPatient
 			if ((sender as ListView).SelectedItem != null)
 			{
 				SelectedMedication = (sender as ListView).SelectedItem as Medication;
-				selectButton.IsEnabled = editButton.IsEnabled = true;
+				selectButton.IsEnabled = editButton.IsEnabled = deleteButton.IsEnabled = true;
 			}
-			else selectButton.IsEnabled = editButton.IsEnabled = false;
+            else selectButton.IsEnabled = editButton.IsEnabled = deleteButton.IsEnabled = false;
 		}
 
 		private void selectButton_Click(object sender, RoutedEventArgs e)
@@ -97,9 +97,25 @@ namespace SimPatient
 
 		private void editButton_Click(object sender, RoutedEventArgs e)
 		{
-            //implicitly sets edit mode
-            MedicationEditorWindow.fillMedicationInfo(SelectedMedication);
-            MedicationEditorWindow.Instance.ShowDialog();
+			//implicitly sets edit mode
+			MedicationEditorWindow.fillMedicationInfo(SelectedMedication);
+			MedicationEditorWindow.Instance.ShowDialog();
+		}
+
+		private void deleteButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (MessageBoxResult.No == MessageBox.Show("Are you sure you want to delete this medication?",
+													   "Confirmation", MessageBoxButton.YesNo,
+													   MessageBoxImage.Warning)) return;
+			if (MySqlHelper.connect() == false) return;
+
+			if (MySqlHelper.dbCon.deleteQuery("DELETE FROM tblMedication WHERE id=" +
+											  (medicationPoolListView.SelectedItem as Medication).Id) == false)
+				MessageBox.Show("Delete is not possible.\nMedication is referenced by other records in the database.",
+								"Delete Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			else Medication.refreshMedicationPool();
+
+			MySqlHelper.disconnect();
 		}
 	} //End class MedicationPoolWindow
 } //End namespace SimPatient

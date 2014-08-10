@@ -95,9 +95,9 @@ namespace SimPatient
 			if ((sender as ListView).SelectedItem != null)
 			{
 				SelectedUserAccount = (sender as ListView).SelectedItem as UserAccount;
-				actionButton.IsEnabled = true;
+				actionButton.IsEnabled = deleteButton.IsEnabled = true;
 			}
-			else actionButton.IsEnabled = false;
+            else actionButton.IsEnabled = deleteButton.IsEnabled = false;
 		}
 
 		private void actionButton_Click(object sender, RoutedEventArgs e)
@@ -114,5 +114,21 @@ namespace SimPatient
 			UserAccount.refreshUserAccountPool(SimulationPoolControl.SelectedSimulation.Id);
 			MainWindow.Instance.loadBottomGrid(ParentControl);
 		}
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBoxResult.No == MessageBox.Show("Are you sure you want to delete this user account?",
+                                                       "Confirmation", MessageBoxButton.YesNo,
+                                                       MessageBoxImage.Warning)) return;
+            if (MySqlHelper.connect() == false) return;
+
+            if (MySqlHelper.dbCon.deleteQuery("DELETE FROM tblUserAccount WHERE id=" +
+                                              (accountListView.SelectedItem as UserAccount).Id) == false)
+                MessageBox.Show("Delete is not possible.\nUser Account is referenced by other records in the database.",
+                                "Delete Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else UserAccount.refreshUserAccounts();
+
+            MySqlHelper.disconnect();
+        }
 	} //End class AccountPoolControl
 } //End namespace SimPatient

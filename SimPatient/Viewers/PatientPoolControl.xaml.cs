@@ -141,9 +141,9 @@ namespace SimPatient
             if ((sender as ListView).SelectedItem != null)
             {
                 SelectedPatient = (sender as ListView).SelectedItem as Patient;
-                selectButton.IsEnabled = editButton.IsEnabled = true;
+                selectButton.IsEnabled = editButton.IsEnabled = deleteButton.IsEnabled = true;
             }
-            else selectButton.IsEnabled = editButton.IsEnabled = false;
+            else selectButton.IsEnabled = editButton.IsEnabled = deleteButton.IsEnabled = false;
         }
 
         private void editButton_Click(object sender, RoutedEventArgs e)
@@ -153,5 +153,20 @@ namespace SimPatient
             PatientEditorWindow.Instance.ShowDialog();
         }
 
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBoxResult.No == MessageBox.Show("Are you sure you want to delete this patient?",
+                                                       "Confirmation", MessageBoxButton.YesNo,
+                                                       MessageBoxImage.Warning)) return;
+            if (MySqlHelper.connect() == false) return;
+
+            if (MySqlHelper.dbCon.deleteQuery("DELETE FROM tblPatient WHERE id=" +
+                                              (patientPoolListView.SelectedItem as Patient).Id) == false)
+                MessageBox.Show("Delete is not possible.\nPatient is referenced by other records in the database.",
+                                "Delete Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else Patient.refreshPatients();
+
+            MySqlHelper.disconnect();
+        }
     } //End class PatientPoolControl
 } //End namespace SimPatient

@@ -180,9 +180,6 @@
     <Compile Include="Editors\SimulationEditorControl.xaml.cs">
       <DependentUpon>SimulationEditorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Viewers\AccountPoolWindow.xaml.cs">
-      <DependentUpon>AccountPoolWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Viewers\MarArchiveViewer.xaml.cs">
       <DependentUpon>MarArchiveViewer.xaml</DependentUpon>
     </Compile>
@@ -262,10 +259,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Editors\PatientEditorWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Viewers\AccountPoolWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

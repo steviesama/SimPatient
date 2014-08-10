@@ -42,7 +42,8 @@
 				</GridView>
 			</ListView.View>
 		</ListView>
-		<Button IsEnabled="False" Content="Delete" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Left" Margin="90,0,0,10" VerticalAlignment="Bottom" Width="75"/>
+		<Button IsEnabled="False" Name="deleteButton" Content="Delete" Click="deleteButton_Click"
+				Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Left" Margin="90,0,0,10" VerticalAlignment="Bottom" Width="75"/>
 		<Button IsEnabled="False" Name="selectButton" Content="Select" Style="{StaticResource GrayButtonStyle}" Click="selectButton_Click"
 				Margin="170,0,0,10" Height="19.96" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75"/>
 		 <Button IsEnabled="False" Name="editButton" Content="Edit" Style="{StaticResource GrayButtonStyle}" Click="editButton_Click"

@@ -6,47 +6,48 @@
 	xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 	mc:Ignorable="d" x:Class="SimPatient.SimulationPoolControl" d:DesignWidth="655" d:DesignHeight="449">
 
-    <Grid x:Name="LayoutRoot"  Background="White">
-        <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Simulation Pool" VerticalAlignment="Top" HorizontalAlignment="Left" Width="110"/>
-        <ListView x:Name="simulationListView" Margin="10,30.96,10,34.96" ItemsSource="{Binding}" 
-         ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionMode="Single" SelectionChanged="simulationListView_SelectionChanged">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Name}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Created By" Width="150">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Creator}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Notes" Width="350">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Description}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button IsEnabled="False" Content="Delete" Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Left" Margin="90,0,0,10" VerticalAlignment="Bottom" Width="75" Height="20"/>
-        <Button Name="newButton" Style="{StaticResource GreenButtonStyle}" Content="New" Click="newButton_Click"
-         Margin="10,0,0,10" HorizontalAlignment="Left" Width="75" Height="20" VerticalAlignment="Bottom"/>
-        <Button Name="actionButton" Content="Action" IsEnabled="False" Style="{StaticResource GrayButtonStyle}" Click="actionButton_Click" 
-         HorizontalAlignment="Left" Margin="170,0,0,10" VerticalAlignment="Bottom" Width="75" Height="20"/>
-    </Grid>
+	<Grid x:Name="LayoutRoot"  Background="White">
+		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Simulation Pool" VerticalAlignment="Top" HorizontalAlignment="Left" Width="110"/>
+		<ListView x:Name="simulationListView" Margin="10,30.96,10,34.96" ItemsSource="{Binding}" 
+		 ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionMode="Single" SelectionChanged="simulationListView_SelectionChanged">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="Name" Width="200">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<TextBlock Text="{Binding Name}"/>
+								</StackPanel>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Header="Created By" Width="150">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<TextBlock Text="{Binding Creator}"/>
+								</StackPanel>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Header="Notes" Width="350">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<TextBlock Text="{Binding Description}"/>
+								</StackPanel>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+				</GridView>
+			</ListView.View>
+		</ListView>
+		<Button IsEnabled="False" Name="deleteButton" Content="Delete" Click="deleteButton_Click"
+				Style="{StaticResource RedButtonStyle}" HorizontalAlignment="Left" Margin="90,0,0,10" VerticalAlignment="Bottom" Width="75" Height="20"/>
+		<Button Name="newButton" Style="{StaticResource GreenButtonStyle}" Content="New" Click="newButton_Click"
+		 Margin="10,0,0,10" HorizontalAlignment="Left" Width="75" Height="20" VerticalAlignment="Bottom"/>
+		<Button Name="actionButton" Content="Action" IsEnabled="False" Style="{StaticResource GrayButtonStyle}" Click="actionButton_Click" 
+		 HorizontalAlignment="Left" Margin="170,0,0,10" VerticalAlignment="Bottom" Width="75" Height="20"/>
+	</Grid>
 
 </UserControl>

@@ -70,8 +70,8 @@ namespace SimPatient
 		{
 			//indicates that new button was clicked from other processes
 			SelectedSimulation = null;
-            UserAccount.UserAccounts.Clear();
-            Patient.PatientPool.Clear();
+			UserAccount.UserAccounts.Clear();
+			Patient.PatientPool.Clear();
 			MainWindow.Instance.loadBottomGrid(SimulationEditorControl.getEmptyInstance(this));
 		}
 
@@ -89,9 +89,25 @@ namespace SimPatient
 			if ((sender as ListView).SelectedItem != null)
 			{
 				SelectedSimulation = (sender as ListView).SelectedItem as Simulation;
-				actionButton.IsEnabled = true;
+				actionButton.IsEnabled = deleteButton.IsEnabled = true;
 			}
-			else actionButton.IsEnabled = false;
+			else actionButton.IsEnabled = deleteButton.IsEnabled = false;
+		}
+
+		private void deleteButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (MessageBoxResult.No == MessageBox.Show("Are you sure you want to delete this simulation?",
+													   "Confirmation", MessageBoxButton.YesNo,
+													   MessageBoxImage.Warning)) return;
+			if (MySqlHelper.connect() == false) return;
+
+			if (MySqlHelper.dbCon.deleteQuery("DELETE FROM tblSimulation WHERE id=" +
+											  (simulationListView.SelectedItem as Simulation).Id) == false)
+				MessageBox.Show("Delete is not possible.\nSimulation is referenced by other records in the database.",
+								"Delete Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			else Simulation.refreshSimulations();
+
+			MySqlHelper.disconnect();
 		}
 	} // End class SimulationPoolControl
 } //End namespace SimPatient
