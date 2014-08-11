@@ -62,13 +62,13 @@ namespace SimPatient
 				id.ToString() == scanTextBox.Text.Trim().Substring(index))
 			{
 				scanMatches = true;
-				statusTextBlock.Text = "Match!";
+				statusTextBlock.Text = "Verified!";
 				statusTextBlock.Style = FindResource("GreenTextBlockStyle") as Style;
 			}
 			else
 			{
 				scanMatches = false;
-				statusTextBlock.Text = "Mismatch!";
+				statusTextBlock.Text = "Not Verified!";
 				statusTextBlock.Style = FindResource("RedTextBlockStyle") as Style;
 			}
 

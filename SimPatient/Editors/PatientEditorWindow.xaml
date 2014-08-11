@@ -5,38 +5,40 @@
 	x:Class="SimPatient.PatientEditorWindow" ResizeMode="NoResize" ShowInTaskbar="False"
 	Title="Patient Editor" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" SizeChanged="Window_SizeChanged" WindowStyle="ToolWindow">
 
-    <Grid Name="LayoutRoot" Background="White" Height="349" Width="780" FocusManager.FocusedElement="{Binding ElementName=patientNameTextBox}">
-        <nx:MedicationAdministrationControl x:Name="medAdminPool" Margin="0,144.635,0,30"/>
-        <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Patient Name" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
-        <TextBox x:Name="patientNameTextBox" Height="23" Margin="10,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>
-        <TextBlock Margin="0,9,486.934,0" TextWrapping="Wrap" Text="Date of Birth" VerticalAlignment="Top" HorizontalAlignment="Right" Width="107.132"/>
-        <DatePicker x:Name="dobDatePicker" HorizontalAlignment="Right" Margin="0,29.96,472.934,0" VerticalAlignment="Top" Width="121.132"/>
-        <TextBox x:Name="allergiesTextBox" Height="23" Margin="0,30.96,371.066,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right" Width="96.868"/>
-        <TextBox x:Name="diagnosisTextBox" Height="23" Margin="413.934,31.062,274.132,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock Margin="10,58.96,0,0" TextWrapping="Wrap" Text="Physician Name" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
-        <TextBox x:Name="drNameTextBox" Height="23" Margin="10,80.022,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>
-        <TextBox x:Name="dietTextBox" Focusable="False" Height="23" Margin="185.934,80.022,525.132,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Reg"/>
-        <TextBox x:Name="roomNumberTextBox" Height="23" Margin="259.868,80.022,451.198,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="weightTextBox" HorizontalAlignment="Right" Height="23" Margin="0,80.021,371.066,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75.132"/>
-        <TextBlock Margin="0,58.96,355.805,0" TextWrapping="Wrap" Text="Id" VerticalAlignment="Top" HorizontalAlignment="Right" Width="Auto"/>
-        <TextBox x:Name="mrIdTextBox" HorizontalAlignment="Right" Height="23" Margin="0,80.022,274,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92.066" Focusable="{Binding IsChecked, Converter={nx:InverseBooleanConverter}, ElementName=autoIdCheckBox}"/>
-        <CheckBox x:Name="autoIdCheckBox" Content="Auto-Id" IsChecked="True" HorizontalAlignment="Right" Margin="0,108.021,305.404,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="optMale" Content="Male" IsChecked="True" HorizontalAlignment="Left" Margin="11.533,108.021,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="optFemale" Content="Female" HorizontalAlignment="Left" Margin="101.443,108.021,0,0" VerticalAlignment="Top"/>
-        <Button IsEnabled="False" x:Name="printBarcodeButton" Content="Print Barcode Label" Style="{StaticResource GrayButtonStyle}" Click="printBarcodeButton_Click"
+	<Grid Name="LayoutRoot" Background="White" Height="349" Width="780" FocusManager.FocusedElement="{Binding ElementName=patientNameTextBox}">
+		<nx:MedicationAdministrationControl x:Name="medAdminPool" Margin="0,144.635,0,30"/>
+		<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Patient Name" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+		<TextBox x:Name="patientNameTextBox" Height="23" Margin="10,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>
+		<TextBlock Margin="0,9,486.934,0" TextWrapping="Wrap" Text="Date of Birth" VerticalAlignment="Top" HorizontalAlignment="Right" Width="107.132"/>
+		<DatePicker x:Name="dobDatePicker" HorizontalAlignment="Right" Margin="0,29.96,472.934,0" VerticalAlignment="Top" Width="121.132"/>
+		<TextBox x:Name="allergiesTextBox" Height="23" Margin="0,30.96,371.066,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right" Width="96.868"/>
+		<TextBox x:Name="diagnosisTextBox" Height="23" Margin="413.934,31.062,274.132,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+		<TextBlock Margin="10,58.96,0,0" TextWrapping="Wrap" Text="Physician Name" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+		<TextBox x:Name="drNameTextBox" Height="23" Margin="10,80.022,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>
+		<TextBox x:Name="dietTextBox" Focusable="False" Height="23" Margin="185.934,80.022,525.132,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Reg"/>
+		<TextBox x:Name="roomNumberTextBox" Height="23" Margin="259.868,80.022,451.198,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+		<TextBox x:Name="weightTextBox" HorizontalAlignment="Right" Height="23" Margin="0,80.021,371.066,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75.132"/>
+		<TextBlock Margin="0,58.96,355.805,0" TextWrapping="Wrap" Text="Id" VerticalAlignment="Top" HorizontalAlignment="Right" Width="Auto"/>
+		<TextBox x:Name="mrIdTextBox" HorizontalAlignment="Right" Height="23" Margin="0,80.022,274,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92.066" Focusable="{Binding IsChecked, Converter={nx:InverseBooleanConverter}, ElementName=autoIdCheckBox}"/>
+		<CheckBox x:Name="autoIdCheckBox" Content="Auto-Id" IsChecked="True" HorizontalAlignment="Right" Margin="0,108.021,305.404,0" VerticalAlignment="Top"/>
+		<RadioButton x:Name="optMale" Content="Male" IsChecked="True" HorizontalAlignment="Left" Margin="11.533,108.021,0,0" VerticalAlignment="Top"/>
+		<RadioButton x:Name="optFemale" Content="Female" HorizontalAlignment="Left" Margin="101.443,108.021,0,0" VerticalAlignment="Top"/>
+		<Button IsEnabled="False" x:Name="printBarcodeButton" Content="Print Barcode Label" Style="{StaticResource GrayButtonStyle}" Click="printBarcodeButton_Click"
 		 Margin="0,0,10,39.96" HorizontalAlignment="Right" Width="155" Height="19.96" VerticalAlignment="Bottom"/>
-        <TextBlock Margin="0,10.102,422.587,0" TextWrapping="Wrap" Text="Allergies" VerticalAlignment="Top" HorizontalAlignment="Right" Width="Auto"/>
-        <TextBlock Margin="185.934,59.062,0,0" TextWrapping="Wrap" Text="Diet" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
-        <TextBlock Margin="413.935,10.102,0,0" TextWrapping="Wrap" Text="Diagnosis" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
-        <TextBlock Margin="259.868,58.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Text="Room #"/>
-        <TextBlock Margin="510.868,10.102,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
-        <TextBlock Margin="0,59.061,407.881,0" TextWrapping="Wrap" Text="Weight" VerticalAlignment="Top" HorizontalAlignment="Right" Width="Auto"/>
-        <CheckBox x:Name="closeOnSaveCheckBox" Content="Close On Save" IsChecked="True" HorizontalAlignment="Right" Margin="0,322.04,170,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="notesTextBox" VerticalScrollBarVisibility="Auto" Height="113.573" Margin="510.868,31.062,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="saveButton" Content="Save" Style="{StaticResource GreenButtonStyle}" Click="saveButton_Click"
+		<TextBlock Margin="0,10.102,422.587,0" TextWrapping="Wrap" Text="Allergies" VerticalAlignment="Top" HorizontalAlignment="Right" Width="Auto"/>
+		<TextBlock Margin="185.934,59.062,0,0" TextWrapping="Wrap" Text="Diet" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+		<TextBlock Margin="413.935,10.102,0,0" TextWrapping="Wrap" Text="Diagnosis" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+		<TextBlock Margin="259.868,58.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Text="Room #"/>
+		<TextBlock Margin="510.868,10.102,0,0" TextWrapping="Wrap" Text="Notes" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+		<TextBlock Margin="0,59.061,407.881,0" TextWrapping="Wrap" Text="Weight" VerticalAlignment="Top" HorizontalAlignment="Right" Width="Auto"/>
+		<CheckBox x:Name="closeOnSaveCheckBox" Content="Close On Save" IsChecked="True" HorizontalAlignment="Right" Margin="0,322.04,170,0" VerticalAlignment="Top"/>
+		<TextBox x:Name="notesTextBox" VerticalScrollBarVisibility="Auto" Height="113.573" Margin="510.868,31.062,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+		<Button x:Name="saveButton" Content="Save" Style="{StaticResource GreenButtonStyle}" Click="saveButton_Click"
 		 HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
-        <Button x:Name="cancelButton" Content="Cancel" Style="{StaticResource ResourceKey=GrayButtonStyle}" Click="cancelButton_Click"
+		<Button x:Name="cancelButton" Content="Cancel" Style="{StaticResource ResourceKey=GrayButtonStyle}" Click="cancelButton_Click"
 		 HorizontalAlignment="Right" Margin="0,0,10,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
-        <TextBlock HorizontalAlignment="Left" Margin="11.533,134.685,0,0" TextWrapping="Wrap" Text="Medication Administration Pool" VerticalAlignment="Top"/>
-    </Grid>
+		<TextBlock HorizontalAlignment="Left" Margin="11.533,134.685,0,0" TextWrapping="Wrap" Text="Medication Administration Pool" VerticalAlignment="Top"/>
+		<Button IsEnabled="False" x:Name="generateMarButton" Content="Generate MAR Sheet" Style="{StaticResource GrayButtonStyle}" Click="generateMarButton_Click"
+			Margin="0,0,170,39.96" HorizontalAlignment="Right" Width="155" Height="19.96" VerticalAlignment="Bottom"/>
+	</Grid>
 </Window>

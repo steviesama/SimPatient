@@ -48,6 +48,51 @@ namespace SimPatient
 			(browser.Document as IHTMLDocument2).execCommand("PRINT", true, null);
 		}
 		
+		public static string get1stTimePeriod(MedicationDose dose)
+		{
+			if (dose.Schedule.ToUpper() == "PRN") return string.Empty;
+
+			DateTime dateTime = dose.TimePeriod;
+
+			TimeSpan elevenPm = new TimeSpan(23, 0, 0);
+			TimeSpan beforeSeven = new TimeSpan(6, 59, 0);
+
+			if (dateTime.TimeOfDay.CompareTo(elevenPm) >= 0 || dateTime.TimeOfDay.CompareTo(beforeSeven) <= 0)
+				return dateTime.ToString("HHmm");
+
+			return string.Empty;
+		}
+
+		public static string get2ndTimePeriod(MedicationDose dose)
+		{
+			if (dose.Schedule.ToUpper() == "PRN") return string.Empty;
+
+			DateTime dateTime = dose.TimePeriod;
+
+			TimeSpan seven = new TimeSpan(7, 0, 0);
+			TimeSpan beforeThreePm = new TimeSpan(14, 59, 0);
+
+			if (dateTime.TimeOfDay.CompareTo(seven) >= 0 && dateTime.TimeOfDay.CompareTo(beforeThreePm) <= 0)
+				return dateTime.ToString("HHmm");
+
+			return string.Empty;
+		}
+
+		public static string get3rdTimePeriod(MedicationDose dose)
+		{
+			if (dose.Schedule.ToUpper() == "PRN") return string.Empty;
+
+			DateTime dateTime = dose.TimePeriod;
+
+			TimeSpan beforeElevenPm = new TimeSpan(22, 59, 0);
+			TimeSpan threePm = new TimeSpan(15, 0, 0);
+
+			if (dateTime.TimeOfDay.CompareTo(threePm) >= 0 && dateTime.TimeOfDay.CompareTo(beforeElevenPm) <= 0)
+				return dateTime.ToString("HHmm");
+
+			return string.Empty;
+		}
+		
 		public static DrawingVisual getDrawingVisual(BitmapImage bitmap)
 		{
 			var vis = new DrawingVisual();
