@@ -28,7 +28,7 @@
     <InstallUrl>http://cstaylorjr.com/sim-patient/</InstallUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.html</WebPage>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -64,6 +64,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>sim_patient_256px.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Drawing" />
@@ -337,6 +340,8 @@
     <Content Include="Help\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Dialogs\sim_patient_256px.ico" />
+    <Resource Include="sim_patient_256px.ico" />
     <Content Include="SUT.PrintEngine.App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

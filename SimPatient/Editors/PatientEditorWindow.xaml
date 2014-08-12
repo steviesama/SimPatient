@@ -38,7 +38,5 @@
 		<Button x:Name="cancelButton" Content="Cancel" Style="{StaticResource ResourceKey=GrayButtonStyle}" Click="cancelButton_Click"
 		 HorizontalAlignment="Right" Margin="0,0,10,10" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
 		<TextBlock HorizontalAlignment="Left" Margin="11.533,134.685,0,0" TextWrapping="Wrap" Text="Medication Administration Pool" VerticalAlignment="Top"/>
-		<Button IsEnabled="False" x:Name="generateMarButton" Content="Generate MAR Sheet" Style="{StaticResource GrayButtonStyle}" Click="generateMarButton_Click"
-			Margin="0,0,170,39.96" HorizontalAlignment="Right" Width="155" Height="19.96" VerticalAlignment="Bottom"/>
-	</Grid>
+    </Grid>
 </Window>

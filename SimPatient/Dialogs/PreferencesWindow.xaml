@@ -7,8 +7,8 @@
 	mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowInTaskbar="False"
 	SizeToContent="WidthAndHeight" WindowStyle="ToolWindow">
 
-	<Grid x:Name="LayoutRoot" Width="640" Height="480" FocusManager.FocusedElement="{Binding ElementName=mySqlHostTextBox}">
-		<TabControl Margin="10,10,10,35">
+	<Grid x:Name="LayoutRoot" Width="224" Height="333" FocusManager.FocusedElement="{Binding ElementName=mySqlHostTextBox}">
+		<TabControl x:Name="tabControl" Margin="10,10,10,35">
 			<TabItem Header="MySQL Connection">
 				<Grid Background="#FFE5E5E5">
 					<TextBox x:Name="mySqlHostTextBox" Height="23" Margin="10,30.96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934"/>
@@ -25,7 +25,16 @@
 				</Grid>
 			</TabItem>
 			<TabItem Name="userAccountTabItem" Header="User Account" IsEnabled="False">
-				<Grid Background="#FFE5E5E5"/>
+				<Grid Background="#FFE5E5E5">
+					<PasswordBox x:Name="currentPasswordBox" Height="23" Margin="10,30.96,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934" IsEnabled="False"/>
+					<PasswordBox x:Name="newPasswordBox" Height="23" Margin="10,79.92,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934" IsEnabled="False"/>
+					<PasswordBox x:Name="confirmNewPasswordBox" Height="23" Margin="10,128.88,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170.934" IsEnabled="False"/>
+					<TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Current Password" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="15.96"/>
+					<TextBlock Margin="10,58.96,0,0" TextWrapping="Wrap" Text="New Password" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="15.96"/>
+					<TextBlock Margin="10,107.92,0,0" TextWrapping="Wrap" Text="Confirm New Password" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="15.96"/>
+					<CheckBox x:Name="changePasswordCheckBox" Content="Change Password" Checked="changePasswordCheckBox_Checked" Unchecked="changePasswordCheckBox_Unchecked"
+							  HorizontalAlignment="Left" Margin="10,156.88,0,0" VerticalAlignment="Top"/>
+				</Grid>
 			</TabItem>
 		</TabControl>
 		<Button Name="saveButton" Content="Save" Style="{StaticResource GreenButtonStyle}" HorizontalAlignment="Right" Margin="0,0,90,10" VerticalAlignment="Bottom" Width="75" Height="20"

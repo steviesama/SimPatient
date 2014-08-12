@@ -33,6 +33,12 @@ namespace SimPatient
 				if (_instance == null)
 					_instance = new PreferencesWindow();
 
+				_instance.tabControl.SelectedIndex = 0;
+				_instance.changePasswordCheckBox.IsChecked = false;
+				_instance.currentPasswordBox.Password = string.Empty;
+				_instance.newPasswordBox.Password = string.Empty;
+				_instance.confirmNewPasswordBox.Password = string.Empty;
+
 				return _instance;
 			}
 		}
@@ -101,12 +107,70 @@ namespace SimPatient
 
 			sWriter.Close();
 
+			if (changePasswordCheckBox.IsChecked == true)
+				if (changePassword() == false) return;
+
 			Hide();
+		}
+
+		private bool changePassword()
+		{
+			if (isInputValid() == false) return false;
+
+			if (MySqlHelper.connect() == false) return false;
+
+			MySqlHelper.dbCon.selectQuery(string.Format("UPDATE tblUserAccount SET password='{0}' WHERE id={1}",
+										  newPasswordBox.SecurePassword.convertToUnsecureString(), MainWindow.CurrentUser.Id));
+
+			MySqlHelper.disconnect();
+
+			//store new password
+			MainWindow.CurrentUser.Password = newPasswordBox.SecurePassword.convertToUnsecureString();
+
+			return true;
+		}
+
+		public bool isInputValid()
+		{
+			bool isValid = true;
+
+			if(currentPasswordBox.SecurePassword.convertToUnsecureString() != MainWindow.CurrentUser.Password)
+			{
+				currentPasswordBox.Background = Brushes.LightPink;
+				isValid = false;
+			}
+			else currentPasswordBox.Background = Brushes.White;
+
+			if (newPasswordBox.Password.Length < 4 || newPasswordBox.Password.Length > 40)
+			{
+				newPasswordBox.Background = Brushes.LightPink;
+				isValid = false;
+			}
+			else newPasswordBox.Background = Brushes.White;
+
+			if (newPasswordBox.Password != confirmNewPasswordBox.Password)
+			{
+				confirmNewPasswordBox.Background = Brushes.LightPink;
+				isValid = false;
+			}
+			else confirmNewPasswordBox.Background = Brushes.White;
+
+			return isValid;
 		}
 
 		private void cancelButton_Click(object sender, RoutedEventArgs e)
 		{
 			Hide();
+		}
+
+		private void changePasswordCheckBox_Checked(object sender, RoutedEventArgs e)
+		{
+			currentPasswordBox.IsEnabled = newPasswordBox.IsEnabled = confirmNewPasswordBox.IsEnabled = true;
+		}
+
+		private void changePasswordCheckBox_Unchecked(object sender, RoutedEventArgs e)
+		{
+			currentPasswordBox.IsEnabled = newPasswordBox.IsEnabled = confirmNewPasswordBox.IsEnabled = false;
 		}
 	}
 

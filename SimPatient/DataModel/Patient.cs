@@ -114,6 +114,7 @@ namespace SimPatient
 			pat.Weight           = (short)arrayList[8];
 			pat.Gender           = ((string)arrayList[9]) == "MALE" ? PatientGender.Male : PatientGender.Female;
 			pat.Notes            = (string)arrayList[10];
+			pat.AdmissionDate = getPatientAdmissionDate(pat.Id);
 			pat.ParentSimulation = Simulation.fromMySqlPatientPool(pat.Id);
 
 			return pat;
@@ -131,6 +132,17 @@ namespace SimPatient
 			if (response.Count == 0) return null;
 
 			return Patient.fromArrayList(response[0] as ArrayList);
+		}
+
+		public static DateTime getPatientAdmissionDate(long patId)
+		{
+			if (MySqlHelper.connect() == false) return DateTime.Now;
+			ArrayList response = MySqlHelper.dbCon.selectQuery("SELECT admit_date FROM tblPatientPool WHERE pat_id=" + patId);
+			MySqlHelper.disconnect();
+
+			if (response.Count == 0) return DateTime.Now;
+
+			return ((DateTime)((ArrayList)response[0])[0]).Subtract(new TimeSpan(3, 0, 0, 0)); ;
 		}
 	} //End class Patient
 } //End namespace SimPatient

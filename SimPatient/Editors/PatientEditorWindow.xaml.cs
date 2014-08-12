@@ -174,13 +174,11 @@ namespace SimPatient
 			{
 				autoIdCheckBox.IsEnabled = false;
 				printBarcodeButton.IsEnabled = true;
-				generateMarButton.IsEnabled = true;
 			}
 			else
 			{
 				autoIdCheckBox.IsEnabled = true;
 				printBarcodeButton.IsEnabled = false;
-				generateMarButton.IsEnabled = false;
 			}
 
 			closeOnSaveCheckBox.IsChecked = true;
@@ -289,7 +287,12 @@ namespace SimPatient
 				PatientPoolControl.SelectedPatient = Patient.fromMySqlPatient(newId);
 				fillPatientInfo(PatientPoolControl.SelectedPatient);
 			}
-			else newId = mySqlUpdatePatient();
+			else
+			{
+				newId = mySqlUpdatePatient(); 
+				PatientPoolControl.SelectedPatient = Patient.fromMySqlPatient(PatientPoolControl.SelectedPatient.Id);
+				fillPatientInfo(PatientPoolControl.SelectedPatient);
+			}
 
 			//if close on save is checked and a good newId is set, hide the window
 			if (closeOnSaveCheckBox.IsChecked == true && newId > 0) Hide();
@@ -350,59 +353,6 @@ namespace SimPatient
 			var printControl = PrintControlFactory.Create(visualSize, visual);
 	
 			printControl.ShowPrintPreview();
-		}
-
-		private void generateMarButton_Click(object sender, RoutedEventArgs e)
-		{
-			StreamWriter sWriter = new StreamWriter("mar.html");
-			if (sWriter == null)
-			{
-				MessageBox.Show("mar.html could not be created.", "Write Error", MessageBoxButton.OK, MessageBoxImage.Error);
-				return;
-			}
-
-			Patient pat = PatientPoolControl.SelectedPatient;
-			ObservableCollection<MedicationDose> doses = MedicationDose.MedicationDosePool;
-
-			string style = @"<style>body {margin: auto;font-size: 0.8em;font-family: Calibri, Verdana, sans-serif;}" +
-							".border {border: 1px solid black; border-collapse: collapse;} .border td {border: 1px solid black;}</style>";
-			sWriter.WriteLine(@"<!doctype html><html lang='en'><head><title>MAR Sheet</title><meta charset='utf-8'>" + style + "</head><body>");
-			sWriter.WriteLine(@"<table style='width: 100%;' cellspacing='0'>");
-			sWriter.WriteLine(string.Format("<tr><td>Name: {0}</td><td>DOB: {1}</td><td>Weight: {2}</td></tr><tr><td colspan='4'>&nbsp;</td></tr>",
-							  pat.Name, pat.DateOfBirth.ToString("MM/dd/yyyy"), pat.Weight));
-			sWriter.WriteLine(string.Format("<tr><td>Physician: {0}</td><td>Diet: {1}</td><td>Allergies: {2}</td></tr><tr><td colspan='4'>&nbsp;</td></tr>",
-							  pat.DrName, pat.Diet, pat.Allergies));
-			sWriter.WriteLine(string.Format("<tr><td>Diagnosis: {0}</td><td>Room #: {1}</td><td>Id: {2}</td></tr><tr><td colspan='4'>&nbsp;</td></tr>",
-							  pat.Diagnosis, pat.RoomNumber, "MR" + pat.Id));
-			sWriter.WriteLine(string.Format("<tr><td colspan='2'>Gender: {0}</td><td>Age: 61</td></tr><tr><td colspan='4'>&nbsp;</td></tr></table>",
-				pat.Gender == PatientGender.Male ? "Male" : "Female"));
-			sWriter.WriteLine("<table class='border' style='width: 100%; border-spacing: 0; table-layout: fixed;'>");
-			sWriter.WriteLine("<tr class='border'><td style='text-align: center;' colspan='4'>Drug Name, Strength, Route, Schedule</td>" +
-							  "<td style='text-align: center;'>Start</td><td style='text-align: center;'>Stop</td><td style='text-align: center;'>2300-0659</td>" +
-							  "<td style='text-align: center;'>0700-1459</td><td style='text-align: center;'>1500-2259</td></tr>");
-			
-			//preformatted text for medication doses
-			string preformatted = "<tr class='border'><td colspan='4'>{0}, {1}, {2}, {3}</td>" +
-							  "<td>{4}</td><td>&nbsp;</td><td>{5}</td><td>{6}</td><td>{7}</td></tr>";
-			//write the doses out
-			foreach(MedicationDose d in doses)
-				sWriter.WriteLine(string.Format(preformatted, d.ForMedication.Name, d.ForMedication.Strength,
-								  Medication.Routes[d.ForMedication.Route], d.Schedule, d.StartTime.ToString("MM/dd/yyyy"),
-								  Util.get1stTimePeriod(d), Util.get2ndTimePeriod(d), Util.get3rdTimePeriod(d)));
-			
-			sWriter.WriteLine("</table>");
-			//sWriter.WriteLine("<table class='border' style='width: 100%; border-spacing: 0; table-layout: fixed;'>");
-			//sWriter.WriteLine("<tr class='border'><td style='text-align: center;' colspan='4'>Drug Name/Strength/Route/Schedule</td>" +
-			//                  "<td style='text-align: center;'>Start</td><td style='text-align: center;'>Stop</td><td style='text-align: center;'>2300-0659</td>" +
-			//                  "<td style='text-align: center;'>0700-1459</td><td style='text-align: center;'>1500-2259</td></tr>");
-
-			//sWriter.WriteLine(@"</table>");
-			sWriter.WriteLine(@"</body></html>");
-
-			sWriter.Close();
-
-			//launch in default browser
-			Process.Start("mar.html");
 		}
 	} //End class PatientEditorWindow
 } //End namespace SimPatient

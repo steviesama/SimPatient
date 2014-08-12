@@ -102,5 +102,7 @@
         <Button Name="addPatientButton" Content="Add" Style="{StaticResource GreenButtonStyle}" Click="addPatientButton_Click"
          Margin="10,0,0,39.2" HorizontalAlignment="Left" Width="75" Height="19.96" VerticalAlignment="Bottom"/>
 		<TextBlock Margin="10,292.88,0,0" TextWrapping="Wrap" Text="Patient(s)" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto"/>
+		<Button IsEnabled="False" x:Name="generateMarButton" Content="Generate MAR Sheet" Style="{StaticResource GrayButtonStyle}" Click="generateMarButton_Click"
+			Margin="170,0,0,39.2" Height="19.96" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="155"/>
 	</Grid>
 </UserControl>
