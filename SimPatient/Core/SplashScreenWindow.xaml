@@ -6,7 +6,7 @@
 		<Border BorderThickness="2" BorderBrush="Black">
 			<Border Padding="5">
 				<StackPanel Width="Auto">
-					<Image Width="550" Height="Auto" Source="sim-patient-logo.png" HorizontalAlignment="Left"/>
+					<Image Width="550" Height="Auto" Source="../Help/sim-patient-logo.png" HorizontalAlignment="Left"/>
 					<TextBlock/>
 					<TextBlock FontSize="18" Text="Click for video tutorial help using SimPatient:"/>
 					<TextBlock FontSize="18">

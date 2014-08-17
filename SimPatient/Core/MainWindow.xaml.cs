@@ -75,39 +75,6 @@ namespace SimPatient
                 Application.Current.Shutdown();
             else e.Cancel = true;
         }
-        
-        public void doEvents()
-        {
-            DispatcherFrame frame = new DispatcherFrame();
-            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background,
-                new DispatcherOperationCallback(exitFrames), frame);
-            Dispatcher.PushFrame(frame);
-        }
-
-        public object exitFrames(object f)
-        {
-            ((DispatcherFrame)f).Continue = false;
-
-            return null;
-        }
-        
-        public FixedDocument createFixedDocument(double docWidthInches, double docHeightInches)
-        {
-            FixedDocument doc = new FixedDocument();
-            Size size = new Size(96 * docWidthInches, 96 * docHeightInches);
-            doc.DocumentPaginator.PageSize = size;
-
-            PageContent page = new PageContent();
-            FixedPage fixedPage = new FixedPage();
-            fixedPage.Background = Brushes.White;
-            fixedPage.Width = size.Width;
-            fixedPage.Height = size.Height;
-
-            ((IAddChild)page).AddChild(fixedPage);
-            doc.Pages.Add(page);
-
-            return doc;
-        }
 
         private void mnuPreferences_Click(object sender, RoutedEventArgs e)
         {
@@ -219,22 +186,7 @@ namespace SimPatient
             if ((value is MedicationDose) == false)
                 throw new InvalidOperationException("The target must be a MedicationDose");
 
-            MedicationDose dose = value as MedicationDose;
-            if (dose.Schedule.ToUpper() == "PRN") return string.Empty;
-
-            DateTime dateTime = dose.TimePeriod;
-
-            TimeSpan beforeElevenPm = new TimeSpan(22, 59, 0);
-            TimeSpan elevenPm = new TimeSpan(23, 0, 0);
-            TimeSpan beforeSeven = new TimeSpan(6, 59, 0);
-            TimeSpan seven = new TimeSpan(7, 0, 0);
-            TimeSpan beforeThreePm = new TimeSpan(14, 59, 0);
-            TimeSpan threePm = new TimeSpan(15, 0, 0);
-
-            if (dateTime.TimeOfDay.CompareTo(elevenPm) >= 0 || dateTime.TimeOfDay.CompareTo(beforeSeven) <= 0)
-                return dateTime.ToString("HHmm");
-
-            return string.Empty;
+            return Util.get1stTimePeriod(value as MedicationDose);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -252,22 +204,7 @@ namespace SimPatient
             if ((value is MedicationDose) == false)
                 throw new InvalidOperationException("The target must be a MedicationDose");
 
-            MedicationDose dose = value as MedicationDose;
-            if (dose.Schedule.ToUpper() == "PRN") return string.Empty;
-
-            DateTime dateTime = dose.TimePeriod;
-
-            TimeSpan beforeElevenPm = new TimeSpan(22, 59, 0);
-            TimeSpan elevenPm = new TimeSpan(23, 0, 0);
-            TimeSpan beforeSeven = new TimeSpan(6, 59, 0);
-            TimeSpan seven = new TimeSpan(7, 0, 0);
-            TimeSpan beforeThreePm = new TimeSpan(14, 59, 0);
-            TimeSpan threePm = new TimeSpan(15, 0, 0);
-
-            if (dateTime.TimeOfDay.CompareTo(seven) >= 0 && dateTime.TimeOfDay.CompareTo(beforeThreePm) <= 0)
-                return dateTime.ToString("HHmm");
-
-            return string.Empty;
+            return Util.get2ndTimePeriod(value as MedicationDose);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -285,22 +222,7 @@ namespace SimPatient
             if ((value is MedicationDose) == false)
                 throw new InvalidOperationException("The target must be a MedicationDose");
 
-            MedicationDose dose = value as MedicationDose;
-            if (dose.Schedule.ToUpper() == "PRN") return string.Empty;
-
-            DateTime dateTime = dose.TimePeriod;
-
-            TimeSpan beforeElevenPm = new TimeSpan(22, 59, 0);
-            TimeSpan elevenPm = new TimeSpan(23, 0, 0);
-            TimeSpan beforeSeven = new TimeSpan(6, 59, 0);
-            TimeSpan seven = new TimeSpan(7, 0, 0);
-            TimeSpan beforeThreePm = new TimeSpan(14, 59, 0);
-            TimeSpan threePm = new TimeSpan(15, 0, 0);
-
-            if (dateTime.TimeOfDay.CompareTo(threePm) >= 0 && dateTime.TimeOfDay.CompareTo(beforeElevenPm) <= 0)
-                return dateTime.ToString("HHmm");
-
-            return string.Empty;
+            return Util.get3rdTimePeriod(value as MedicationDose);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

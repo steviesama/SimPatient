@@ -95,7 +95,7 @@ namespace SimPatient
             {
                 ArrayList response = dbCon.selectQuery(string.Format("INSERT INTO tblUserAccountPool VALUES({0}, {1})", userId, simId));
             }
-            catch(MySqlException ex)
+            catch(MySqlException)
             {
                 MessageBox.Show("Already in User Account Pool.", "Insert Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
@@ -136,7 +136,7 @@ namespace SimPatient
                 //add admit data parameter and argument to this call
                 ArrayList response = dbCon.selectQuery(string.Format("INSERT INTO tblPatientPool VALUES({0}, {1}, CURRENT_DATE())", simId, patId));
             }
-            catch (MySqlException ex)
+            catch (MySqlException)
             {
                 //MessageBox.Show(ex.Message, ex.Number.ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
                 MessageBox.Show("Already in Patient Pool.", "Insert Error", MessageBoxButton.OK, MessageBoxImage.Error);

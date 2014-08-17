@@ -136,7 +136,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Convert.cs" />
+    <Compile Include="Core\Convert.cs" />
     <Compile Include="DataModel\Medication.cs" />
     <Compile Include="DataModel\MedicationAdministrationRecord.cs" />
     <Compile Include="DataModel\MedicationDose.cs" />
@@ -145,7 +145,7 @@
     <Compile Include="DataModel\RouteToStringConverter.cs" />
     <Compile Include="DataModel\Simulation.cs" />
     <Compile Include="DataModel\UserAccount.cs" />
-    <Compile Include="DBConnection.cs" />
+    <Compile Include="Core\DBConnection.cs" />
     <Compile Include="Dialogs\MedicationDoseEditorWindow.xaml.cs">
       <DependentUpon>MedicationDoseEditorWindow.xaml</DependentUpon>
     </Compile>
@@ -170,10 +170,10 @@
     <Compile Include="Editors\MedicationEditorWindow.xaml.cs">
       <DependentUpon>MedicationEditorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoginControl.xaml.cs">
+    <Compile Include="Core\LoginControl.xaml.cs">
       <DependentUpon>LoginControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MySqlHelper.cs" />
+    <Compile Include="Core\MySqlHelper.cs" />
     <Compile Include="Viewers\AccountPoolControl.xaml.cs">
       <DependentUpon>AccountPoolControl.xaml</DependentUpon>
     </Compile>
@@ -201,10 +201,10 @@
     <Compile Include="Viewers\SimulationPoolControl.xaml.cs">
       <DependentUpon>SimulationPoolControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SplashScreenWindow.xaml.cs">
+    <Compile Include="Core\SplashScreenWindow.xaml.cs">
       <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Util.cs" />
+    <Compile Include="Core\Util.cs" />
     <Page Include="Dialogs\MedicationDoseEditorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -237,7 +237,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="LoginControl.xaml">
+    <Page Include="Core\LoginControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -249,7 +249,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Core\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -257,7 +257,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Core\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -297,7 +297,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SplashScreenWindow.xaml">
+    <Page Include="Core\SplashScreenWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -370,7 +370,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="sim-patient-logo.png" />
+    <Resource Include="Core\sim-patient-logo.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
