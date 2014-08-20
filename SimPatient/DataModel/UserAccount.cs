@@ -1,20 +1,29 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using System.Collections;
-using System.Windows;
 using System.Collections.ObjectModel;
 
 namespace SimPatient
 {
+    /// <summary>
+    /// Class that models the tblUserAccount MySQL database data and provides
+    /// methods that marshal such data from the database.
+    /// </summary>
 	public class UserAccount
 	{
+        /// <summary>
+        /// Enumeration used to determine the account type of a given UserAccount object.
+        /// </summary>
 	    public enum UserAccountType { Administrator, Station }
 
         private static ObservableCollection<UserAccount> _userAccounts;
+        /// <summary>
+        /// A static collection of UserAccount objects that leverages the fact
+        /// that ObservableCollection from the System.Collection.ObjectModel namespace
+        /// implements INotifyPropertyChanged so that when the collection is modified
+        /// any UI components that have this collection set as its DataContext will be
+        /// updated each time it is modified.
+        /// </summary>
         public static ObservableCollection<UserAccount> UserAccounts
         {
             get
@@ -26,6 +35,7 @@ namespace SimPatient
             }
         }
 
+        //---member property reflecting the fields in the database
 		public long Id { get; set; }
 		public string Username { get; set; }
 		public string Password { get; set; }
@@ -38,6 +48,12 @@ namespace SimPatient
 		//the simulation this object is associated with
         public Simulation ParentSimulation { get; set; }
 
+        /// <summary>
+        /// Static method used to create a UserAccount objects from
+        /// the supplied ArrayList.
+        /// </summary>
+        /// <param name="arrayList">An ArrayList containing the UserAccount fields.</param>
+        /// <returns>A UserAccount object constructed from the supplied ArrayList.</returns>
         public static UserAccount fromArrayList(ArrayList arrayList)
         {
             UserAccount ua = new UserAccount();
@@ -56,6 +72,10 @@ namespace SimPatient
             return ua;
         }
 
+        /// <summary>
+        /// Refreshes the UserAccounts static property with the all UserAccounts that are Stations
+        /// and not already bound to a simulation.
+        /// </summary>
         public static void refreshUserAccounts()
         {
             if (MySqlHelper.connect() == false) return;
@@ -72,6 +92,11 @@ namespace SimPatient
                 UserAccounts.Add(fromArrayList(arrayList));
         }
 
+        /// <summary>
+        /// Refreshes the UserAccounts static property with the UserAccounts that are associated with
+        /// the simulation identified by the supplied simId.
+        /// </summary>
+        /// <param name="simId">A long value containing the simulation id to compare user accounts against.</param>
         public static void refreshUserAccountPool(long simId)
         {
             if (MySqlHelper.connect() == false) return;

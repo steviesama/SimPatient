@@ -1,19 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-using System.Threading;
-using System.Windows.Threading;
+﻿using System.Windows;
 
 using System.Diagnostics;
 
@@ -24,17 +9,27 @@ namespace SimPatient
     /// </summary>
     public partial class SplashScreenWindow : Window
     {
+        /// <summary>
+        /// Constructs the SplashScreenWindow and sets its owner
+        /// to the MainWindow instance before it is displayed.
+        /// </summary>
         public SplashScreenWindow()
         {
             InitializeComponent();
             Owner = MainWindow.Instance;
         }
 
+        /// <summary>
+        /// Close button Click event handler.
+        /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Help hyperlink Click event handler.
+        /// </summary>
         private void helpHyperlink_Click(object sender, RoutedEventArgs e)
         {
             string currentDirectory = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);

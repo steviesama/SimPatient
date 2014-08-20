@@ -112,6 +112,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Printing" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
@@ -163,9 +164,6 @@
     </Compile>
     <Compile Include="Dialogs\MedicationReconciliationWindow.xaml.cs">
       <DependentUpon>MedicationReconciliationWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\AccountEditorControl.xaml.cs">
-      <DependentUpon>AccountEditorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\MedicationEditorWindow.xaml.cs">
       <DependentUpon>MedicationEditorWindow.xaml</DependentUpon>
@@ -226,10 +224,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\MedicationReconciliationWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Editors\AccountEditorControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,22 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using SimPatient.DataModel;
+﻿using SimPatient.DataModel;
 using System.Windows;
 using System.Collections;
 
 using MySql.Data.MySqlClient;
+
 namespace SimPatient
 {
+    /// <summary>
+    /// Contains MySQL Connector/DBConnection static helper functions.
+    /// </summary>
     public static class MySqlHelper
     {
+        /// <summary>
+        /// The database connection reference for use after MySqlHelper.connect() is called.
+        /// </summary>
         public static DBConnection dbCon { get; set; }
 
+        /// <summary>
+        /// Attempts a connection to the MySQL server specified in the PreferencesWindow
+        /// using the credentials also specified there and returns true or false depending
+        /// on if the connection was successful.
+        /// </summary>
+        /// <returns>A boolean value reflecting whether or not the connection to the
+        /// MySQL database was successful or not.</returns>
         public static bool connect()
         {
+            //This is tightly coupled with DBConnection and preferably shouldn't be.
             PreferencesWindow.loadPreferences();
 
             if (dbCon != null)
@@ -34,12 +43,24 @@ namespace SimPatient
             return dbCon.openConnection();
         }
 
+        /// <summary>
+        /// Disconnects from the MySQL database that was previously connected
+        /// to if a connection object is allocated.
+        /// </summary>
         public static void disconnect()
         {
             if (dbCon == null)
                 dbCon.closeConnection();
         }
 
+        /// <summary>
+        /// Used to validate the passed login information, returning true or
+        /// false depending on if the user credentials are valid.
+        /// </summary>
+        /// <param name="username">A string holding the username.</param>
+        /// <param name="password">A string holding the password.</param>
+        /// <returns>A boolean value reflecting whether or not the user
+        /// credentials are valid or not.</returns>
         public static bool loginIsValid(string username, string password)
         {
             if(connect() == false)
@@ -52,6 +73,13 @@ namespace SimPatient
             return result;
         }
 
+        /// <summary>
+        /// Used to request a login from the MySQL back end.
+        /// </summary>
+        /// <param name="username">A string holding the username.</param>
+        /// <param name="password">A string holding the password.</param>
+        /// <returns>A valid UserAccount object if the login was successful
+        /// or null if not.</returns>
         public static UserAccount requestLogin(string username, string password)
         {
             if (connect() == false)
@@ -69,6 +97,12 @@ namespace SimPatient
             return UserAccount.fromArrayList(response[0] as ArrayList);
         }
 
+        /// <summary>
+        /// Used to determine if a username exist in the database or not.
+        /// </summary>
+        /// <param name="username">A string holding the username.</param>
+        /// <returns>A boolean value reflecting whether or not the
+        /// supplied username exists in the database or not.</returns>
         public static bool usernameExists(string username)
         {
             if (connect() == false)
@@ -83,6 +117,14 @@ namespace SimPatient
             return (response.Count == 0) ? false : true;
         }
 
+        /// <summary>
+        /// Used to bind a user account to a simulation by adding them to
+        /// the Account Pool in the back end.
+        /// </summary>
+        /// <param name="simId">A long value holding a simulation id.</param>
+        /// <param name="userId">A long value holding a user id.</param>
+        /// <returns>A boolean value reflecting whether or not the user account
+        /// was successfully associated with the simulation.</returns>
         public static bool addUserAccountToSimulation(long simId, long userId)
         {
             if (connect() == false)
@@ -103,12 +145,16 @@ namespace SimPatient
 
             disconnect();
 
-            //if (response.Count == 0)
-            //    return false;
-
             return true;
         }
 
+        /// <summary>
+        /// Used to unbind a user account for any simulations it may be
+        /// bound to in the Account Pool.
+        /// </summary>
+        /// <param name="userId">A long value holding a user id.</param>
+        /// <returns>A boolean value reflecting whether or not the user
+        /// account was successfully unbound from simulations.</returns>
         public static bool removeUserAccountFromSimulation(long userId)
         {
             if (connect() == false)
@@ -123,6 +169,14 @@ namespace SimPatient
             return true;
         }
 
+        /// <summary>
+        /// Used to bind a patient to a simulation by adding them to
+        /// the Patient Pool in the back end.
+        /// </summary>
+        /// <param name="simId">A long value holding a simulation id.</param>
+        /// <param name="patId">A long value holding a patient id.</param>
+        /// <returns>A boolean value reflecting whether or not the
+        /// patient was successfully added to the Patient Pool.</returns>
         public static bool addPatientToSimulation(long simId, long patId)
         {
             if (connect() == false)
@@ -151,6 +205,13 @@ namespace SimPatient
             return true;
         }
 
+        /// <summary>
+        /// Used to unbind a patient for any simulations it may be
+        /// bound to in the Patient Pool.
+        /// </summary>
+        /// <param name="patId">A long value holding a patient id.</param>
+        /// <returns>A boolean value reflecting whether or not the
+        /// patient was successfully unbound from any simulations.</returns>
         public static bool removePatientFromSimulation(long patId)
         {
             if (connect() == false)
@@ -165,6 +226,12 @@ namespace SimPatient
             return true;
         }
 
+        /// <summary>
+        /// Used to remove a medication dose from the Medication Pool (tblMedicationDose).
+        /// </summary>
+        /// <param name="doseId">A long value holding a medication dose id./param>
+        /// <returns>A boolean value reflecting whether or not the
+        /// removal was successful.</returns>
         public static bool removeMedicationDose(long doseId)
         {
             if (connect() == false)

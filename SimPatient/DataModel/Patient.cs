@@ -1,19 +1,30 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using System.Collections;
 using System.Collections.ObjectModel;
 
 namespace SimPatient
 {
+    /// <summary>
+    /// Class that models the tblPatient MySQL database data and provides
+    /// methods that marshal such data from the database.
+    /// </summary>
 	public class Patient
 	{
+        /// <summary>
+        /// An enumeration used to determine the gender of a patient.
+        /// </summary>
 		public enum PatientGender { Male, Female }
 
 		private static ObservableCollection<Patient> _patients;
+        /// <summary>
+        /// A static collection of Patient objects that leverages the fact
+        /// that ObservableCollection from the System.Collection.ObjectModel namespace
+        /// implements INotifyPropertyChanged so that when the collection is modified
+        /// any UI components that have this collection set as its DataContext will be
+        /// updated each time it is modified.  This collection is used as a list of
+        /// patients available to be associated with simulations.
+        /// </summary>
 		public static ObservableCollection<Patient> Patients
 		{
 			get
@@ -26,6 +37,12 @@ namespace SimPatient
 		}
 
 		private static ObservableCollection<Patient> _patientPool;
+        /// <summary>
+        /// Like the Patients ObservableCollection above, except it is used as
+        /// a list of patients associated with the currently selected simulation.
+        /// Sometimes the 2 lists can be accessed simultaneously, so 2 collections
+        /// were created.
+        /// </summary>
 		public static ObservableCollection<Patient> PatientPool
 		{
 			get
@@ -37,6 +54,7 @@ namespace SimPatient
 			}
 		}
 
+        //---member property reflecting the fields in the database
 		public long Id { get; set; }
 		public string Name { get; set; }
 		public DateTime DateOfBirth { get; set; }
@@ -53,6 +71,10 @@ namespace SimPatient
 		public DateTime AdmissionDate { get; set; }
 		public string Creator { get; set; }
 
+        /// <summary>
+        /// Refreshes the Patients static property with all patients in the database
+        /// that aren't currently associated with a simulation.
+        /// </summary>
 		public static void refreshPatients()
 		{
 			if (MySqlHelper.connect() == false) return;
@@ -68,6 +90,12 @@ namespace SimPatient
 				Patients.Add(fromArrayList(arrayList));
 		}
 
+        /// <summary>
+        /// Refreshes the PatientPool static property with all patients in the database
+        /// that are associated with the simulation identified by the passed simId.
+        /// </summary>
+        /// <param name="simId">A long value holding the simulation id to get
+        /// patients associated with.</param>
 		public static void refreshPatientPool(long simId)
 		{
 			if (MySqlHelper.connect() == false) return;
@@ -84,6 +112,13 @@ namespace SimPatient
 				PatientPool.Add(fromArrayList(arrayList));
 		}
 
+        /// <summary>
+        /// Refreshes the PatientPool static property with all patients who have
+        /// medication administration records logged from the simulation whose id
+        /// is passed and on the date specified by date.
+        /// </summary>
+        /// <param name="simId">A long value containing the simulation id to scan patients for.</param>
+        /// <param name="date">A DateTime object holding the date to check MAR records for.</param>
 		public static void refreshPatientPoolFromMars(long simId, DateTime date)
 		{
 			if (MySqlHelper.connect() == false) return;
@@ -99,6 +134,11 @@ namespace SimPatient
 				PatientPool.Add(fromArrayList(arrayList));
 		}
 
+        /// <summary>
+        /// Creates a Patient object from the supplied ArrayList.
+        /// </summary>
+        /// <param name="arrayList">An ArrayList holding the patient fields.</param>
+        /// <returns>A Patient object constructed from the supplied ArrayList.</returns>
 		public static Patient fromArrayList(ArrayList arrayList)
 		{
 			Patient pat = new Patient();
@@ -120,12 +160,18 @@ namespace SimPatient
 			return pat;
 		}
 
-		public static Patient fromMySqlPatient(long pat_id)
+        /// <summary>
+        /// Creates a Patient object from data marshaled from the MySQL database
+        /// identified by the passed patId.
+        /// </summary>
+        /// <param name="patId">A long value holding the id of the patient to marshal.</param>
+        /// <returns>A Patient object constructed from the MySQL record marshaled.</returns>
+		public static Patient fromMySqlPatient(long patId)
 		{
 			MySqlHelper.connect();
 
 			DBConnection dbCon = MySqlHelper.dbCon;
-			ArrayList response = dbCon.selectQuery(string.Format("SELECT * FROM tblPatient WHERE id={0}", pat_id));
+			ArrayList response = dbCon.selectQuery(string.Format("SELECT * FROM tblPatient WHERE id={0}", patId));
 
 			MySqlHelper.disconnect();
 
@@ -134,6 +180,14 @@ namespace SimPatient
 			return Patient.fromArrayList(response[0] as ArrayList);
 		}
 
+        /// <summary>
+        /// Fetches the patient admission date from the tblPatientPool. Admission date is
+        /// meta-data that exists in a separate table and requires a separate fetch
+        /// operation.
+        /// </summary>
+        /// <param name="patId">A long value holding the id of the patient to check for.</param>
+        /// <returns>A DateTime object holding the patient admission date, or DateTime.Now
+        /// if no such PatientPool simulation/patient combination exists.</returns>
 		public static DateTime getPatientAdmissionDate(long patId)
 		{
 			if (MySqlHelper.connect() == false) return DateTime.Now;

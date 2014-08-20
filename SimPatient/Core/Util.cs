@@ -1,24 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Globalization;
 
+//---special namespaces and aliases
 using Zen.Barcode;
-
-//special namespaces and aliases
-using Color = System.Drawing.Color;
-using RotateFlipType = System.Drawing.RotateFlipType;
-using DrawFont = System.Drawing.Font;
-using DrawBrush = System.Drawing.Brush;
-using DrawBrushes = System.Drawing.Brushes;
-
 using System.Drawing.Imaging;
 using Graphics = System.Drawing.Graphics;
 using Bitmap = System.Drawing.Bitmap;
@@ -35,11 +23,34 @@ using System.Text.RegularExpressions;
 
 namespace SimPatient
 {
+    /// <summary>
+    /// Contains static methods used for a variety of operations across the SimPatient project.
+    /// </summary>
 	class Util
 	{
+        /// <summary>
+        /// Used to determine if the passed checkTime is within timeRange minutes
+        /// before or after the time specified by scheduleTime.
+        /// </summary>
+        /// <param name="checkTime">A TimeSpan indicating the time to check.</param>
+        /// <param name="scheduleTime">A TimeSpan indicating the time to check against.</param>
+        /// <param name="timeRange">A TimeSpan indicating the time range allowance before
+        /// or after the scheduleTime.</param>
+        /// <returns>A boolean value reflecting whether or not checkTime was within the time
+        /// window defined by both scheduleTime and timeRange.</returns>
+        public static bool isOnTime(TimeSpan checkTime, TimeSpan scheduleTime, int timeRange)
+        {
+            TimeSpan before = scheduleTime.Subtract(new TimeSpan(0, timeRange, 0));
+            TimeSpan after = scheduleTime.Add(new TimeSpan(0, timeRange, 0));
 
-		//---example
-		//htmlFile = @"C:\Users\Steviesama\Dropbox\www-steve\robert\index.html"
+            return checkTime.CompareTo(before) >= 0 && checkTime.CompareTo(after) <= 0 ? true : false;
+        }
+
+		/// <summary>
+        /// Leverages the WebBrowser controls to navigate to and print a specified
+        /// HTML file.
+        /// </summary>
+        /// <param name="htmlFile">The absolute path of an html file to print.</param>
 		public static void printHtml(string htmlFile)
 		{
 			WebBrowser browser = new WebBrowser();
@@ -48,6 +59,14 @@ namespace SimPatient
 			(browser.Document as IHTMLDocument2).execCommand("PRINT", true, null);
 		}
 		
+        /// <summary>
+        /// Used to extract the string display for the first time period of this
+        /// medication dose.
+        /// </summary>
+        /// <param name="dose">A reference to the medication dose which the first
+        /// time period is to be extracted from.</param>
+        /// <returns>A string representing the time period extract, or an empty
+        /// string if the dose schedule is PRN or is a time period mismatch.</returns>
 		public static string get1stTimePeriod(MedicationDose dose)
 		{
 			if (dose.Schedule.ToUpper() == "PRN") return string.Empty;
@@ -63,6 +82,14 @@ namespace SimPatient
 			return string.Empty;
 		}
 
+        /// <summary>
+        /// Used to extract the string display for the second time period of this
+        /// medication dose.
+        /// </summary>
+        /// <param name="dose">A reference to the medication dose which the second
+        /// time period is to be extracted from.</param>
+        /// <returns>A string representing the time period extract, or an empty
+        /// string if the dose schedule is PRN or is a time period mismatch.</returns>
 		public static string get2ndTimePeriod(MedicationDose dose)
 		{
 			if (dose.Schedule.ToUpper() == "PRN") return string.Empty;
@@ -78,6 +105,14 @@ namespace SimPatient
 			return string.Empty;
 		}
 
+        /// <summary>
+        /// Used to extract the string display for the third time period of this
+        /// medication dose.
+        /// </summary>
+        /// <param name="dose">A reference to the medication dose which the third
+        /// time period is to be extracted from.</param>
+        /// <returns>A string representing the time period extract, or an empty
+        /// string if the dose schedule is PRN or is a time period mismatch.</returns>
 		public static string get3rdTimePeriod(MedicationDose dose)
 		{
 			if (dose.Schedule.ToUpper() == "PRN") return string.Empty;
@@ -93,6 +128,11 @@ namespace SimPatient
 			return string.Empty;
 		}
 		
+        /// <summary>
+        /// Converts the supplied BitmapImage to a DrawingVisual and returns it.
+        /// </summary>
+        /// <param name="bitmap">A BitmapImage object to convert.</param>
+        /// <returns>A DrawingVisual representation of the supplied BitmapImage.</returns>
 		public static DrawingVisual getDrawingVisual(BitmapImage bitmap)
 		{
 			var vis = new DrawingVisual();
@@ -103,6 +143,13 @@ namespace SimPatient
 			return vis;
 		}
 
+        /// <summary>
+        /// Saves the RenderTargetBitmap passed to the outputStream supplied
+        /// in PNG format.
+        /// </summary>
+        /// <param name="src">A RenderTagetBitmap containing the image data to save.</param>
+        /// <param name="outputStream">A Stream used as the output stream to
+        /// write the image data to.</param>
 		public static void saveAsPng(RenderTargetBitmap src, Stream outputStream)
 		{
 			PngBitmapEncoder encoder = new PngBitmapEncoder();
@@ -110,6 +157,13 @@ namespace SimPatient
 			encoder.Save(outputStream);
 		}
 
+        /// <summary>
+        /// Saves the BitmapImage passed to the outputStream supplied
+        /// in PNG format.
+        /// </summary>
+        /// <param name="src">A BitmapImage containing the image data to save.</param>
+        /// <param name="outputStream">A Stream used as the output stream to
+        /// write the image data to.</param>
 		public static void saveAsPng(BitmapImage src, Stream outputStream)
 		{
 			PngBitmapEncoder encoder = new PngBitmapEncoder();
@@ -117,7 +171,14 @@ namespace SimPatient
 			encoder.Save(outputStream);
 		}
 
-		public static void saveAsBmp(RenderTargetBitmap src, Stream outputStream)
+        /// <summary>
+        /// Saves the RenderTargetBitmap passed to the outputStream supplied
+        /// in TIFF format.
+        /// </summary>
+        /// <param name="src">A RenderTargetBitmap containing the image data to save.</param>
+        /// <param name="outputStream">A Stream used as the output stream to
+        /// write the image data to.</param>
+        public static void saveAsBmp(RenderTargetBitmap src, Stream outputStream)
 		{
 			TiffBitmapEncoder encoder = new TiffBitmapEncoder();
 			encoder.Frames.Add(BitmapFrame.Create(src));
@@ -125,7 +186,12 @@ namespace SimPatient
 			encoder.Save(outputStream);
 		}
 
-		private static  Bitmap getBitmap(BitmapImage bitmapImage)
+        /// <summary>
+        /// Converts the passed BitmapImage to a System.Drawing.Bitmap and returns it.
+        /// </summary>
+        /// <param name="bitmapImage">A BitmapImage used for the conversion.</param>
+        /// <returns>A System.Drawing.Bitmap containing the converted image data.</returns>
+		private static Bitmap getBitmap(BitmapImage bitmapImage)
 		{
 			// BitmapImage bitmapImage = new BitmapImage(new Uri("../Images/test.png", UriKind.Relative));
 
@@ -135,19 +201,33 @@ namespace SimPatient
 				//enc.Frames.Add(BitmapFrame.Create(bitmapImage));
 				//enc.Save(outStream);
 				saveAsPng(getImage(getDrawingVisual(bitmapImage)), outStream);
-				System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(outStream);
+				Bitmap bitmap = new Bitmap(outStream);
 
 				return new Bitmap(bitmap);
 			}
 		}
 
+        /// <summary>
+        /// A helper method used to create formatted text based on desired text,
+        /// text size, and text color and returns a properly initialized
+        /// FormmatedText object.
+        /// </summary>
+        /// <param name="text">A string containing the desired text.</param>
+        /// <param name="emSize">A double value representing the desired text size.</param>
+        /// <param name="textColor">A Brush object that will be used to color the text.</param>
+        /// <returns>A FormattedText object constructed from the passed metrics.</returns>
 		public static FormattedText createFormattedText(string text, double emSize, Brush textColor)
 		{
 			FormattedText fText = new FormattedText(text, CultureInfo.GetCultureInfo("en-us"), FlowDirection.LeftToRight, new Typeface("Verdana"), emSize, textColor);
 			return fText;
 		}
 
-		public static BitmapImage getBitmapImage(Bitmap bmp)
+        /// <summary>
+        /// Converts the passed Bitmap to a BitmapImage and returns it.
+        /// </summary>
+        /// <param name="bmp">A Bitmap used for the conversion.</param>
+        /// <returns>A BitmapImage containing the converted image data.</returns>
+        public static BitmapImage getBitmapImage(Bitmap bmp)
 		{
 			//create memory stream for barcode conversion
 			MemoryStream ms = new MemoryStream();
@@ -167,6 +247,11 @@ namespace SimPatient
 			return bitmapImage;
 		}
 
+        /// <summary>
+        /// Helper method used to render a barcode label for the passed Patient object.
+        /// </summary>
+        /// <param name="patient">A Patient object referencing the desired patient data to render.</param>
+        /// <returns>A DrawingVisual holding the rendered barcode label for the passed Patient object.</returns>
 		public static DrawingVisual renderPatientBarcode(Patient patient)
 		{            
 			BitmapImage barcodeBitmap = null;
@@ -201,7 +286,12 @@ namespace SimPatient
 			return vis;
 		}
 
-		public static DrawingVisual renderMedicationBarcode(Medication medication)
+        /// <summary>
+        /// Helper method used to render a barcode label for the passed Medication object.
+        /// </summary>
+        /// <param name="medication">A Medication object referencing the desired medication data to render.</param>
+        /// <returns>A DrawingVisual holding the rendered barcode label for the passed Medication object.</returns>
+        public static DrawingVisual renderMedicationBarcode(Medication medication)
 		{
 			BitmapImage barcodeBitmap = null;
 
@@ -233,6 +323,12 @@ namespace SimPatient
 			return vis;
 		}
 
+        /// <summary>
+        /// A helper method used to render a Code 128 barcode using the Barcode
+        /// Rendering Framework.
+        /// </summary>
+        /// <param name="text">A string containing the text information to encode into the barcode.</param>
+        /// <returns>A BitmapImage containing the rendered barcode image.</returns>
 		public static BitmapImage renderCode128(string text)
 		{
 			BitmapImage bitmap;
@@ -261,6 +357,11 @@ namespace SimPatient
 			return bitmap;
 		}
 
+        /// <summary>
+        /// A helper method that crops the passed System.Drawing.Bitmap
+        /// down to its smallest bounds using the outer color areas as the
+        /// determinant.
+        /// <returns>A System.Drawing.Bitmap containing the cropped image data.</returns>
 		public static Bitmap cropBitmap(Bitmap bmp)
 		{
 
@@ -361,6 +462,15 @@ namespace SimPatient
 
 		} //End cropBitmap()
 
+        /// <summary>
+        /// A helper method used to add and amount of pixel padding
+        /// specified by padScale as a scalar value, to the
+        /// System.Drawing.Bitmap specified by bmp.
+        /// </summary>
+        /// <param name="bmp">A System.Drawing.Bitmap holding the image to be padded.</param>
+        /// <param name="padScale">A double value representing the scale at which the
+        /// Bitmap should be padded.</param>
+        /// <returns>A System.Drawing.Bitmap containing the newly padded image data.</returns>
 		public static Bitmap padBitmap(Bitmap bmp, double padScale)
 		{
 			int widthShim = (int)(bmp.Width * padScale);
@@ -380,6 +490,13 @@ namespace SimPatient
 			return target;
 		}
 
+        /// <summary>
+        /// Resizes the passed System.Drawing.Bitmap to the size specified by size
+        /// and returns it.
+        /// </summary>
+        /// <param name="bitmap">A System.Drawing.Bitmap containing the image to resize.</param>
+        /// <param name="size">A Size object containing the resize dimensions to use.</param>
+        /// <returns>A System.Drawing.Bitmap containing the resized image data.</returns>
 		public static Bitmap resizeBitmap(Bitmap bitmap, Size size)
 		{
 			Bitmap b = new Bitmap(640, 480);
@@ -389,7 +506,14 @@ namespace SimPatient
 			return b;
 		}
 
-		public static DrawImage resizeImage(DrawImage imgToResize, Size size)
+        /// <summary>
+        /// Resizes the passed System.Drawing.Bitmap to the size specified by size
+        /// and returns it.
+        /// </summary>
+        /// <param name="imgToResize">A System.Drawing.Image containing the image to resize.</param>
+        /// <param name="size">A Size object containing the resize dimensions to use.</param>
+        /// <returns>A System.Drawing.Image containing the resized image data.</returns>
+        public static DrawImage resizeImage(DrawImage imgToResize, Size size)
 		{
 			int sourceWidth = imgToResize.Width;
 			int sourceHeight = imgToResize.Height;
@@ -433,6 +557,12 @@ namespace SimPatient
 			return bmp;
 		}
 
+        /// <summary>
+        /// Converts the passed DrawingVisual to a BitmapImage compatible RenderTargetBitmap
+        /// object and returns it.
+        /// </summary>
+        /// <param name="drawingVisual">The DrawingVisual to be converted.</param>
+        /// <returns>A BitmapImage compatible RenderTargetBitmap holding the converted image data.</returns>
 		public static RenderTargetBitmap getImage(DrawingVisual drawingVisual)
 		{
 			Size size = new Size(drawingVisual.ContentBounds.Width, drawingVisual.ContentBounds.Height);
@@ -446,6 +576,11 @@ namespace SimPatient
 			return result;
 		}
 
+        /// <summary>
+        /// Constructs and returns a BitmapImage from the supplied Stream object.
+        /// </summary>
+        /// <param name="stream">The Stream used to construct the BitmapImage.</param>
+        /// <returns>A BitmapImage created from the Stream object.</returns>
 		private static BitmapImage bitmapImageFromStream(Stream stream)
 		{
 			//create bitmap image
@@ -459,17 +594,17 @@ namespace SimPatient
 			//return BitmapImage
 			return bmp;
 		}
-		
-		public static bool isOnTime(TimeSpan checkTime, TimeSpan scheduleTime, int timeRange)
-		{
-			TimeSpan before = scheduleTime.Subtract(new TimeSpan(0, timeRange, 0));
-			TimeSpan after = scheduleTime.Add(new TimeSpan(0, timeRange, 0));
-
-			return checkTime.CompareTo(before) >= 0 && checkTime.CompareTo(after) <= 0 ? true : false;
-		}
 
 		#region Control Validation Functions
 
+        /// <summary>
+        /// Validates the passed TextBox for valid string
+        /// data and colors the background red if invalid, and
+        /// restores the original background color if valid.
+        /// </summary>
+        /// <param name="textBox">The TextBox to validate.</param>
+        /// <returns>A boolean value reflecting whether or not the TextBox
+        /// contained valid data.</returns>
 		public static bool validateStringTextBox(TextBox textBox)
 		{
 			bool isValid = true;
@@ -485,6 +620,14 @@ namespace SimPatient
 			return isValid;
 		}
 
+        /// <summary>
+        /// Validates the passed TextBox for valid HHmm time format
+        /// data and colors the background red if invalid, and
+        /// restores the original background color if valid.
+        /// </summary>
+        /// <param name="textBox">The TextBox to validate.</param>
+        /// <returns>A boolean value reflecting whether or not the TextBox
+        /// contained valid data.</returns>
 		public static bool validateTimeTextBox(TextBox textBox)
 		{
 			bool isValid = true;
@@ -510,6 +653,14 @@ namespace SimPatient
 			return isValid;
 		}
 
+        /// <summary>
+        /// Validates the passed TextBox for valid medical record
+        /// number data and colors the background red if invalid, and
+        /// restores the original background color if valid.
+        /// </summary>
+        /// <param name="textBox">The TextBox to validate.</param>
+        /// <returns>A boolean value reflecting whether or not the TextBox
+        /// contained valid data.</returns>
 		public static bool validateMRTextBox(TextBox textBox)
 		{
 			bool success = false;
@@ -537,11 +688,25 @@ namespace SimPatient
 			return success;
 		}
 
+        /// <summary>
+        /// Validates the medical record number supplied in the mrNumber string. The pattern has
+        /// to start with MR and have between 6 and 9 trailing digits inclusive.
+        /// </summary>
+        /// <param name="mrNumber">A string holding the medical record number to validate.</param>
+        /// <returns>A boolean value reflecting whether or not the medical record number was valid.</returns>
 		public static bool validateMedicalRecordNumber(string mrNumber)
 		{
 			return Regex.Match(mrNumber, @"^MR\d{6,9}?$").Success;
 		}
 
+        /// <summary>
+        /// Validates the passed TextBox for valid number
+        /// data and colors the background red if invalid, and
+        /// restores the original background color if valid.
+        /// </summary>
+        /// <param name="textBox">The TextBox to validate.</param>
+        /// <returns>A boolean value reflecting whether or not the TextBox
+        /// contained valid data.</returns>
 		public static bool validateNumberTextBox(TextBox textBox)
 		{
 			bool isValid = true;
@@ -558,6 +723,14 @@ namespace SimPatient
 			return isValid;
 		}
 
+        /// <summary>
+        /// Validates the passed DatePicker for valid date
+        /// data and colors the background red if invalid, and
+        /// restores the original background color if valid.
+        /// </summary>
+        /// <param name="textBox">The TextBox to validate.</param>
+        /// <returns>A boolean value reflecting whether or not the TextBox
+        /// contained valid data.</returns>
 		public static bool validateDatePicker(DatePicker datePicker)
 		{
 			bool isValid = true;

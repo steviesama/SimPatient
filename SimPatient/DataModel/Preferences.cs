@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimPatient.DataModel
+﻿namespace SimPatient.DataModel
 {
+    /// <summary>
+    /// Global data class that holds the MySQL Connection tab data
+    /// which the user will have entered at some point for access
+    /// by the LoginControl or any other component that needs
+    /// access to this information.
+    /// </summary>
     class Preferences
     {
         public static string HostAddress { get; set; }

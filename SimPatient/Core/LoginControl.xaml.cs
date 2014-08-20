@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 using UserAccountType = SimPatient.UserAccount.UserAccountType;
-using System.Windows.Threading;
 
 namespace SimPatient
 {
@@ -21,7 +11,17 @@ namespace SimPatient
 	/// </summary>
 	public partial class LoginControl : UserControl
 	{
+		private LoginControl()
+		{
+			this.InitializeComponent();
+		}
+
 		private static LoginControl _loginControl;
+        /// <summary>
+        /// Instance property used to maintain a single instance of the current control or window
+        /// and create one if an instance doesn't yet exist.  Some controls may be reset as a part
+        /// of access.
+        /// </summary>
 		public static LoginControl Instance
 		{
 			get
@@ -29,6 +29,9 @@ namespace SimPatient
 				if (_loginControl == null)
 					_loginControl = new LoginControl();
 
+                /*BeginInvoke is used so that this property, and other operations already
+                  in progress on the UI thread can finish executing in order for the 
+                  focus function to work properly.*/
 				_loginControl.Dispatcher.BeginInvoke(new Action(() =>
 				{
 					_loginControl.usernameTextBox.Text = "";
@@ -36,6 +39,7 @@ namespace SimPatient
 					_loginControl.usernameTextBox.Focus();
 				}));
 
+                //---disable the controls disallowed while logged out
 				MainWindow.Instance.mnuLogout.IsEnabled = false;
 				PreferencesWindow.Instance.userAccountTabItem.IsEnabled = false;
 
@@ -43,11 +47,9 @@ namespace SimPatient
 			}
 		}
 
-		private LoginControl()
-		{
-			this.InitializeComponent();
-		}
-
+        /// <summary>
+        /// The click even handler for the Login button.
+        /// </summary>
 		private void Login_Click(object sender, RoutedEventArgs e)
 		{
 			UserAccount ua = MySqlHelper.requestLogin(usernameTextBox.Text, passwordBox.SecurePassword.convertToUnsecureString());
@@ -60,7 +62,9 @@ namespace SimPatient
 			{
 				MainWindow.Instance.mnuLogout.IsEnabled = true;
 				PreferencesWindow.Instance.userAccountTabItem.IsEnabled = true;
-				UserControl userControl = null;
+				
+                UserControl userControl = null;
+
 				if(ua.Type == UserAccountType.Administrator)
 				{
 					userControl = SimulationPoolControl.Instance;
@@ -77,5 +81,5 @@ namespace SimPatient
 				MainWindow.Instance.loadBottomGrid(userControl);
 			}
 		}
-	}
-}
+	} //End class LoginControl
+} //End namespace SimPatient

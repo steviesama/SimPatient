@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//my references
-using MySql.Data;
-using MySql.Data.MySqlClient;
-using System.IO;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
+﻿using MySql.Data.MySqlClient;
 using System.Windows;
 using System.Collections;
 
-using System.Security.Cryptography;
-
 namespace SimPatient
 {
+    /// <summary>
+    /// A lightweight class to handle the MySQL connection queries.
+    /// </summary>
     public class DBConnection
     {
         private MySqlConnection connection;
@@ -26,20 +16,29 @@ namespace SimPatient
         private string uid;
         private string password;
 
-        //Constructor
-        public DBConnection()
-        {
-            Initialize(server, port, database, uid, password);
-            RijndaelManaged crypto = new RijndaelManaged();
-
-        }
-
+        /// <summary>
+        /// The parameterized constructor that takes all the connection credentials required
+        /// to establish a connection to the MySQL server.
+        /// </summary>
+        /// <param name="server">The MySQL server address.</param>
+        /// <param name="port">The MySQL port address.</param>
+        /// <param name="database">The database name to connect to within the server.</param>
+        /// <param name="uid">The MySQL username.</param>
+        /// <param name="password">The MySQL password.</param>
         public DBConnection(string server, string port, string database, string uid, string password)
         {
             Initialize(server, port, database, uid, password);
         }
 
-        //Initialize values
+        /// <summary>
+        /// The parameterized initialization function used across any constructors that takes
+        /// all the connection credentials required to establish a connection to the MySQL server.
+        /// </summary>
+        /// <param name="server">The MySQL server address.</param>
+        /// <param name="port">The MySQL port address.</param>
+        /// <param name="database">The database name to connect to within the server.</param>
+        /// <param name="uid">The MySQL username.</param>
+        /// <param name="password">The MySQL password.</param>
         private void Initialize(string server, string port, string database, string uid, string password)
         {
             this.server = server;
@@ -56,7 +55,12 @@ namespace SimPatient
             connection = new MySqlConnection(connectionString);
         }
 
-        //open connection to database
+        /// <summary>
+        /// Attempts to open a connection to the MySQL database and returns true or
+        /// false depending on if it was successful.
+        /// </summary>
+        /// <returns>A boolean value reflecting whether or not the connection to
+        /// the database was successful.</returns>
         public bool openConnection()
         {
             try
@@ -88,7 +92,12 @@ namespace SimPatient
             }
         }
 
-        //Close connection
+        /// <summary>
+        /// Attempts to close the connection to the MySQL database and returns true or
+        /// false depending on if it was successful.
+        /// </summary>
+        /// <returns>A boolean value reflecting whether or not the closing of the
+        /// connection to the database was successful.</returns>
         public bool closeConnection()
         {
             try
@@ -96,13 +105,19 @@ namespace SimPatient
                 connection.Close();
                 return true;
             }
-            catch (MySqlException ex)
+            catch (MySqlException)
             {
-                MessageBox.Show(ex.Message);
                 return false;
             }
         }
         
+        /// <summary>
+        /// Takes a query that can be executed as any non query (doesn't return records)
+        /// and return true or false depending on whether or not an exception was thrown.
+        /// However it was intended to be used with delete queries.
+        /// </summary>
+        /// <param name="query">A string containing the query to execute.</param>
+        /// <returns>A boolean value reflecting whether or not an exception was thrown.</returns>
         public bool deleteQuery(string query)
         {
             bool success = true;
@@ -122,16 +137,18 @@ namespace SimPatient
             return success;
         }
 
+        /// <summary>
+        /// Takes a query that can be executed with a MySQL data reader in order to
+        /// return a series of matches records.
+        /// </summary>
+        /// <param name="query">A string containing the query to execute.</param>
+        /// <returns>An ArrayList containing all the resulting set of records.</returns>
         public ArrayList selectQuery(string query)
         {
 
             //Create a list to store the result
             ArrayList list = new ArrayList();
             ArrayList fields;
-
-            //Open connection
-            //if (this.OpenConnection() == true)
-            //{
 
             //Create Command
             MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -153,10 +170,6 @@ namespace SimPatient
 
             //close Data Reader
             dataReader.Close();
-
-            //  close Connection
-            //  this.CloseConnection();
-            //}
             
             //if list is empty, no records
             return list;

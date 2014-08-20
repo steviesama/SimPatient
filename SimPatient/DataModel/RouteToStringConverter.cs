@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using System.Globalization;
 using System.Windows.Data;
 
 namespace SimPatient
 {
+    /// <summary>
+    /// Converts an associated object of type int interpreted as an index to
+    /// Medication Route Codes into the appropriate Route String display
+    /// contains in the static Routes string array attached to the
+    /// Medication class.
+    /// </summary>
     [ValueConversion(typeof(object), typeof(string))]
     public class RouteToStringConverter : BaseConverter, IValueConverter
     {

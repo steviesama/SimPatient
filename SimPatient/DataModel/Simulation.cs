@@ -1,17 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using System.Collections;
-using System.Windows;
 using System.Collections.ObjectModel;
 
 namespace SimPatient
 {
-	public class Simulation
+    /// <summary>
+    /// Class that models the tblSimulation MySQL database data and provides
+    /// methods that marshal such data from the database.
+    /// </summary>
+    public class Simulation
 	{
+        //---member property reflecting the fields in the database
 		public long Id { get; set; }
 		public string Name { get; set; }
 		public string Description { get; set; }
@@ -20,7 +20,14 @@ namespace SimPatient
 		public string Creator { get; set; }
 
 		private static ObservableCollection<Simulation> _simulations;
-		public static ObservableCollection<Simulation> Simulations
+        /// <summary>
+        /// A static collection of Simulation objects that leverages the fact
+        /// that ObservableCollection from the System.Collection.ObjectModel namespace
+        /// implements INotifyPropertyChanged so that when the collection is modified
+        /// any UI components that have this collection set as its DataContext will be
+        /// updated each time it is modified.
+        /// </summary>
+        public static ObservableCollection<Simulation> Simulations
 		{
 			get
 			{
@@ -31,6 +38,10 @@ namespace SimPatient
 			}
 		}
 
+        /// <summary>
+        /// Refreshes the Simulations static property with all simulations in the database
+        /// that aren't marked as deleted.
+        /// </summary>
 		public static void refreshSimulations()
 		{
 			if (MySqlHelper.connect() == false) return;
@@ -46,6 +57,13 @@ namespace SimPatient
 				Simulations.Add(fromArrayList(arrayList));
 		}
 
+        /// <summary>
+        /// Creates a Simulation object from the MySQL database that has the id
+        /// referenced by the id argument.
+        /// </summary>
+        /// <param name="id">A long value indicating the id of the simulation to marshal.</param>
+        /// <returns>A Simulation object constructed from the simulation id provided, or
+        /// null if no such simulation exists in the database.</returns>
 		public static Simulation fromMySql(long id)
 		{
 			Simulation sim = new Simulation();
@@ -71,6 +89,13 @@ namespace SimPatient
 			return sim;
 		}
 
+        /// <summary>
+        /// Creates a Simulation object by identifying the simulation id
+        /// that may be associated with a provided patient id in the database.
+        /// </summary>
+        /// <param name="patId">A long value containing the patient id to check for.</param>
+        /// <returns>A Simulation object constructed from a simulation id associated
+        /// with the provided by patId or null if no such combination exists.</returns>
 		public static Simulation fromMySqlPatientPool(long patId)
 		{
 			MySqlHelper.connect();
@@ -85,7 +110,14 @@ namespace SimPatient
 			return Simulation.fromArrayList(response[0] as ArrayList);
 		}
 
-		public static Simulation fromMySqlUserAccountPool(long userId)
+        /// <summary>
+        /// Creates a Simulation object by identifying the simulation id
+        /// that may be associated with a provided user account id in the database.
+        /// </summary>
+        /// <param name="userId">A long value containing the user account id to check for.</param>
+        /// <returns>A Simulation object constructed from a simulation id associated
+        /// with the provided by userId or null if no such combination exists.</returns>
+        public static Simulation fromMySqlUserAccountPool(long userId)
 		{
 			MySqlHelper.connect();
 
@@ -99,6 +131,11 @@ namespace SimPatient
 			return Simulation.fromArrayList(response[0] as ArrayList);
 		}
 
+        /// <summary>
+        /// Creates a Simulation object from the supplied ArrayList.
+        /// </summary>
+        /// <param name="arrayList">An ArrayList holding the simulation fields.</param>
+        /// <returns>A Simulation object constructed from the supplied ArrayList.</returns>
 		public static Simulation fromArrayList(ArrayList arrayList)
 		{
 			Simulation sim = new Simulation();
@@ -112,5 +149,5 @@ namespace SimPatient
 
 			return sim;
 		}
-	}
-}
+	} //End class Simulation
+} //End namespace SimPatient
