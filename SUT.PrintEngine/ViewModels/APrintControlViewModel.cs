@@ -1025,13 +1025,12 @@ namespace SUT.PrintEngine.ViewModels
             container.Children.Clear();
             for (var i = 0; i < rowCount; i++)
             {
-
                 container.Children.Add(new StackPanel
-                                           {
-                                               Orientation = Orientation.Horizontal,
-                                               HorizontalAlignment = HorizontalAlignment.Stretch,
-                                               VerticalAlignment = System.Windows.VerticalAlignment.Center
-                                           });
+                {
+                    Orientation = Orientation.Horizontal,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    VerticalAlignment = System.Windows.VerticalAlignment.Center
+                });
                 Application.Current.DoEvents();
             }
 
